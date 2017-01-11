@@ -12,6 +12,7 @@ import * as f from 'react-foundation';
 import * as b from 'react-bootstrap';
 import React, { PropTypes } from 'react';
 import s from './styles.css';
+import StartPage from './components/startpage';
 
 class HomePage extends React.Component {
 
@@ -49,7 +50,7 @@ class HomePage extends React.Component {
         {/* needed for sticky footer */}
         <b.Image style={{ display: 'none' }} src="/../../img/favicon.ico" />
         <div>
-          {/* insert content here */}
+          <StartPage />
         </div>
       </div>
     );
