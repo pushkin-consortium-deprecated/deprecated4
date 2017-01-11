@@ -18,7 +18,6 @@ class StartPage extends React.Component {
     if (this.state.next) {
       return (
         <div>
-          <h5 style={{ 'marginTop': 20 }}>Which English?</h5>
           <p>
             This experiment is being conducted by researchers at Massachusetts Institute of Technology. Please read this consent statement carefully before deciding whether to participate.
             About the research: This experiment examines people's knowledge of English grammar. We are interested in how this is affected by demographic variables such as where you live, your age, and the age at which you began learning English.
@@ -35,7 +34,6 @@ class StartPage extends React.Component {
     }
     return (
       <div>
-        <h5 style={{ 'marginTop': 20 }}>Which English?</h5>
         <p>
           Is Throw me down the stairs my shoes a good English sentence?
           The answer depends on where you live. Many people in Newfoundland find that sentence perfectly grammatical.
@@ -52,6 +50,7 @@ class StartPage extends React.Component {
       <div className="container">
         <div className="row">
           <div className="col-xs-8">
+            <h5 style={{ 'marginTop': 20 }}>Which English?</h5>
             {this.handleTextChange()}
           </div>
           <div className="col-xs-4">
