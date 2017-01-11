@@ -11,7 +11,6 @@
 import * as f from 'react-foundation';
 import * as b from 'react-bootstrap';
 import React, { PropTypes } from 'react';
-import Layout from '../../components/Layout';
 import s from './styles.css';
 
 class HomePage extends React.Component {

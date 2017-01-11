@@ -11,7 +11,6 @@
 import React from 'react';
 import history from '../../core/history';
 import Link from '../../components/Link';
-import Layout from '../../components/Layout';
 import * as b from 'react-bootstrap';
 import s from './styles.css';
 
