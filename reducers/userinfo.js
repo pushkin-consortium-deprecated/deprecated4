@@ -1,7 +1,6 @@
 export default function userInfo(state = { gender: null, age: null }, action) {
   switch (action.type) {
     case 'USER_INFO': {
-      console.log("yo in reducers, ", action.info)
       return {
         ...state,
         gender: action.info.gender,
