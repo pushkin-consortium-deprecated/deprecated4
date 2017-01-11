@@ -1,0 +1,88 @@
+/**
+* React Static Boilerplate
+* https://github.com/kriasoft/react-static-boilerplate
+*
+* Copyright © 2015-present Kriasoft, LLC. All rights reserved.
+*
+* This source code is licensed under the MIT license found in the
+* LICENSE.txt file in the root directory of this source tree.
+*/
+
+/*.row {
+  padding: 40px;
+}
+
+.title {
+  color: #fff;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 1024px) {
+
+  .header {
+    display: flex;
+  }
+
+  .row {
+    padding: 0 16px;
+  }
+
+}*/
+
+@import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css");
+
+@import url("https://fonts.googleapis.com/css?family=Roboto+Slab");
+
+@import url("https://fonts.googleapis.com/css?family=News+Cycle|Ribeye+Marrow|Antic+Slab");
+
+/*header {
+    background-color: #D6D6E0;
+}
+
+
+@media (min-width:768px) {
+	header {
+	    background-color: white;
+	}
+}*/
+
+li a {
+  color: #ffffff;
+}
+
+li a:hover {
+  color: #000000;
+}
+
+.gray {
+	/*background-color: #D6D6E0;*/
+  background-color: #a9a9a9;
+  min-height: 53px;
+}
+
+.grayHome {
+  background-color: #a9a9a9;
+  min-height: 53px;
+}
+
+.white {
+  background-color: #ffffff;
+  min-height: 53px;
+}
+
+.navLinks {
+    font-family: 'Roboto Slab', serif;
+    font-size: 15px;
+}
+
+/*div.landing { 
+    background: url(/../../img/logo_button-min.png) no-repeat center center; 
+    -webkit-background-size: cover; 
+    -moz-background-size: cover; 
+    -o-background-size: cover; 
+    background-size: cover;
+    width: 100%;
+    height: 80vh; 
+}*/
+
+/*@import url("https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.4/foundation-flex.css");*/
