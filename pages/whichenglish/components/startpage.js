@@ -77,7 +77,7 @@ class StartPage extends React.Component {
           </div>
           <div className="col-xs-4">
             <img src={logo} alt="" />
-            <p>Which of the world&aposs Englishes do you speak? Take this quiz, and our computer algorithm will try to guess. 10 minutes</p>
+            <p>Which of the world&apos;s Englishes do you speak? Take this quiz, and our computer algorithm will try to guess. 10 minutes</p>
           </div>
         </div>
       </div>

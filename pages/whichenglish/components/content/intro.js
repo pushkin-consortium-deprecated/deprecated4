@@ -136,7 +136,7 @@ export default class Intro extends React.Component {
               <option value="Undergraduate Degree (3-5 years higher ed)">Undergraduate Degree (3-5 years higher ed)</option>
               <option value="Some Undergrad (higher ed)">Some Undergrad (higher ed)</option>
               <option value="High School Degree (12-13 years ed)">High School Degree (12-13 years ed)</option>
-              <option value="Haven't finished High School (less than 13 years ed)">Havent finished High School (less than 13 years ed)</option>
+              <option value="Haven't finished High School (less than 13 years ed)">Haven&apos;t finished High School (less than 13 years ed)</option>
             </select>
           </div>
         );
