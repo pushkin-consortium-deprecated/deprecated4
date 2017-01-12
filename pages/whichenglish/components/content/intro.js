@@ -2,72 +2,40 @@
 
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { userInfo } from '../../../../actions/userinfo';
+
 
 class Intro extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      gender: null,
-      age: null,
-      takenBefore: null,
-      languageDisorder: null,
-      education: null,
-    };
+    this.state={
+      first: true,
+      second: true,
+    }
     this.handleGender = this.handleGender.bind(this);
     this.handleAge = this.handleAge.bind(this);
     this.handleTakenBefore = this.handleTakenBefore.bind(this);
     this.handleEducation = this.handleEducation.bind(this);
     this.handleDisorder = this.handleDisorder.bind(this);
   }
-  dispatchUserInfo(state) {
-    this.props.dispatch(userInfo(state));
-  }
-  validateState() {
-    if (this.state.gender && this.state.age && this.state.takenBefore && this.state.languageDisorder && this.state.education) {
-      this.dispatchUserInfo(this.state)
-    }
-  }
   
   handleGender(e) {
-    this.setState({
-      gender: e.target.value,
-    }, ()=>{
-      this.validateState()
-    })
+    this.props.setState("gender", e.target.value)
   }
   handleAge(e) {
-    this.setState({
-      age: e.target.value,
-    }, ()=>{
-      this.validateState()
-    })
+    this.props.setState("age", e.target.value)
   }
   handleTakenBefore(e) {
-    this.setState({
-      takenBefore: e.target.value,
-    }, ()=>{
-      this.validateState()
-    })
+    this.props.setState("takenBefore", e.target.value)
+
   }
   handleDisorder(e) {
-    this.setState({
-      languageDisorder: e.target.value,
-    }, ()=>{
-      this.validateState()
-    })
+    this.props.setState("languageDisorder", e.target.value)
   }
   handleEducation(e) {
-    this.setState({
-      education: e.target.value,
-    }, ()=>{
-      console.log("this.state", this.state)
-      this.validateState()
-    })
+    this.props.setState("education", e.target.value)
   }
   showContent() {
     const location = this.props.page;
-    console.log("i'm in showcontent", location)
     switch (location) {
       case 1:
         return (
@@ -173,7 +141,7 @@ class Intro extends React.Component {
             <select className="form-control" onChange={this.handleEducation}>
               <option value="Graduate Degree">Graduate Degree</option>
               <option value="Some Graduate School">Some Graduate School</option>
-              <option value="three">Undergraduate Degree (3-5 years higher ed)</option>
+              <option value="Undergraduate Degree (3-5 years higher ed)">Undergraduate Degree (3-5 years higher ed)</option>
               <option value="Some Undergrad (higher ed)">Some Undergrad (higher ed)</option>
               <option value="High School Degree (12-13 years ed)">High School Degree (12-13 years ed)</option>
               <option value="Haven't finished High School (less than 13 years ed)">Haven't finished High School (less than 13 years ed)</option>

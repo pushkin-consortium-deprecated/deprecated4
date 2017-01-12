@@ -1,4 +1,4 @@
-export default function userInfo(state = { gender: null, age: null }, action) {
+export default function userInfo(state = {}, action) {
   switch (action.type) {
     case 'USER_INFO': {
       return {
