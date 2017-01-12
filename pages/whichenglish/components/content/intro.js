@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 
 import React, { PropTypes } from 'react';
+import Test from './test';
 
 export default class Intro extends React.Component {
   handleGender = (e) => {
@@ -138,6 +139,10 @@ export default class Intro extends React.Component {
             <p>{this.props.content}</p>
           </div>
         );
+      case 6:
+        return (
+          <Test />
+        )
       default:
         return null;
     }
