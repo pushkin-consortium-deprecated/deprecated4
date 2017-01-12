@@ -21,15 +21,15 @@ class StartPage extends React.Component {
   }
   handleStateChange(key, value) {
     const state = this.state;
-    state[key] = value
+    state[key] = value;
     this.setState(state);
   }
   handleStart() {
     this.setState({
       page: parseInt(this.state.page, 10) + 1,
       content: Scripts[parseInt(this.state.page, 10) + 1],
-    }, ()=>{
-      this.dispatchUserInfo(this.state)
+    }, () => {
+      this.dispatchUserInfo(this.state);
     });
   }
   handleDisable() {
@@ -84,4 +84,8 @@ class StartPage extends React.Component {
     );
   }
 }
-export default(connect(state => state))(StartPage)
+StartPage.propTypes = {
+  dispatch: React.PropTypes.func,
+};
+
+export default(connect(state => state))(StartPage);

@@ -1,38 +1,30 @@
 /* eslint-disable max-len */
 
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
 
-
-class Intro extends React.Component {
+export default class Intro extends React.Component {
   constructor(props) {
     super(props);
-    this.state={
-      first: true,
-      second: true,
-    }
     this.handleGender = this.handleGender.bind(this);
     this.handleAge = this.handleAge.bind(this);
     this.handleTakenBefore = this.handleTakenBefore.bind(this);
     this.handleEducation = this.handleEducation.bind(this);
     this.handleDisorder = this.handleDisorder.bind(this);
   }
-  
   handleGender(e) {
-    this.props.setState("gender", e.target.value)
+    this.props.setState('gender', e.target.value);
   }
   handleAge(e) {
-    this.props.setState("age", e.target.value)
+    this.props.setState('age', e.target.value);
   }
   handleTakenBefore(e) {
-    this.props.setState("takenBefore", e.target.value)
-
+    this.props.setState('takenBefore', e.target.value);
   }
   handleDisorder(e) {
-    this.props.setState("languageDisorder", e.target.value)
+    this.props.setState('languageDisorder', e.target.value);
   }
   handleEducation(e) {
-    this.props.setState("education", e.target.value)
+    this.props.setState('education', e.target.value);
   }
   showContent() {
     const location = this.props.page;
@@ -89,7 +81,7 @@ class Intro extends React.Component {
                 type="number"
                 className="form-control"
                 id="age"
-                onBlur={this.handleAge}
+                onChange={this.handleAge}
               />
             </div>
           </div>
@@ -98,25 +90,25 @@ class Intro extends React.Component {
         return (
           <div>
             <div className="form-group">
-            <label>Have you taken this quiz before?</label>
-            <label className="radio-inline" id="group2">
-              <input
-                type="radio"
-                name="group2"
-                value="true"
-                onChange={this.handleTakenBefore}
-              />
-              Yes
-            </label>
-            <label className="radio-inline" id="group2">
-              <input
-                type="radio"
-                name="group2"
-                value="false"
-                onChange={this.handleTakenBefore}
-              />
-              No
-            </label>
+              <label>Have you taken this quiz before?</label>
+              <label className="radio-inline" id="group2">
+                <input
+                  type="radio"
+                  name="group2"
+                  value="true"
+                  onChange={this.handleTakenBefore}
+                />
+                Yes
+              </label>
+              <label className="radio-inline" id="group2">
+                <input
+                  type="radio"
+                  name="group2"
+                  value="false"
+                  onChange={this.handleTakenBefore}
+                />
+                No
+              </label>
             </div>
             <label>Have you been diagnosed with dyslexia or another language or learning disorder?</label>
             <label className="radio-inline" id="group3">
@@ -144,7 +136,7 @@ class Intro extends React.Component {
               <option value="Undergraduate Degree (3-5 years higher ed)">Undergraduate Degree (3-5 years higher ed)</option>
               <option value="Some Undergrad (higher ed)">Some Undergrad (higher ed)</option>
               <option value="High School Degree (12-13 years ed)">High School Degree (12-13 years ed)</option>
-              <option value="Haven't finished High School (less than 13 years ed)">Haven't finished High School (less than 13 years ed)</option>
+              <option value="Haven't finished High School (less than 13 years ed)">Havent finished High School (less than 13 years ed)</option>
             </select>
           </div>
         );
@@ -161,4 +153,8 @@ class Intro extends React.Component {
     );
   }
 }
-export default(connect(state => state))(Intro)
+Intro.propTypes = {
+  setState: React.PropTypes.func,
+  page: React.PropTypes.number,
+  content: React.PropTypes.string,
+};
