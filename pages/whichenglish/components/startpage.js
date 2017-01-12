@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import Intro from './content/intro';
 import { Scripts } from './scripts';
 import { userInfo } from '../../../actions/userinfo';
+import { Line } from 'rc-progress';
+
 
 class StartPage extends React.Component {
   constructor(props) {
@@ -12,19 +14,18 @@ class StartPage extends React.Component {
     this.state = {
       page: 1,
       content: Scripts[1],
+      precent: -10,
     };
-    this.handleStart = this.handleStart.bind(this);
-    this.handleStateChange = this.handleStateChange.bind(this);
   }
   dispatchUserInfo(state) {
     this.props.dispatch(userInfo(state));
   }
-  handleStateChange(key, value) {
+  handleStateChange = (key, value) => {
     const state = this.state;
     state[key] = value;
     this.setState(state);
   }
-  handleStart() {
+  handleStart = () => {
     this.setState({
       page: parseInt(this.state.page, 10) + 1,
       content: Scripts[parseInt(this.state.page, 10) + 1],
@@ -47,7 +48,16 @@ class StartPage extends React.Component {
     }
     return null;
   }
+  handleProgressBar() {
+    
+  }
   handleTextChange() {
+    let buttonText;
+    if (this.state.page === 2) {
+      buttonText = 'Start Quiz';
+    } else {
+      buttonText = 'Next';
+    }
     return (
       <div>
         <Intro
@@ -61,8 +71,9 @@ class StartPage extends React.Component {
           className="btn btn-success"
           disabled={this.handleDisable()}
         >
-          Next
+          {buttonText}
         </button>
+        {this.handleProgressBar()}
       </div>
     );
   }

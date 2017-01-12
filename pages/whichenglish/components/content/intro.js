@@ -3,27 +3,19 @@
 import React, { PropTypes } from 'react';
 
 export default class Intro extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleGender = this.handleGender.bind(this);
-    this.handleAge = this.handleAge.bind(this);
-    this.handleTakenBefore = this.handleTakenBefore.bind(this);
-    this.handleEducation = this.handleEducation.bind(this);
-    this.handleDisorder = this.handleDisorder.bind(this);
-  }
-  handleGender(e) {
+  handleGender = (e) => {
     this.props.setState('gender', e.target.value);
   }
-  handleAge(e) {
+  handleAge = (e) => {
     this.props.setState('age', e.target.value);
   }
-  handleTakenBefore(e) {
+  handleTakenBefore = (e) => {
     this.props.setState('takenBefore', e.target.value);
   }
-  handleDisorder(e) {
+  handleDisorder = (e) => {
     this.props.setState('languageDisorder', e.target.value);
   }
-  handleEducation(e) {
+  handleEducation = (e) => {
     this.props.setState('education', e.target.value);
   }
   showContent() {

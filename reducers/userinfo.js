@@ -1,6 +1,10 @@
+import {
+  USER_INFO,
+} from '../actions/userinfo';
+
 export default function userInfo(state = {}, action) {
   switch (action.type) {
-    case 'USER_INFO': {
+    case USER_INFO: {
       return {
         ...state,
         gender: action.info.gender,
