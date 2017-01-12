@@ -132,6 +132,12 @@ export default class Intro extends React.Component {
             </select>
           </div>
         );
+      case 5:
+        return (
+          <div>
+            <p>{this.props.content}</p>
+          </div>
+        );
       default:
         return null;
     }

@@ -6,7 +6,7 @@ import Intro from './content/intro';
 import { Scripts } from './scripts';
 import { userInfo } from '../../../actions/userinfo';
 import { Line } from 'rc-progress';
-
+import Globe from './globe';
 
 class StartPage extends React.Component {
   constructor(props) {
@@ -86,6 +86,18 @@ class StartPage extends React.Component {
       </div>
     );
   }
+  handleLogo() {
+    if (this.state.page !== 5) {
+      const logo = require('../../../public/img/globe.jpg')
+      return (
+        <Globe
+          logo={logo}
+          content={Scripts[0]}
+        />
+      );
+    }
+    return null;
+  }
   render() {
     const logo = require('../../../public/img/globe.jpg')
     return (
@@ -95,10 +107,7 @@ class StartPage extends React.Component {
             <h5 style={{ marginTop: 20 }}>Which English?</h5>
             {this.handleTextChange()}
           </div>
-          <div className="col-xs-4">
-            <img src={logo} alt="" />
-            <p>Which of the world&apos;s Englishes do you speak? Take this quiz, and our computer algorithm will try to guess. 10 minutes</p>
-          </div>
+          {this.handleLogo()}
         </div>
       </div>
     );
