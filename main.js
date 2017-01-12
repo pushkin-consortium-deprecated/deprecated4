@@ -8,6 +8,11 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
+ require('script-loader!./jspsych-5.0.3/jspsych.js');
+ require('script-loader!./jspsych-5.0.3/plugins/jspsych-survey-multi-choice');
+ require('script-loader!./jspsych-5.0.3/plugins/jspsych-text.js');
+ require('./jspsych-5.0.3/css/jspsych.css');
+
 import 'babel-polyfill';
 import 'whatwg-fetch';
 
