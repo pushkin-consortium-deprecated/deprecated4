@@ -2,7 +2,7 @@
 
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { userResponse } from '../../../../actions/userresponses';
+import { userResponse, received } from '../../../../actions/userresponses';
 
 class Test extends React.Component {
   constructor(props) {
@@ -35,13 +35,16 @@ class Test extends React.Component {
         },
     };
     jsPsych.init({
+
       display_element: this.refs.main,
       timeline: [multi_choice_block],
       on_finish: function() {
         //go to the next question
+        props.dispatch(received());
       }
     });
   }
+
   render() {
     console.log("this.props in test", this.props)
     return (
