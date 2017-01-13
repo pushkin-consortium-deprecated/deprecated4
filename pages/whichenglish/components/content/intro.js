@@ -2,6 +2,7 @@
 
 import React, { PropTypes } from 'react';
 import Test from './test';
+import Instruction from './instruction';
 
 export default class Intro extends React.Component {
   handleGender = (e) => {
@@ -136,7 +137,7 @@ export default class Intro extends React.Component {
       case 5:
         return (
           <div>
-            <p>{this.props.content}</p>
+            <Instruction />
           </div>
         );
       case 6:
@@ -148,6 +149,7 @@ export default class Intro extends React.Component {
     }
   }
   render() {
+    console.log("this.props intro", this.props)
     return (
       <div>
       {this.showContent()}

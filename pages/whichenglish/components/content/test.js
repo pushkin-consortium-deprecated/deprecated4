@@ -15,7 +15,10 @@ export default class Test extends React.Component {
         type: 'survey-multi-choice',
         questions: page_1_questions,
         options: [page_1_options, page_2_options],  // need one scale for every question on a page
-        required: [true, false]   // set whether questions are required
+        required: [true, false],
+        on_finish: function(data) {
+          console.log("i'm data!", data)
+        },   // set whether questions are required
     };
 
     var multi_choice_block_horizontal = {
@@ -23,14 +26,17 @@ export default class Test extends React.Component {
         questions: page_1_questions,
         options: [page_1_options, page_2_options],  // need one scale for every question on a page
         required: [true, false],   // set whether questions are required
-        horizontal: true  // centres questions and makes options display horizontally
+        horizontal: true,  // centres questions and makes options display horizontally
+        on_finish: function(data) {
+          console.log("i'm data!", data)
+        }
     };
 
     jsPsych.init({
       display_element: this.refs.main,
-      timeline: [multi_choice_block, multi_choice_block_horizontal],
+      timeline: [multi_choice_block],
       on_finish: function() {
-        jsPsych.data.displayData();
+        //go to the next question
       }
     });
   }
