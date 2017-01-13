@@ -7,11 +7,10 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
  */
-
- require('script-loader!./jspsych-5.0.3/jspsych.js');
- require('script-loader!./jspsych-5.0.3/plugins/jspsych-survey-multi-choice');
- require('script-loader!./jspsych-5.0.3/plugins/jspsych-text.js');
- require('./jspsych-5.0.3/css/jspsych.css');
+ require('script-loader!./jsPsych/jspsych.js');
+ require('script-loader!./jsPsych/plugins/jspsych-survey-multi-choice.js');
+ require('script-loader!./jsPsych/plugins/jspsych-text.js');
+ require('./jsPsych/css/jspsych.css');
 
 import 'babel-polyfill';
 import 'whatwg-fetch';

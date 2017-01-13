@@ -148,7 +148,6 @@ export default class Intro extends React.Component {
     }
   }
   render() {
-    console.log("this.props intro", this.props)
     return (
       <div>
       {this.showContent()}
