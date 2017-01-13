@@ -7,6 +7,7 @@ import { Scripts } from './scripts';
 import { userInfo } from '../../../actions/userinfo';
 import { Line } from 'rc-progress';
 import Globe from './globe';
+import Test from './content/test';
 
 class StartPage extends React.Component {
   constructor(props) {
@@ -66,6 +67,11 @@ class StartPage extends React.Component {
       buttonText = 'Start Quiz';
     } else {
       buttonText = 'Next';
+    }
+    if (this.state.page > 5) {
+      return (
+        <Test />
+      );
     }
     return (
       <div>

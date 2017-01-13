@@ -140,10 +140,6 @@ export default class Intro extends React.Component {
             <Instruction />
           </div>
         );
-      case 6:
-        return (
-          <Test />
-        )
       default:
         return null;
     }
