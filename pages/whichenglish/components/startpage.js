@@ -8,15 +8,12 @@ import { userInfo } from '../../../actions/userinfo';
 import { Line } from 'rc-progress';
 import Globe from './globe';
 import Test from './content/test';
+import { nextPage } from '../../../actions/nextpage'
 
 class StartPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      page: 1,
-      content: Scripts[1],
-      precent: -2,
-    };
+    this.state = {};
   }
   dispatchUserInfo(state) {
     this.props.dispatch(userInfo(state));
@@ -26,23 +23,14 @@ class StartPage extends React.Component {
     state[key] = value;
     this.setState(state);
   }
-  handleStart = () => {
-    this.setState({
-      page: parseInt(this.state.page, 10) + 1,
-      content: Scripts[parseInt(this.state.page, 10) + 1],
-      precent: parseInt(this.state.precent, 10) + 1,
-    }, () => {
-      this.dispatchUserInfo(this.state);
-    });
-  }
   handleDisable() {
-    if (this.state.page === 3) {
+    if (this.props.nextpage.page === 3) {
       if (this.state.gender && this.state.age) {
         return false;
       }
       return true;
     }
-    if (this.state.page === 4) {
+    if (this.props.nextpage.page === 4) {
       if (this.state.takenBefore && this.state.education && this.state.languageDisorder) {
         return false;
       }
@@ -51,37 +39,49 @@ class StartPage extends React.Component {
     return null;
   }
   handleProgressBar() {
-    if (this.state.page > 2) {
+    if (this.props.nextpage.page > 2) {
       return (
         <div style={{ marginTop: 10 }}>
-          <label> Progress: {this.state.precent} / 38 </label>
-          <Line percent={this.state.precent} strokeWidth="4" strokeColor="#68C8F5" />
+          <label> Progress: {this.props.nextpage.precent} / 38 </label>
+          <Line percent={this.props.nextpage.precent} strokeWidth="4" strokeColor="#68C8F5" />
         </div>
       );
     }
     return null;
   }
+  dispatchNextPage = () => {
+    const props = this.props;
+    props.dispatch(nextPage({
+      page: parseInt(this.props.nextpage.page, 10) + 1,
+      content: Scripts[parseInt(this.props.nextpage.page, 10) + 1],
+      precent: parseInt(this.props.nextpage.precent, 10) + 1,
+    }));
+    this.dispatchUserInfo(this.state);
+  }
   handleTextChange() {
     let buttonText;
-    if (this.state.page === 2) {
+    if (this.props.nextpage.page === 2) {
       buttonText = 'Start Quiz';
     } else {
       buttonText = 'Next';
     }
-    if (this.state.page > 5) {
+    if (this.props.nextpage.page > 5) {
       return (
+        <div>
         <Test />
+        {this.handleProgressBar()}
+        </div>
       );
     }
     return (
       <div>
         <Intro
-          content={this.state.content}
-          page={this.state.page}
+          content={this.props.nextpage.content}
+          page={this.props.nextpage.page}
           setState={this.handleStateChange}
         />
         <button
-          onClick={this.handleStart}
+          onClick={this.dispatchNextPage}
           style={{ marginTop: 30, width: 180 }}
           className="btn btn-success"
           disabled={this.handleDisable()}
@@ -93,7 +93,7 @@ class StartPage extends React.Component {
     );
   }
   handleLogo() {
-    if (this.state.page !== 5) {
+    if (this.props.nextpage.page !== 5) {
       const logo = require('../../../public/img/globe.jpg')
       return (
         <Globe
