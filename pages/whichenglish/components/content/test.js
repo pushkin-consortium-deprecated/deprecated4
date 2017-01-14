@@ -32,6 +32,7 @@ class Test extends React.Component {
       on_finish: function() {
         props.dispatch(received());
         props.nextQuestion();
+        props.progress();
       },
     });
   }
@@ -61,6 +62,7 @@ class Test extends React.Component {
       on_finish: function() {
         props.dispatch(received());
         props.nextQuestion();
+        props.progress();
       },
     });
   }

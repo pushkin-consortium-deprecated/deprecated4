@@ -8,7 +8,7 @@ import { userInfo } from '../../../actions/userinfo';
 import { Line } from 'rc-progress';
 import Globe from './globe';
 import Test from './content/test';
-import { nextPage } from '../../../actions/nextpage';
+import { nextPage, progressPrecent } from '../../../actions/nextpage';
 import { nextQuestion } from '../../../actions/nextquestion';
 
 class StartPage extends React.Component {
@@ -55,11 +55,14 @@ class StartPage extends React.Component {
     props.dispatch(nextPage({
       page: parseInt(this.props.nextpage.page, 10) + 1,
       content: Scripts[parseInt(this.props.nextpage.page, 10) + 1],
-      precent: parseInt(this.props.nextpage.precent, 10) + 1,
     }));
     props.dispatch(nextQuestion(Questions[1]));
     this.dispatchUserInfo(this.state);
-    
+    this.dispatchProgress();
+  }
+  dispatchProgress = () => {
+    const props = this.props;
+    props.dispatch(progressPrecent(parseInt(props.nextpage.precent, 10) + 1))
   }
   fetchNextQustion = () => {
     const props = this.props;
@@ -78,6 +81,7 @@ class StartPage extends React.Component {
           <Test
             question={this.props.nextquestion.question}
             nextQuestion={this.fetchNextQustion}
+            progress={this.dispatchProgress}
           />
           {this.handleProgressBar()}
         </div>
