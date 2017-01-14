@@ -3,12 +3,13 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Intro from './content/intro';
-import { Scripts } from './scripts';
+import { Scripts, Questions } from './scripts';
 import { userInfo } from '../../../actions/userinfo';
 import { Line } from 'rc-progress';
 import Globe from './globe';
 import Test from './content/test';
-import { nextPage } from '../../../actions/nextpage'
+import { nextPage } from '../../../actions/nextpage';
+import { nextQuestion } from '../../../actions/nextquestion';
 
 class StartPage extends React.Component {
   constructor(props) {
@@ -56,7 +57,15 @@ class StartPage extends React.Component {
       content: Scripts[parseInt(this.props.nextpage.page, 10) + 1],
       precent: parseInt(this.props.nextpage.precent, 10) + 1,
     }));
+    props.dispatch(nextQuestion(Questions[1]));
     this.dispatchUserInfo(this.state);
+    
+  }
+  fetchNextQustion() {
+    const props = this.props;
+    if(this.props.status.action === "FETCH_QUESTION"){
+      props.dispatch(nextQuestion(Questions[2]));
+    }
   }
   handleTextChange() {
     let buttonText;
@@ -68,8 +77,11 @@ class StartPage extends React.Component {
     if (this.props.nextpage.page > 5) {
       return (
         <div>
-        <Test />
-        {this.handleProgressBar()}
+          <Test
+            question={this.props.question}
+            nextQuestion={this.fetchNextQustion}
+          />
+          {this.handleProgressBar()}
         </div>
       );
     }
@@ -105,6 +117,7 @@ class StartPage extends React.Component {
     return null;
   }
   render() {
+    console.log("this.props in startpage", this.props)
     const logo = require('../../../public/img/globe.jpg')
     return (
       <div className="container">

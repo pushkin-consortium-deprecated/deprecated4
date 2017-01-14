@@ -12,16 +12,15 @@ class Test extends React.Component {
     const props = this.props;
     console.log("this.props in didMount", this.props)
     // defining groups of questions that will go together.
-    var page_1_questions = ["I like vegetables.", "I like fruit."];
+    var page_1_questions = [this.props.question];
 
     // definiting two different response scales that can be used.
     var page_1_options = ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"];
-    var page_2_options = ["Strongly Disagree", "Disagree", "Somewhat Disagree", "Neural", "Somewhat Agree", "Agree", "Strongly Agree"];
 
     var multi_choice_block = {
         type: 'survey-multi-choice',
         questions: page_1_questions,
-        options: [page_1_options, page_2_options],  // need one scale for every question on a page
+        options: [page_1_options],  // need one scale for every question on a page
         required: [true, false],
         on_finish: function(data) {
           console.log("i'm data!", data)
@@ -41,6 +40,7 @@ class Test extends React.Component {
       on_finish: function() {
         //go to the next question
         props.dispatch(received());
+        props.nextQuestion();
       }
     });
   }
