@@ -61,11 +61,9 @@ class StartPage extends React.Component {
     this.dispatchUserInfo(this.state);
     
   }
-  fetchNextQustion() {
+  fetchNextQustion = () => {
     const props = this.props;
-    if(this.props.status.action === "FETCH_QUESTION"){
-      props.dispatch(nextQuestion(Questions[2]));
-    }
+    props.dispatch(nextQuestion(Questions[2]));
   }
   handleTextChange() {
     let buttonText;
@@ -78,7 +76,7 @@ class StartPage extends React.Component {
       return (
         <div>
           <Test
-            question={this.props.question}
+            question={this.props.nextquestion.question}
             nextQuestion={this.fetchNextQustion}
           />
           {this.handleProgressBar()}
@@ -117,7 +115,6 @@ class StartPage extends React.Component {
     return null;
   }
   render() {
-    console.log("this.props in startpage", this.props)
     const logo = require('../../../public/img/globe.jpg')
     return (
       <div className="container">
