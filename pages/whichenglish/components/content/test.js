@@ -16,6 +16,9 @@ class Test extends React.Component {
       required: [true, false],
       on_finish: function(data) {
         const response = JSON.parse(data.responses);
+        response[props.question] = response[Object.keys(response)[0]];
+        delete(response[Object.keys(response)[0]]);
+        response.question = props.question;
         props.dispatch(userResponse({
           response: response,
           time_elapsed: data.time_elapsed,
@@ -43,6 +46,8 @@ class Test extends React.Component {
       required: [true, false],
       on_finish: function(data) {
         const response = JSON.parse(data.responses);
+        response[props.question] = response[Object.keys(response)[0]];
+        delete(response[Object.keys(response)[0]]);
         props.dispatch(userResponse({
           response: response,
           time_elapsed: data.time_elapsed,
