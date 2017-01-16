@@ -75,7 +75,7 @@ class StartPage extends React.Component {
     } else {
       buttonText = 'Next';
     }
-    if (this.props.nextpage.page > 5) {
+    if (this.props.nextpage.page === 6) {
       return (
         <div>
           <Test

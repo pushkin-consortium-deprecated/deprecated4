@@ -7,6 +7,7 @@ export function received() {
   };
 }
 export function userResponse(response) {
+  // for collecting information of the user to store in schema
   return {
     type: USER_RESPONSES,
     response,
