@@ -8,6 +8,8 @@ import { userInfo } from '../../../actions/userinfo';
 import { Line } from 'rc-progress';
 import Globe from './globe';
 import Test from './content/test';
+import ComponentTest from './content/componentTesting';
+
 import { nextPage, progressPrecent } from '../../../actions/nextpage';
 import { nextQuestion } from '../../../actions/nextquestion';
 
@@ -76,9 +78,19 @@ class StartPage extends React.Component {
       buttonText = 'Next';
     }
     if (this.props.nextpage.page === 6) {
+      // return (
+      //   <div>
+      //     <Test
+      //       question={this.props.nextquestion.question}
+      //       nextQuestion={this.fetchNextQustion}
+      //       progress={this.dispatchProgress}
+      //     />
+      //     {this.handleProgressBar()}
+      //   </div>
+      // );
       return (
         <div>
-          <Test
+          <ComponentTest
             question={this.props.nextquestion.question}
             nextQuestion={this.fetchNextQustion}
             progress={this.dispatchProgress}
@@ -86,6 +98,7 @@ class StartPage extends React.Component {
           {this.handleProgressBar()}
         </div>
       );
+      
     }
     return (
       <div>

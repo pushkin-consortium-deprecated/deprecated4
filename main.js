@@ -11,6 +11,7 @@
  require('script-loader!./jsPsych/plugins/jspsych-survey-multi-choice.js');
  require('script-loader!./jsPsych/plugins/jspsych-text.js');
  require('script-loader!./jsPsych/plugins/jspsych-instructions.js');
+ require('script-loader!./jsPsych/plugins/jspsych-survey-multi-picture.js');
  require('./jsPsych/css/jspsych.css');
 
 import 'babel-polyfill';
