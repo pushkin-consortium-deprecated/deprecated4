@@ -13,7 +13,6 @@ import * as b from 'react-bootstrap';
 import s from './Header.css';
 import l from './Layout.css';
 import { Link } from 'react-router';
-import { LinkContainer } from 'react-router-bootstrap'
 
 class Header extends React.Component {
 
@@ -74,41 +73,41 @@ class Header extends React.Component {
           </b.Navbar.Brand>
           <b.Nav pullRight bsStyle="pills" activeKey={this.getLocation()}>
             <b.NavDropdown active pullRight title="Menu" style={{padding: '3px', marginTop: '2px'}} id="bg-nested-dropdown">
-              <LinkContainer to="/paths">
-                <b.MenuItem eventKey={'paths'}>
-                  <font className={s.navLinks}>
-                      Paths
-                  </font>
-                </b.MenuItem>
-              </LinkContainer>
-              <LinkContainer to="/projects">
-                <b.MenuItem eventKey={'projects'}>
-                  <font className={s.navLinks}>
-                      Projects
-                  </font>
-                </b.MenuItem>
-              </LinkContainer>
-              <LinkContainer to="/quizzes">
-                <b.MenuItem eventKey={'quizzes'}>
-                  <font className={s.navLinks}>
-                      Quizzes
-                  </font>
-                </b.MenuItem>
-              </LinkContainer>
-              <LinkContainer to="/findings">
-                <b.MenuItem eventKey={'findings'}>
-                  <font className={s.navLinks}>
-                      Findings
-                  </font>
-                </b.MenuItem>
-              </LinkContainer>
-              <LinkContainer to="/about">
-                <b.MenuItem eventKey={'about'} href="/about">
-                  <font className={s.navLinks}>
-                      About
-                  </font>
-                </b.MenuItem>
-              </LinkContainer>
+              <b.MenuItem eventKey={'paths'}>
+                <font className={s.navLinks}>
+                  <Link to="/paths">
+                    Paths
+                  </Link>
+                </font>
+              </b.MenuItem>
+              <b.MenuItem eventKey={'projects'}>
+                <font className={s.navLinks}>
+                  <Link to="/projects">
+                    Projects
+                  </Link>
+                </font>
+              </b.MenuItem>
+              <b.MenuItem eventKey={'quizzes'}>
+                <font className={s.navLinks}>
+                  <Link to="/quizzes">
+                    Quizzes
+                  </Link>
+                </font>
+              </b.MenuItem>
+              <b.MenuItem eventKey={'findings'}>
+                <font className={s.navLinks}>
+                  <Link to="/findings">
+                    Findings
+                  </Link>
+                </font>
+              </b.MenuItem>
+              <b.MenuItem eventKey={'about'} href="/about">
+                <font className={s.navLinks}>
+                  <Link to="/about">
+                    About
+                  </Link>
+                </font>
+              </b.MenuItem>
               <b.MenuItem eventKey={'blog'} href="https://blog.gameswithwords.org/">
                 <font className={s.navLinks}>
                   Blog
@@ -124,31 +123,31 @@ class Header extends React.Component {
         <header ref={node => (this.root = node)}>
           {this.home() ? <b.Image src="/../../img/logo_square-min.png" onLoad={this.props.onLoad} onError={this.props.onError} responsive /> : <b.Image src="/../../img/gww_nav_gray-min.png" onLoad={this.props.onLoad} onError={this.props.onError} responsive />}
           <b.Nav style={{margin: '0px', fontFamily: '\'Ribeye Marrow\', cursive', fontSize: '20px', backgroundColor: '#a9a9a9'}} bsStyle="tabs" justified activeKey={this.getLocation()}>
-              <LinkContainer to="/paths">
             <b.NavItem eventKey={'paths'}>
+              <Link to="/paths">
                 Paths
+              </Link>
             </b.NavItem>
-              </LinkContainer>
-            <LinkContainer to="/projects">
             <b.NavItem eventKey={'projects'}>
+            <Link to="/projects">
               Projects
+            </Link>
             </b.NavItem>
-            </LinkContainer>
-              <LinkContainer to="/quizzes">
             <b.NavItem eventKey={'quizzes'}>
+              <Link to="/quizzes">
                 Quizzes
+              </Link>
             </b.NavItem>
-              </LinkContainer>
-              <LinkContainer to="/findings">
             <b.NavItem eventKey={'findings'}>
+              <Link to="/findings">
                 Findings
+              </Link>
             </b.NavItem>
-              </LinkContainer>
-              <LinkContainer to="/about">
             <b.NavItem eventKey={'about'}>
+              <Link to="/about">
                 About
+              </Link>
             </b.NavItem>
-              </LinkContainer>
             <b.NavItem eventKey={'blog'} href="https://blog.gameswithwords.org/">
               Blog
             </b.NavItem>
