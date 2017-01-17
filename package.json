@@ -12,6 +12,7 @@
     "fastclick": "^1.0.6",
     "history": "^3.0.0",
     "imagesloaded": "*",
+    "rc-progress": "^2.0.6",
     "react": "^15.2.1",
     "react-bootstrap": "*",
     "react-dom": "^15.2.1",
@@ -23,7 +24,7 @@
     "react-router-redux": "^4.0.7",
     "react-social-icons": "*",
     "react-tap-event-plugin": "*",
-    "redux": "^2.0.0",
+    "redux": "^3.5.2",
     "redux-logger": "^2.7.4",
     "redux-thunk": "^2.1.0",
     "whatwg-fetch": "^1.0.0"
