@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
 
 import React, { PropTypes } from 'react';
-import Test from './test';
 import Instruction from './instruction';
 
 export default class Intro extends React.Component {

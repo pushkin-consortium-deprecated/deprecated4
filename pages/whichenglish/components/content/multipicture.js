@@ -4,7 +4,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { userResponse, received } from '../../../../actions/userresponses';
 
-class Test extends React.Component {
+class MultiPicture extends React.Component {
   componentDidUpdate() {
     const props = this.props;
     const page_1_questions = [this.props.question];
@@ -16,9 +16,9 @@ class Test extends React.Component {
       required: [true, false],
       on_finish: function(data) {
         const response = JSON.parse(data.responses);
-        response.question = props.question;
         props.dispatch(userResponse({
-          response: response,
+          question: props.question,
+          answer: response.answer,
           time_elapsed: data.time_elapsed,
           trial_type: data.trial_type,
         }));
@@ -45,9 +45,9 @@ class Test extends React.Component {
       required: [true, false],
       on_finish: function(data) {
         const response = JSON.parse(data.responses);
-        response.question = props.question;
         props.dispatch(userResponse({
-          response: response,
+          question: props.question,
+          answer: response.answer,
           time_elapsed: data.time_elapsed,
           trial_type: data.trial_type,
         }));
@@ -72,4 +72,4 @@ class Test extends React.Component {
   }
 }
 
-export default(connect(state => state))(Test);
+export default(connect(state => state))(MultiPicture);
