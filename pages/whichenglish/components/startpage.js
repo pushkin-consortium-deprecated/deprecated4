@@ -12,16 +12,17 @@ import MultiPicture from './content/multipicture';
 import MultiSelect from './content/multiselect';
 
 import { nextPage, progressPrecent } from '../../../actions/nextpage';
-import { nextQuestion, initialQuestion } from '../../../actions/nextquestion';
+import { nextQuestion } from '../../../actions/nextquestion';
+import { initialQuestion } from '../../../actions/initialquestion';
 
 class StartPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
-  componentDidMount() {
-    const props = this.props;
-    props.dispatch(initialQuestion());
+  componentWillMount() {
+    console.log("called")
+    this.props.dispatch(initialQuestion());
   }
   dispatchUserInfo(state) {
     this.props.dispatch(userInfo(state));
@@ -75,7 +76,17 @@ class StartPage extends React.Component {
     const props = this.props;
     props.dispatch(nextQuestion(Questions[2]));
   }
+  // handleChoices() {
+  //   return this.props.initialQuestion[0].choices.map(cl => {
+  //     return {
+  //       url: cl.imageUrl,
+  //       label: cl.displayText,
+  //     }
+  //   })
+  // }
   handleTextChange() {
+    // const choices = this.handleChoices();
+    // console.log("choices", choices)
     let buttonText;
     if (this.props.nextpage.page === 2) {
       buttonText = 'Start Quiz';
@@ -83,29 +94,9 @@ class StartPage extends React.Component {
       buttonText = 'Next';
     }
     if (this.props.nextpage.page === 6) {
-      // return (
-      //   <div>
-      //     <MultiChoice
-      //       question={this.props.nextquestion.question}
-      //       nextQuestion={this.fetchNextQustion}
-      //       progress={this.dispatchProgress}
-      //     />
-      //     {this.handleProgressBar()}
-      //   </div>
-      // );
-      // return (
-      //   <div>
-      //     <MultiPicture
-      //       question={this.props.nextquestion.question}
-      //       nextQuestion={this.fetchNextQustion}
-      //       progress={this.dispatchProgress}
-      //     />
-      //     {this.handleProgressBar()}
-      //   </div>
-      // );
       return (
         <div>
-          <MultiSelect
+          <MultiChoice
             question={this.props.nextquestion.question}
             nextQuestion={this.fetchNextQustion}
             progress={this.dispatchProgress}
@@ -113,6 +104,29 @@ class StartPage extends React.Component {
           {this.handleProgressBar()}
         </div>
       );
+      // return (
+      //   <div>
+      //     <MultiPicture
+      //       question={this.props.initialquestion[0].prompt}
+      //       choices={choices}
+      //       questionId={this.props.initialquestion[0].choices[0].questionId}
+      //       trialId={this.props.initialquestion[0].trialId}
+      //       nextQuestion={this.fetchNextQustion}
+      //       progress={this.dispatchProgress}
+      //     />
+      //     {this.handleProgressBar()}
+      //   </div>
+      // );
+      // return (
+      //   <div>
+      //     <MultiSelect
+      //       question={this.props.nextquestion.question}
+      //       nextQuestion={this.fetchNextQustion}
+      //       progress={this.dispatchProgress}
+      //     />
+      //     {this.handleProgressBar()}
+      //   </div>
+      // );
     }
     return (
       <div>
@@ -146,8 +160,13 @@ class StartPage extends React.Component {
     return null;
   }
   render() {
-    console.log("this.props in stargpage", this.props)
-    const logo = require('../../../public/img/globe.jpg')
+    console.log("this.props in stargpage", this.props);
+    // if(!this.props.initialquestion){
+    //   return (
+    //     <h3>Loading...</h3>
+    //   )
+    // }
+    const logo = require('../../../public/img/globe.jpg');
     return (
       <div className="container">
         <div className="row">

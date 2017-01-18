@@ -1,26 +1,6 @@
-import client from './axiosConfig';
 
 export const NEXT_QUESTION = 'NEXT_QUESTION';
-export const INITIAL_QUESTION = 'INITIAL_QUESTION';
 
-function sendQuestion(data) {
-  return {
-    type: INITIAL_QUESTION,
-    data,
-  };
-}
-export function initialQuestion() {
-  return (dispatch) => {
-    return client.get('initialQuestions')
-    .then((resp) => {
-      if (resp.error) {
-        return console.log(resp.error);
-      }
-      console.log("resp", resp)
-      return dispatch(sendQuestion(resp.data));
-    });
-  };
-}
 export function nextQuestion(question) {
   // make response a param of this nextquestion
   // post response obj to endpoint
