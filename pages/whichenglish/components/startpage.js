@@ -12,12 +12,16 @@ import MultiPicture from './content/multipicture';
 import MultiSelect from './content/multiselect';
 
 import { nextPage, progressPrecent } from '../../../actions/nextpage';
-import { nextQuestion } from '../../../actions/nextquestion';
+import { nextQuestion, initialQuestion } from '../../../actions/nextquestion';
 
 class StartPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+  }
+  componentDidMount() {
+    const props = this.props;
+    props.dispatch(initialQuestion());
   }
   dispatchUserInfo(state) {
     this.props.dispatch(userInfo(state));
@@ -142,6 +146,7 @@ class StartPage extends React.Component {
     return null;
   }
   render() {
+    console.log("this.props in stargpage", this.props)
     const logo = require('../../../public/img/globe.jpg')
     return (
       <div className="container">
