@@ -1,8 +1,8 @@
 import {
   QUESTION_LIST,
-} from '../actions/initialquestion';
+} from '../actions/questionlist';
 
-export default function initialQuestion(state = { data: [] }, action) {
+export default function questionList(state = { data: [] }, action) {
   switch (action.type) {
     case QUESTION_LIST: {
       return {

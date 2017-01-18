@@ -13,7 +13,7 @@ import MultiSelect from './content/multiselect';
 
 import { nextPage, progressPrecent } from '../../../actions/nextpage';
 import { nextQuestion } from '../../../actions/nextquestion';
-import { initialQuestion } from '../../../actions/initialquestion';
+import { initialQuestion } from '../../../actions/questionlist';
 
 class StartPage extends React.Component {
   constructor(props) {

@@ -5,14 +5,14 @@ import responses from './userresponses';
 import status from './receivefetch';
 import nextpage from './nextpage';
 import nextquestion from './nextquestion';
-import initialquestion from './initialquestion';
+import questionlist from './questionlist';
 
 export const rootReducer = combineReducers({
   responses,
   nextpage,
   nextquestion,
   status,
-  initialquestion,
+  questionlist,
   userInfo,
   routing: routerReducer,
 });
