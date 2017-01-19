@@ -12,7 +12,7 @@ import MultiPicture from './content/multipicture';
 import MultiSelect from './content/multiselect';
 
 import { nextPage, progressPrecent } from '../../../actions/nextpage';
-import { nextQuestion } from '../../../actions/nextquestion';
+import { postAnswerGetQuestion, completeQuestion } from '../../../actions/questionque';
 import { questionList } from '../../../actions/questionlist';
 
 class StartPage extends React.Component {
@@ -72,13 +72,17 @@ class StartPage extends React.Component {
     const props = this.props;
     props.dispatch(progressPrecent(parseInt(props.nextpage.precent, 10) + 1))
   }
-  fetchNextQustion = () => {
+  // fetchNextQustion = () => {
+  //   const props = this.props;
+  //   const index = props.questionlist.data.indexOf(props.current);
+  //   props.dispatch(nextQuestion(props.questionlist.data[index + 1]));
+  // }
+  addCompleteQuestion = (response) => {
     const props = this.props;
-    const index = props.questionlist.data.indexOf(props.nextquestion.question);
-    props.dispatch(nextQuestion(props.questionlist.data[index + 1]));
+    props.dispatch(completeQuestion(response))
   }
   handlePictureChoices() {
-    const choices = this.props.nextquestion.question.choices;
+    const choices = this.props.questionque.current.choices;
     return choices.map(currentChoice => {
       return {
         url: currentChoice.imageUrl,
@@ -87,9 +91,11 @@ class StartPage extends React.Component {
       }
     })
   }
+  fetchNextQuestion = (response) => {
+    const props = this.props;
+    props.dispatch(postAnswerGetQuestion(response));
+  }
   handleTextChange() {
-    // console.log("this.props")
-    // this.fetchNextQustion();
     const choices = this.handlePictureChoices();
     let buttonText;
     if (this.props.nextpage.page === 2) {
@@ -111,12 +117,14 @@ class StartPage extends React.Component {
       return (
         <div>
           <MultiPicture
-            question={this.props.nextquestion.question.prompt}
+            question={this.props.questionque.current.prompt}
             choices={choices}
-            questionId={this.props.nextquestion.question.choices[0].questionId}
-            trialId={this.props.nextquestion.question.trialId}
-            nextQuestion={this.fetchNextQustion}
+            questionId={this.props.questionque.current.choices[0].questionId}
+            trialId={this.props.questionque.current.trialId}
+            nextQuestion={this.fetchNextQuestion}
+            completeQuestion={this.addCompleteQuestion}
             progress={this.dispatchProgress}
+            userId={this.props.userid.id}
           />
           {this.handleProgressBar()}
         </div>
@@ -164,11 +172,12 @@ class StartPage extends React.Component {
     return null;
   }
   render() {
-    if(!this.props.nextquestion.question){
+    if(!this.props.questionque.current){
       return (
         <h3>Loading...</h3>
       )
     }
+    console.log("htis.props, ", this.props)
     const logo = require('../../../public/img/globe.jpg');
     return (
       <div className="container">

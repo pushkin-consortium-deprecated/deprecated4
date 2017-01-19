@@ -7,7 +7,7 @@ export default function responses(state = { response: [] }, action) {
     case USER_RESPONSES: {
       return {
         ...state,
-        response: [...state.response, action.response]
+        response: [...state.response, action.response],
       };
     }
     default:

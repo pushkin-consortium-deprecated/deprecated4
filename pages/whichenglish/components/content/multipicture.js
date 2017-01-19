@@ -2,7 +2,7 @@
 
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { userResponse } from '../../../../actions/userresponses';
+// import { userResponse } from '../../../../actions/userresponses';
 
 class MultiPicture extends React.Component {
   componentDidMount() {
@@ -22,18 +22,21 @@ class MultiPicture extends React.Component {
             choiceId = currentChoice.choiceId;
           }
         })
-        props.dispatch(userResponse({
+        const formatResponse = {
           choiceId: choiceId,
           questionId: props.questionId,
-          userId: props.userId,
-        }));
+          user: {
+            id: props.userId,
+          },
+        };
+        props.nextQuestion(formatResponse);
+        props.completeQuestion(formatResponse);
       },
     };
     jsPsych.init({
       display_element: this.refs.main,
       timeline: [multi_choice_block],
       on_finish: function() {
-        props.nextQuestion();
         props.progress();
       },
     });
@@ -55,18 +58,21 @@ class MultiPicture extends React.Component {
             choiceId = currentChoice.choiceId;
           }
         })
-        props.dispatch(userResponse({
+        const formatResponse = {
           choiceId: choiceId,
           questionId: props.questionId,
-          userId: props.userId,
-        }));
+          user: {
+            id: props.userId,
+          },
+        };
+        props.nextQuestion(formatResponse);
+        props.completeQuestion(formatResponse);
       },
     };
     jsPsych.init({
       display_element: this.refs.main,
       timeline: [multi_choice_block],
       on_finish: function() {
-        props.nextQuestion();
         props.progress();
       },
     });
