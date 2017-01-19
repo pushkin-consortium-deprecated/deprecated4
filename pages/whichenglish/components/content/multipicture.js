@@ -5,10 +5,14 @@ import { connect } from 'react-redux';
 import { userResponse } from '../../../../actions/userresponses';
 
 class MultiPicture extends React.Component {
+  constructor(props) {
+    super(props);
+    this.getChocieId = this.getChocieId.bind(this);
+  }
   componentDidUpdate() {
     const props = this.props;
     const page_1_questions = [this.props.question];
-    const page_1_options = [{ url: "https://s-media-cache-ak0.pinimg.com/736x/5f/88/95/5f889520ddc5e5cb3dc67fb74ef59fc4.jpg", label: null }, {url:"http://3g28wn33sno63ljjq514qr87.wpengine.netdna-cdn.com/wp-content/uploads/2014/07/femcat.png", label: "hi i'm label" }];
+    const page_1_options = this.props.choices;
     const multi_choice_block = {
       type: 'survey-multi-picture',
       questions: [page_1_questions],
@@ -16,11 +20,17 @@ class MultiPicture extends React.Component {
       required: [true, false],
       on_finish: function(data) {
         const response = JSON.parse(data.responses);
+        let choiceId;
+        props.choices.filter(currentChoice => {
+          if(currentChoice.url === response.answer){
+            choiceId = currentChoice.choiceId;
+          }
+        })
+        console.log("response.answer", response.answer)
         props.dispatch(userResponse({
-          question: props.question,
-          answer: response.answer,
-          time_elapsed: data.time_elapsed,
-          trial_type: data.trial_type,
+          choiceId: choiceId,
+          questionId: props.questionId,
+          userId: props.userId,
         }));
       },
     };
@@ -44,11 +54,17 @@ class MultiPicture extends React.Component {
       required: [true, false],
       on_finish: function(data) {
         const response = JSON.parse(data.responses);
+        let choiceId;
+        props.choices.filter(currentChoice => {
+          if(currentChoice.url === response.answer){
+            choiceId = currentChoice.choiceId;
+          }
+        })
+        console.log("response.answer", response.answer)
         props.dispatch(userResponse({
-          question: props.question,
-          answer: response.answer,
-          time_elapsed: data.time_elapsed,
-          trial_type: data.trial_type,
+          choiceId: choiceId,
+          questionId: props.questionId,
+          userId: props.userId,
         }));
       },
     };
@@ -61,7 +77,14 @@ class MultiPicture extends React.Component {
       },
     });
   }
-
+  getChocieId(response) {
+    const props = this.props;
+    return props.choices.filter(currentChoice => {
+      if(currentChoice.url === response.url){
+        return currentChoice.id
+      }
+    })
+  }
   render() {
     console.log("this.props multipicture", this.props)
     return (

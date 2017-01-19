@@ -13,16 +13,17 @@ import MultiSelect from './content/multiselect';
 
 import { nextPage, progressPrecent } from '../../../actions/nextpage';
 import { nextQuestion } from '../../../actions/nextquestion';
-import { initialQuestion } from '../../../actions/questionlist';
+import { questionList } from '../../../actions/questionlist';
 
 class StartPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      questionPosition: -1,
+    };
   }
   componentWillMount() {
-    console.log("called")
-    this.props.dispatch(initialQuestion());
+    this.props.dispatch(questionList());
   }
   dispatchUserInfo(state) {
     this.props.dispatch(userInfo(state));
@@ -64,7 +65,6 @@ class StartPage extends React.Component {
       page: parseInt(this.props.nextpage.page, 10) + 1,
       content: Scripts[parseInt(this.props.nextpage.page, 10) + 1],
     }));
-    props.dispatch(nextQuestion(Questions[1]));
     this.dispatchUserInfo(this.state);
     this.dispatchProgress();
   }
@@ -74,19 +74,23 @@ class StartPage extends React.Component {
   }
   fetchNextQustion = () => {
     const props = this.props;
-    props.dispatch(nextQuestion(Questions[2]));
+    const index = props.questionlist.data.indexOf(props.nextquestion.question);
+    props.dispatch(nextQuestion(props.questionlist.data[index + 1]));
   }
-  // handleChoices() {
-  //   return this.props.initialQuestion[0].choices.map(cl => {
-  //     return {
-  //       url: cl.imageUrl,
-  //       label: cl.displayText,
-  //     }
-  //   })
-  // }
+  handlePictureChoices() {
+    const choices = this.props.nextquestion.question.choices;
+    return choices.map(currentChoice => {
+      return {
+        url: currentChoice.imageUrl,
+        label: currentChoice.displayText,
+        choiceId: currentChoice.id,
+      }
+    })
+  }
   handleTextChange() {
-    // const choices = this.handleChoices();
-    // console.log("choices", choices)
+    // console.log("this.props")
+    // this.fetchNextQustion();
+    const choices = this.handlePictureChoices();
     let buttonText;
     if (this.props.nextpage.page === 2) {
       buttonText = 'Start Quiz';
@@ -94,29 +98,29 @@ class StartPage extends React.Component {
       buttonText = 'Next';
     }
     if (this.props.nextpage.page === 6) {
-      return (
-        <div>
-          <MultiChoice
-            question={this.props.nextquestion.question}
-            nextQuestion={this.fetchNextQustion}
-            progress={this.dispatchProgress}
-          />
-          {this.handleProgressBar()}
-        </div>
-      );
       // return (
       //   <div>
-      //     <MultiPicture
-      //       question={this.props.initialquestion[0].prompt}
-      //       choices={choices}
-      //       questionId={this.props.initialquestion[0].choices[0].questionId}
-      //       trialId={this.props.initialquestion[0].trialId}
+      //     <MultiChoice
+      //       question={this.props.nextquestion.question}
       //       nextQuestion={this.fetchNextQustion}
       //       progress={this.dispatchProgress}
       //     />
       //     {this.handleProgressBar()}
       //   </div>
       // );
+      return (
+        <div>
+          <MultiPicture
+            question={this.props.nextquestion.question.prompt}
+            choices={choices}
+            questionId={this.props.nextquestion.question.choices[0].questionId}
+            trialId={this.props.nextquestion.question.trialId}
+            nextQuestion={this.fetchNextQustion}
+            progress={this.dispatchProgress}
+          />
+          {this.handleProgressBar()}
+        </div>
+      );
       // return (
       //   <div>
       //     <MultiSelect
@@ -160,12 +164,11 @@ class StartPage extends React.Component {
     return null;
   }
   render() {
-    console.log("this.props in stargpage", this.props);
-    // if(!this.props.initialquestion){
-    //   return (
-    //     <h3>Loading...</h3>
-    //   )
-    // }
+    if(!this.props.nextquestion.question){
+      return (
+        <h3>Loading...</h3>
+      )
+    }
     const logo = require('../../../public/img/globe.jpg');
     return (
       <div className="container">
