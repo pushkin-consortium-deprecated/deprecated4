@@ -1,13 +1,11 @@
 import {
   QUESTION_LIST,
+  FETCHING_LIST,
 } from '../actions/questionlist';
-import {
-  REQUEST_QUESTION_BEGIN,
-} from '../actions/fetch';
 
-export default function questionList(state = { data: [], isFeching: false }, action) {
+export default function questionList(state = { data: [], isFetching: false }, action) {
   switch (action.type) {
-    case REQUEST_QUESTION_BEGIN: {
+    case FETCHING_LIST: {
       return {
         ...state,
         isFetching: true,
