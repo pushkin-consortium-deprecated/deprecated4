@@ -10,6 +10,7 @@ import Globe from './globe';
 import MultiChoice from './content/multichoice';
 import MultiPicture from './content/multipicture';
 import MultiSelect from './content/multiselect';
+import LastPage from './content/lastPage';
 
 import { nextPage, progressPrecent } from '../../../actions/nextpage';
 import { postAnswerGetQuestion } from '../../../actions/questionque';
@@ -110,7 +111,7 @@ class StartPage extends React.Component {
     if (this.props.nextpage.page === 6) {
       if (!this.props.questionque.current) {
         return (
-          <h3>Result here</h3>
+          <LastPage />
         );
       }
       if (this.props.questionque.isFetching) {
