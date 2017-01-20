@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import ResultsList from '../../components/ResultsList/';
 import CommentForm from '../../components/CommentForm/';
-import { submitComments } from '../../actions/userresponses' 
+import { submitComments } from '../../actions/userinfo' 
 
 class ResultsContainer extends Component {
   render(){
@@ -16,8 +16,9 @@ class ResultsContainer extends Component {
       />
       <CommentForm
         handleSubmit={(comments) => {
-        this.props.dispatch(submitComments(comments));
+          this.props.dispatch(submitComments(comments));
        }}
+
 
       />
       </div>

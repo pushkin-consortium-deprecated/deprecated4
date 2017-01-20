@@ -2,7 +2,6 @@
 
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { userResponse, received } from '../../../../actions/userresponses';
 
 class MultiChoice extends React.Component {
   componentDidUpdate() {
@@ -57,7 +56,6 @@ class MultiChoice extends React.Component {
       display_element: this.refs.main,
       timeline: [multi_choice_block],
       on_finish: function() {
-        props.dispatch(received());
         props.nextQuestion();
         props.progress();
       },
