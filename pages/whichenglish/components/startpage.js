@@ -19,7 +19,6 @@ class StartPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      questionPosition: -1,
     };
   }
   componentWillMount() {
@@ -82,14 +81,19 @@ class StartPage extends React.Component {
     props.dispatch(completeQuestion(response))
   }
   handlePictureChoices() {
-    const choices = this.props.questionque.current.choices;
-    return choices.map(currentChoice => {
-      return {
-        url: currentChoice.imageUrl,
-        label: currentChoice.displayText,
-        choiceId: currentChoice.id,
-      }
-    })
+    //TODO need to move this to switch statement in handle text change
+    //TODO no check is needed
+    if (this.props.questionque.current) {
+      const choices = this.props.questionque.current.choices;
+      return choices.map(currentChoice => {
+        return {
+          url: currentChoice.imageUrl,
+          label: currentChoice.displayText,
+          choiceId: currentChoice.id,
+        };
+      });
+    }
+    return null;
   }
   fetchNextQuestion = (response) => {
     const props = this.props;
@@ -104,6 +108,16 @@ class StartPage extends React.Component {
       buttonText = 'Next';
     }
     if (this.props.nextpage.page === 6) {
+      if (!this.props.questionque.current) {
+        return (
+          <h3>Result here</h3>
+        );
+      }
+      if (this.props.questionque.isFetching) {
+        return (
+          <h3>Loading ... </h3>
+        );
+      }
       // return (
       //   <div>
       //     <MultiChoice
@@ -129,7 +143,7 @@ class StartPage extends React.Component {
             nextQuestion={this.fetchNextQuestion}
             completeQuestion={this.addCompleteQuestion}
             progress={this.dispatchProgress}
-            userId={this.props.userid.id}
+            userId={this.props.userinfo.id}
           />
           {this.handleProgressBar()}
         </div>
@@ -182,12 +196,11 @@ class StartPage extends React.Component {
     return null;
   }
   render() {
-    if(!this.props.questionque.current){
+    if (this.props.questionlist.isFetching) {
       return (
-        <h3>Loading...</h3>
+        <h3> loading ... </h3>
       )
     }
-    console.log("htis.props, ", this.props)
     const logo = require('../../../public/img/globe.jpg');
     return (
       <div className="container">
