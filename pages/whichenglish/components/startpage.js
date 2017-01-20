@@ -3,7 +3,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Intro from './content/intro';
-import { Scripts, Questions } from './scripts';
+import { Scripts } from './scripts';
 import { userInfo } from '../../../actions/userinfo';
 import { Line } from 'rc-progress';
 import Globe from './globe';
@@ -12,7 +12,7 @@ import MultiPicture from './content/multipicture';
 import MultiSelect from './content/multiselect';
 
 import { nextPage, progressPrecent } from '../../../actions/nextpage';
-import { postAnswerGetQuestion, completeQuestion } from '../../../actions/questionque';
+import { postAnswerGetQuestion } from '../../../actions/questionque';
 import { questionList } from '../../../actions/questionlist';
 
 class StartPage extends React.Component {
@@ -107,9 +107,14 @@ class StartPage extends React.Component {
       // return (
       //   <div>
       //     <MultiChoice
-      //       question={this.props.nextquestion.question}
-      //       nextQuestion={this.fetchNextQustion}
-      //       progress={this.dispatchProgress}
+              // question={this.props.questionque.current.prompt}
+              // choices={choices}
+              // questionId={this.props.questionque.current.choices[0].questionId}
+              // trialId={this.props.questionque.current.trialId}
+              // nextQuestion={this.fetchNextQuestion}
+              // completeQuestion={this.addCompleteQuestion}
+              // progress={this.dispatchProgress}
+              // userId={this.props.userid.id}
       //     />
       //     {this.handleProgressBar()}
       //   </div>
@@ -132,9 +137,14 @@ class StartPage extends React.Component {
       // return (
       //   <div>
       //     <MultiSelect
-      //       question={this.props.nextquestion.question}
-      //       nextQuestion={this.fetchNextQustion}
-      //       progress={this.dispatchProgress}
+                // question={this.props.questionque.current.prompt}
+                // choices={choices}
+                // questionId={this.props.questionque.current.choices[0].questionId}
+                // trialId={this.props.questionque.current.trialId}
+                // nextQuestion={this.fetchNextQuestion}
+                // completeQuestion={this.addCompleteQuestion}
+                // progress={this.dispatchProgress}
+                // userId={this.props.userid.id}
       //     />
       //     {this.handleProgressBar()}
       //   </div>

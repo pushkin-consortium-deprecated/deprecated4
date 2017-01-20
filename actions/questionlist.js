@@ -1,5 +1,4 @@
 import local from './axiosConfigInitial';
-import remote from './axiosConfig';
 
 import { currentQuestion, nextQuestion } from './questionque';
 import { sendUser } from './user';
@@ -11,12 +10,6 @@ function sendQuestion(data) {
   return {
     type: QUESTION_LIST,
     data,
-  };
-}
-export function addToList(question) {
-  return {
-    type: ADD_QUESTION_TO_LIST,
-    question,
   };
 }
 export function questionList() {
@@ -41,7 +34,7 @@ export function questionList() {
       return dispatch(nextQuestion(list[1]));
     })
     .then(() => {
-      return remote.post('/users', {
+      return local.post('/users', {
         name: 'Test',
       })
       .then((resp) => {

@@ -2,7 +2,6 @@
 
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-// import { userResponse } from '../../../../actions/userresponses';
 
 class MultiPicture extends React.Component {
   componentDidMount() {
@@ -30,7 +29,6 @@ class MultiPicture extends React.Component {
           },
         };
         props.nextQuestion(formatResponse);
-        props.completeQuestion(formatResponse);
       },
     };
     jsPsych.init({
@@ -66,7 +64,6 @@ class MultiPicture extends React.Component {
           },
         };
         props.nextQuestion(formatResponse);
-        props.completeQuestion(formatResponse);
       },
     };
     jsPsych.init({
