@@ -143,12 +143,17 @@ class Header extends React.Component {
             <b.NavItem eventKey={'findings'}>
                 Findings
             </b.NavItem>
-              </LinkContainer>
-              <LinkContainer to="/about">
-            <b.NavItem eventKey={'about'}>
-                About
-            </b.NavItem>
-              </LinkContainer>
+            </LinkContainer>
+            <LinkContainer to="/about">
+              <b.NavItem eventKey={'about'}>
+                  About
+              </b.NavItem>
+            </LinkContainer>
+            <LinkContainer to="/results">
+              <b.NavItem eventKey={'results'}>
+                  Results
+              </b.NavItem>
+            </LinkContainer>
             <b.NavItem eventKey={'blog'} href="https://blog.gameswithwords.org/">
               Blog
             </b.NavItem>

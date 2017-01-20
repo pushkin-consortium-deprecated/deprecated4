@@ -1,6 +1,6 @@
 import { routerReducer } from 'react-router-redux';
 import { combineReducers } from 'redux';
-import userinfo from './userinfo';
+import userInfo from './userInfo';
 import nextpage from './nextpage';
 import questionque from './questionque';
 import questionlist from './questionlist';
@@ -11,7 +11,7 @@ export const rootReducer = combineReducers({
   nextpage,
   questionque,
   questionlist,
-  userinfo,
+  userInfo,
   error,
   routing: routerReducer,
 });

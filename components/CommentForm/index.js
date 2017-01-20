@@ -32,58 +32,74 @@ export default class CommentForm extends Component {
   render() {
     return (
       <div className={s.commentForm}>
-      <div className="row">
-        <div className="col-xs-12">
-        <h2>How Did we Do</h2>
+      {this.props.userInfo.isFetching && 
+        <h4>Loading...</h4>
+        
+      }
+      {!this.props.userInfo.nativeLanguages && 
+        <div>
+        <div className="row">
+          <div className="col-xs-12">
+          <h2>How Did we Do</h2>
+          </div>
         </div>
+        <form
+          onSubmit={this.handleSubmit}
+        >
+          <div className="row">
+            <div className="col-xs-12">
+            <label
+              htmlFor="learn_age"
+            >
+              When did you start learning english?
+              <select
+                ref={(ref) => this.learnAge = ref}
+                required
+              >
+              {OPTIONS.map(option => <option value={option.value}>{option.label}</option>)}
+              </select>
+              </label>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xs-12 col-sm-6">
+                <label>List all <strong>native</strong> language(s) <em>learned from birth</em></label>
+                <MultiSelect
+                  options={LANGUAGES}
+                  ref="nativeLanguages"
+                />
+            </div>
+            <div className="col-xs-12 col-sm-6">
+                <label>List all <strong>primary</strong> language(s) <em>learned from birth</em></label>
+                <MultiSelect
+                  options={LANGUAGES}
+                  ref="primaryLanguages"
+                />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xs-12">
+              <button
+                style={{ width: 100, margin: '0 auto', display: 'block' }}
+                className="btn btn-success"
+                disabled={this.buttonDisabled()}
+                type="submit"
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
-      <form
-        onSubmit={this.handleSubmit}
-      >
+      }
+      {this.props.userInfo.nativeLanguages && 
         <div className="row">
           <div className="col-xs-12">
-          <label
-            htmlFor="learn_age"
-          >
-            When did you start learning english?
-            <select
-              ref={(ref) => this.learnAge = ref}
-              required
-            >
-            {OPTIONS.map(option => <option value={option.value}>{option.label}</option>)}
-            </select>
-            </label>
+            <h4>Answers submitted, thank you</h4>
           </div>
         </div>
-        <div className="row">
-          <div className="col-xs-12 col-sm-6">
-              <label>List all <strong>native</strong> language(s) <em>learned from birth</em></label>
-              <MultiSelect
-                options={LANGUAGES}
-                ref="nativeLanguages"
-              />
-          </div>
-          <div className="col-xs-12 col-sm-6">
-              <label>List all <strong>primary</strong> language(s) <em>learned from birth</em></label>
-              <MultiSelect
-                options={LANGUAGES}
-                ref="primaryLanguages"
-              />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-xs-12">
-            <button
-              style={{ width: 100, margin: '0 auto', display: 'block' }}
-              className="btn btn-success"
-              disabled={this.buttonDisabled()}
-              type="submit"
-            >
-              Next
-            </button>
-          </div>
-        </div>
-      </form>
+        
+      }
       </div>
     );
   }

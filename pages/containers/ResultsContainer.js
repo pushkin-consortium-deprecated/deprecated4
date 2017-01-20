@@ -17,9 +17,8 @@ class ResultsContainer extends Component {
       <CommentForm
         handleSubmit={(comments) => {
           this.props.dispatch(submitComments(comments));
-       }}
-
-
+        }}
+        userInfo={this.props.userInfo}
       />
       </div>
     )
