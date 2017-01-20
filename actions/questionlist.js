@@ -2,6 +2,8 @@ import local from './axiosConfigInitial';
 
 import { currentQuestion, nextQuestion } from './questionque';
 import { sendUser } from './user';
+import { requestQuestionBegin } from './fetch';
+import { error } from './error';
 
 export const QUESTION_LIST = 'QUESTION_LIST';
 export const ADD_QUESTION_TO_LIST = 'ADD_QUESTION_TO_LIST';
@@ -14,10 +16,11 @@ function sendQuestion(data) {
 }
 export function questionList() {
   return (dispatch, getState) => {
+    dispatch(requestQuestionBegin());
     return local.get('initialQuestions')
     .then((resp) => {
       if (resp.error) {
-        return console.error(resp.error);
+        return dispatch(error(resp.error));
       }
       return resp.data.map(cq => {
         return dispatch(sendQuestion(cq));
@@ -42,7 +45,7 @@ export function questionList() {
       });
     })
     .catch((error) => {
-      return console.error(error);
+      return dispatch(error(error));
     });
   };
 }

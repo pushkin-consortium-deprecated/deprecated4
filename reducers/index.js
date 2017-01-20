@@ -5,6 +5,7 @@ import nextpage from './nextpage';
 import questionque from './questionque';
 import questionlist from './questionlist';
 import userid from './user';
+import error from './error';
 
 
 export const rootReducer = combineReducers({
@@ -13,5 +14,6 @@ export const rootReducer = combineReducers({
   questionlist,
   userdemographics,
   userid,
+  error,
   routing: routerReducer,
 });

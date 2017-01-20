@@ -1,5 +1,7 @@
 
 import local from './axiosConfigInitial';
+import { requestQuestionBegin } from './fetch';
+import { error } from './error';
 
 export const CURRENT_QUESTION = 'CURRENT_QUESTION';
 export const NEXT_QUESTION = 'NEXT_QUESTION';
@@ -25,8 +27,12 @@ function completeQuestion(completeQuestion) {
 }
 export function postAnswerGetQuestion(response) {
   return (dispatch, getState) => {
+    dispatch(requestQuestionBegin());
     return local.post('response', response)
     .then((resp) => {
+      if(resp.error) {
+        return dispatch(error(resp.error));
+      }
       const state = getState();
       const ql = state.questionlist.data;
       if (!resp.data) {
@@ -40,7 +46,7 @@ export function postAnswerGetQuestion(response) {
       dispatch(completeQuestion(state.questionque.current));
     })
     .catch(error => {
-      return console.error(error);
+      return dispatch(error(error));
     });
   };
 }
