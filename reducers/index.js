@@ -1,16 +1,19 @@
 import { routerReducer } from 'react-router-redux';
 import { combineReducers } from 'redux';
-import userInfo from './userinfo';
-import responses from './userresponses';
-import status from './receivefetch';
+import userdemographics from './userinfo';
 import nextpage from './nextpage';
-import nextquestion from './nextquestion';
+import questionque from './questionque';
+import questionlist from './questionlist';
+import userid from './user';
+import error from './error';
+
 
 export const rootReducer = combineReducers({
-  responses,
   nextpage,
-  nextquestion,
-  status,
-  userInfo,
+  questionque,
+  questionlist,
+  userdemographics,
+  userid,
+  error,
   routing: routerReducer,
 });
