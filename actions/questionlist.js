@@ -6,6 +6,7 @@ import { error } from './error';
 export const QUESTION_LIST = 'QUESTION_LIST';
 export const ADD_QUESTION_TO_LIST = 'ADD_QUESTION_TO_LIST';
 export const USER_ID = 'USER_ID';
+export const FETCHING_LIST = 'FETCHING_LIST';
 
 function sendQuestion(data) {
   return {
@@ -19,8 +20,14 @@ function sendUserId(id) {
     id,
   };
 }
+function fetchingList() {
+  return {
+    type: FETCHING_LIST,
+  };
+}
 export function questionList() {
   return (dispatch, getState) => {
+    dispatch(fetchingList());
     return local.get('initialQuestions')
     .then((resp) => {
       if (resp.error) {

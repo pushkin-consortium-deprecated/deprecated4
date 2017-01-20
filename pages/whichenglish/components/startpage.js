@@ -81,6 +81,8 @@ class StartPage extends React.Component {
     props.dispatch(completeQuestion(response))
   }
   handlePictureChoices() {
+    //TODO need to move this to switch statement in handle text change
+    //TODO no check is needed
     if (this.props.questionque.current) {
       const choices = this.props.questionque.current.choices;
       return choices.map(currentChoice => {
@@ -194,7 +196,7 @@ class StartPage extends React.Component {
     return null;
   }
   render() {
-    if (!this.props.questionlist.data.length) {
+    if (this.props.questionlist.isFetching) {
       return (
         <h3> loading ... </h3>
       )
