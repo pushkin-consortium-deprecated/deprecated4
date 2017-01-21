@@ -36,7 +36,6 @@ export function postAnswerGetQuestion(response) {
       const state = getState();
       const ql = state.questionlist.data;
       if (!resp.data) {
-        dispatch(currentQuestion(null))
         dispatch(nextQuestion(null))
       } else {
         ql.push(resp.data);
