@@ -25,6 +25,12 @@ function fetchingList() {
     type: FETCHING_LIST,
   };
 }
+function buildInitial(list) {
+  return {
+    type: 'BUILD_INITIAL',
+    list,
+  }
+}
 export function questionList() {
   return (dispatch, getState) => {
     dispatch(fetchingList());
@@ -36,20 +42,11 @@ export function questionList() {
       resp.data.questions.map(cq => {
         return dispatch(sendQuestion(cq));
       });
+      dispatch(buildInitial(resp.data.questions));
       return resp.data;
     })
-    .then((resp) => {
-      return dispatch(sendUserId(resp.user.id));
-    })
-    .then(() => {
-      const state = getState();
-      const list = state.questionlist.data;
-      return dispatch(currentQuestion(list[0]));
-    })
-    .then(() => {
-      const state = getState();
-      const list = state.questionlist.data;
-      return dispatch(nextQuestion(list[1]));
+    .then((data) => {
+      return dispatch(sendUserId(data.user.id));
     })
     .catch((err) => {
       return dispatch(error(err));

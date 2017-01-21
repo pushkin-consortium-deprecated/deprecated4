@@ -18,6 +18,14 @@ export default function nextQuestion(state = {
         isFetching: true,
       };
     }
+    case 'BUILD_INITIAL': {
+      debugger;
+      return {
+        ...state,
+        current: action.list[0],
+        next: action.list[1],
+      };
+    }
     case CURRENT_QUESTION: {
       return {
         ...state,
@@ -29,6 +37,8 @@ export default function nextQuestion(state = {
       return {
         ...state,
         next: action.nextQuestion,
+        current: state.next,
+        complete: [...state.complete, state.current],
         isFetching: false,
       };
     }

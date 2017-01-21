@@ -49,12 +49,13 @@ export function postAnswerGetQuestion(response) {
         .then(results=> {
           dispatch(setResults(results));
           dispatch(nextQuestion(null))
+          // dispatch(currentQuestion(null))
         });
       } else {
         ql.push(resp.data);
         dispatch(nextQuestion(resp.data));
-        dispatch(currentQuestion(state.questionque.next));
-        dispatch(completeQuestion(state.questionque.current));
+        // dispatch(currentQuestion(state.questionque.next));
+        // dispatch(completeQuestion(state.questionque.current));
       }
     })
     .catch(error => {

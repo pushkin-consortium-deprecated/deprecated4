@@ -11,6 +11,7 @@ import WhichEnglish from '../pages/whichenglish/index';
 import Updates from '../pages/updates/index';
 import Container from '../pages/containers/container';
 import ResultsContainer from '../pages/containers/ResultsContainer';
+import LastPage from '../pages/whichenglish/components/content/lastPage';
 // import QuizContainer from '../pages/containers/quizcontainer';
 
 export const routes = (<Route path="/" component={Container}>
@@ -19,6 +20,7 @@ export const routes = (<Route path="/" component={Container}>
   <Route path="/quizzes" component={Quizzes}>
     <Route path="/quizzes/whichenglish" component={WhichEnglish} />
   </Route>
+  <Route path='/share' component={LastPage} />
   <Route path="/results" component={ResultsContainer} />
   <Route path="/projects" component={Projects} />
   <Route path="/findings" component={Findings} />

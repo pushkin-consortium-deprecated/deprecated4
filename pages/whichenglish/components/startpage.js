@@ -10,11 +10,8 @@ import Globe from './globe';
 import MultiChoice from './content/multichoice';
 import MultiPicture from './content/multipicture';
 import MultiSelect from './content/multiselect';
-<<<<<<< HEAD
 import ResultsContainer from '../../containers/ResultsContainer';
-=======
 import LastPage from './content/lastPage';
->>>>>>> master
 
 import { nextPage, progressPrecent } from '../../../actions/nextpage';
 import { postAnswerGetQuestion } from '../../../actions/questionque';
