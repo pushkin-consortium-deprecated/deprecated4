@@ -4,7 +4,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Intro from './content/intro';
 import { Scripts } from './scripts';
-import { userInfo } from '../../../actions/userInfo';
+import { userInfo } from '../../../actions/userinfo';
 import { Line } from 'rc-progress';
 import Globe from './globe';
 import MultiChoice from './content/multichoice';
@@ -198,7 +198,7 @@ class StartPage extends React.Component {
     return null;
   }
   render() {
-    if (this.props.questionlist.isFetching) {
+    if (this.props.questionque.isFetching) {
       return <h3> loading ... </h3>;
     }
     const logo = require('../../../public/img/globe.jpg');
