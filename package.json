@@ -104,7 +104,10 @@
   },
   "eslintConfig": {
     "parser": "babel-eslint",
-    "extends": "airbnb"
+    "extends": "airbnb",
+    "rules": {
+      "comma-dangle": "off"
+    }
   },
   "stylelint": {
     "extends": "stylelint-config-standard",

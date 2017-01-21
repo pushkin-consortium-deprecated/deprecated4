@@ -6,6 +6,7 @@ import { error } from './error';
 export const CURRENT_QUESTION = 'CURRENT_QUESTION';
 export const NEXT_QUESTION = 'NEXT_QUESTION';
 export const COMPLETE_QUESTION = 'COMPLETE_QUESTION';
+export const SET_RESULTS = 'SET_RESULTS';
 
 export function nextQuestion(nextQuestion) {
   return {
@@ -25,6 +26,12 @@ function completeQuestion(completeQuestion) {
     completeQuestion,
   }
 }
+function setResults(results) {
+  return {
+    type: SET_RESULTS,
+    results,
+  };
+}
 export function postAnswerGetQuestion(response) {
   return (dispatch, getState) => {
     dispatch(requestQuestionBegin());
@@ -34,19 +41,26 @@ export function postAnswerGetQuestion(response) {
         return dispatch(error(resp.error));
       }
       const state = getState();
+      // TODO: make a dispatch to add this to the question list
       const ql = state.questionlist.data;
       if (!resp.data) {
-        dispatch(nextQuestion(null))
+        return local.get(`/results/${state.userInfo.id}`)
+        .then(resp => resp.data.results)
+        .then(results=> {
+          dispatch(setResults(results));
+          dispatch(nextQuestion(null))
+        });
       } else {
         ql.push(resp.data);
+        dispatch(nextQuestion(resp.data));
+        dispatch(currentQuestion(state.questionque.next));
+        dispatch(completeQuestion(state.questionque.current));
       }
-      dispatch(nextQuestion(resp.data));
-      dispatch(currentQuestion(state.questionque.next));
-      dispatch(completeQuestion(state.questionque.current));
     })
     .catch(error => {
       return dispatch(error(error));
     });
   };
 }
+
 

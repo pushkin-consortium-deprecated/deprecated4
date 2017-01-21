@@ -4,13 +4,17 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Intro from './content/intro';
 import { Scripts } from './scripts';
-import { userInfo } from '../../../actions/userinfo';
+import { userInfo } from '../../../actions/userInfo';
 import { Line } from 'rc-progress';
 import Globe from './globe';
 import MultiChoice from './content/multichoice';
 import MultiPicture from './content/multipicture';
 import MultiSelect from './content/multiselect';
+<<<<<<< HEAD
+import ResultsContainer from '../../containers/ResultsContainer';
+=======
 import LastPage from './content/lastPage';
+>>>>>>> master
 
 import { nextPage, progressPrecent } from '../../../actions/nextpage';
 import { postAnswerGetQuestion } from '../../../actions/questionque';
@@ -19,8 +23,7 @@ import { questionList } from '../../../actions/questionlist';
 class StartPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
   }
   componentWillMount() {
     this.props.dispatch(questionList());
@@ -32,7 +35,7 @@ class StartPage extends React.Component {
     const state = this.state;
     state[key] = value;
     this.setState(state);
-  }
+  };
   handleDisable() {
     if (this.props.nextpage.page === 3) {
       if (this.state.gender && this.state.age) {
@@ -41,7 +44,11 @@ class StartPage extends React.Component {
       return true;
     }
     if (this.props.nextpage.page === 4) {
-      if (this.state.takenBefore && this.state.education && this.state.languageDisorder) {
+      if (
+        this.state.takenBefore &&
+          this.state.education &&
+          this.state.languageDisorder
+      ) {
         return false;
       }
       return true;
@@ -53,7 +60,11 @@ class StartPage extends React.Component {
       return (
         <div style={{ marginTop: 10 }}>
           <label> Progress: {this.props.nextpage.precent} / 38 </label>
-          <Line percent={this.props.nextpage.precent} strokeWidth="4" strokeColor="#68C8F5" />
+          <Line
+            percent={this.props.nextpage.precent}
+            strokeWidth="4"
+            strokeColor="#68C8F5"
+          />
         </div>
       );
     }
@@ -61,26 +72,28 @@ class StartPage extends React.Component {
   }
   dispatchNextPage = () => {
     const props = this.props;
-    props.dispatch(nextPage({
-      page: parseInt(this.props.nextpage.page, 10) + 1,
-      content: Scripts[parseInt(this.props.nextpage.page, 10) + 1],
-    }));
+    props.dispatch(
+      nextPage({
+        page: parseInt(this.props.nextpage.page, 10) + 1,
+        content: Scripts[parseInt(this.props.nextpage.page, 10) + 1]
+      })
+    );
     this.dispatchUserInfo(this.state);
     this.dispatchProgress();
-  }
+  };
   dispatchProgress = () => {
     const props = this.props;
-    props.dispatch(progressPrecent(parseInt(props.nextpage.precent, 10) + 1))
-  }
+    props.dispatch(progressPrecent(parseInt(props.nextpage.precent, 10) + 1));
+  };
   // fetchNextQustion = () => {
   //   const props = this.props;
   //   const index = props.questionlist.data.indexOf(props.current);
   //   props.dispatch(nextQuestion(props.questionlist.data[index + 1]));
   // }
-  addCompleteQuestion = (response) => {
+  addCompleteQuestion = response => {
     const props = this.props;
-    props.dispatch(completeQuestion(response))
-  }
+    props.dispatch(completeQuestion(response));
+  };
   handlePictureChoices() {
     //TODO need to move this to switch statement in handle text change
     //TODO no check is needed
@@ -90,16 +103,16 @@ class StartPage extends React.Component {
         return {
           url: currentChoice.imageUrl,
           label: currentChoice.displayText,
-          choiceId: currentChoice.id,
+          choiceId: currentChoice.id
         };
       });
     }
     return null;
   }
-  fetchNextQuestion = (response) => {
+  fetchNextQuestion = response => {
     const props = this.props;
     props.dispatch(postAnswerGetQuestion(response));
-  }
+  };
   handleTextChange() {
     const choices = this.handlePictureChoices();
     let buttonText;
@@ -110,14 +123,10 @@ class StartPage extends React.Component {
     }
     if (this.props.nextpage.page === 6) {
       if (!this.props.questionque.current) {
-        return (
-          <LastPage />
-        );
+        return <ResultsContainer />
       }
       if (this.props.questionque.isFetching) {
-        return (
-          <h3>Loading ... </h3>
-        );
+        return <h3>Loading ... </h3>;
       }
       // return (
       //   <div>
@@ -144,7 +153,7 @@ class StartPage extends React.Component {
             nextQuestion={this.fetchNextQuestion}
             completeQuestion={this.addCompleteQuestion}
             progress={this.dispatchProgress}
-            userId={this.props.userinfo.id}
+            userId={this.props.userInfo.id}
           />
           {this.handleProgressBar()}
         </div>
@@ -186,21 +195,14 @@ class StartPage extends React.Component {
   }
   handleLogo() {
     if (this.props.nextpage.page !== 5) {
-      const logo = require('../../../public/img/globe.jpg')
-      return (
-        <Globe
-          logo={logo}
-          content={Scripts[0]}
-        />
-      );
+      const logo = require('../../../public/img/globe.jpg');
+      return <Globe logo={logo} content={Scripts[0]} />;
     }
     return null;
   }
   render() {
     if (this.props.questionlist.isFetching) {
-      return (
-        <h3> loading ... </h3>
-      )
+      return <h3> loading ... </h3>;
     }
     const logo = require('../../../public/img/globe.jpg');
     return (
@@ -216,8 +218,6 @@ class StartPage extends React.Component {
     );
   }
 }
-StartPage.propTypes = {
-  dispatch: React.PropTypes.func,
-};
+StartPage.propTypes = { dispatch: React.PropTypes.func };
 
-export default(connect(state => state))(StartPage);
+export default connect(state => state)(StartPage);
