@@ -1,9 +1,21 @@
 import React, { Component } from 'react';
-
-export default class ResultsList extends Component {
+import { connect } from 'react-redux';
+ class ResultsList extends Component {
   render() {
     return (
-      <h3>ResultsList</h3>
+      <div>
+        <div className="row">
+          <div className="col-xs-12">
+          <h3>Results</h3>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-xs-6">
+          {this.props.results.map((lang, index) => <p>{index + 1}. : {lang.name}</p> )}
+          </div>
+        </div>
+      </div>
     );
   }
 }
+export default ResultsList

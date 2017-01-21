@@ -8,18 +8,16 @@ class ResultsContainer extends Component {
   render(){
     return (
       <div>
-      <ResultsList
+        <ResultsList
+          results={this.props.userInfo.results}
 
-      />
-      <ResultsList
-
-      />
-      <CommentForm
-        handleSubmit={(comments) => {
-          this.props.dispatch(submitComments(comments));
-        }}
-        userInfo={this.props.userInfo}
-      />
+        />
+        <CommentForm
+          handleSubmit={(comments) => {
+            this.props.dispatch(submitComments(comments));
+          }}
+          userInfo={this.props.userInfo}
+        />
       </div>
     )
 

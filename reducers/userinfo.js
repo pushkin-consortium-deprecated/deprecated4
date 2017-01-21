@@ -6,6 +6,9 @@ import {
 import {
   USER_ID,
 } from '../actions/questionlist';
+import {
+  SET_RESULTS
+} from '../actions/questionque';
 
 export default function userInfo(state = {}, action) {
   switch (action.type) {
@@ -37,6 +40,12 @@ export default function userInfo(state = {}, action) {
         isFetching: false,
         nativeLanguages: action.data.nativeLanguages,
         primaryLanguages: action.data.primaryLanguages,
+      };
+    }
+    case SET_RESULTS: {
+      return {
+        ...state,
+        results: action.results,
       };
     }
     default:

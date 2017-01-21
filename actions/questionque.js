@@ -6,6 +6,7 @@ import { error } from './error';
 export const CURRENT_QUESTION = 'CURRENT_QUESTION';
 export const NEXT_QUESTION = 'NEXT_QUESTION';
 export const COMPLETE_QUESTION = 'COMPLETE_QUESTION';
+export const SET_RESULTS = 'SET_RESULTS';
 
 export function nextQuestion(nextQuestion) {
   return {
@@ -25,6 +26,12 @@ function completeQuestion(completeQuestion) {
     completeQuestion,
   }
 }
+function setResults(results) {
+  return {
+    type: SET_RESULTS,
+    results,
+  };
+}
 export function postAnswerGetQuestion(response) {
   return (dispatch, getState) => {
     dispatch(requestQuestionBegin());
@@ -36,18 +43,25 @@ export function postAnswerGetQuestion(response) {
       const state = getState();
       const ql = state.questionlist.data;
       if (!resp.data) {
-        dispatch(currentQuestion(null))
-        dispatch(nextQuestion(null))
+        return local.get(`/results/${state.userInfo.id}`)
+        .then(resp => resp.data.results)
+        .then(results=> {
+          debugger;
+          dispatch(setResults(results));
+          dispatch(nextQuestion(null))
+          dispatch(currentQuestion(null))
+        });
       } else {
         ql.push(resp.data);
+        dispatch(nextQuestion(resp.data));
+        dispatch(currentQuestion(state.questionque.next));
+        dispatch(completeQuestion(state.questionque.current));
       }
-      dispatch(nextQuestion(resp.data));
-      dispatch(currentQuestion(state.questionque.next));
-      dispatch(completeQuestion(state.questionque.current));
     })
     .catch(error => {
       return dispatch(error(error));
     });
   };
 }
+
 

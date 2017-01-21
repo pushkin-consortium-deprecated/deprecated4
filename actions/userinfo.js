@@ -4,45 +4,36 @@ export const SUBMIT_COMMENTS_SUCCESS = 'SUBMIT_COMMENTS_SUCCESS';
 import local from './axiosConfigInitial';
 
 export function userInfo(info) {
-  return {
-    type: USER_INFO,
-    info,
-  };
+  return { type: USER_INFO, info };
 }
 
 function submitCommentsBegin() {
-  return {
-    type: SUBMIT_COMMENTS_BEGIN,
-  };
+  return { type: SUBMIT_COMMENTS_BEGIN };
 }
 
 function submitCommentsSuccess(data) {
-  return {
-    type: SUBMIT_COMMENTS_SUCCESS,
-    data,
-  };
+  return { type: SUBMIT_COMMENTS_SUCCESS, data };
 }
 
 export function submitComments(comments) {
   return (dispatch, getState) => {
     const state = getState();
     if (state.userInfo.id) {
-
       const userId = state.userInfo.id;
       const payload = {
         userId,
         nativeLanguages: comments.nativeLanguages,
         primaryLanguages: comments.primaryLanguages,
-        learnEnglishAge: comments.learnEnglishAge,
+        learnEnglishAge: comments.learnEnglishAge
       };
 
       dispatch(submitCommentsBegin());
-      local.post('/comments', payload, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
+      local
+        .post('/comments', payload, {
+          headers: { 'Content-Type': 'application/json' }
         })
-        .then(response => response.data).then(data => {
+        .then(response => response.data)
+        .then(data => {
           const nativeLanguages = new Set();
           const primaryLanguages = new Set();
           for (let i = 0; i < data.userLanguages.length; i++) {
@@ -55,13 +46,15 @@ export function submitComments(comments) {
             }
           }
           const obj = {
-            nativeLanguages: [...nativeLanguages],
-            primaryLanguages: [...primaryLanguages],
-          }
+            nativeLanguages: [ ...nativeLanguages ],
+            primaryLanguages: [ ...primaryLanguages ]
+          };
           return dispatch(submitCommentsSuccess(obj));
         });
     } else {
-      throw new Error('there is no user id to attach these comments and demographic data too');
+      throw new Error(
+        'there is no user id to attach these comments and demographic data too'
+      );
     }
   };
 }
