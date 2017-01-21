@@ -41,15 +41,14 @@ export function postAnswerGetQuestion(response) {
         return dispatch(error(resp.error));
       }
       const state = getState();
+      // TODO: make a dispatch to add this to the question list
       const ql = state.questionlist.data;
       if (!resp.data) {
         return local.get(`/results/${state.userInfo.id}`)
         .then(resp => resp.data.results)
         .then(results=> {
-          debugger;
           dispatch(setResults(results));
           dispatch(nextQuestion(null))
-          dispatch(currentQuestion(null))
         });
       } else {
         ql.push(resp.data);
