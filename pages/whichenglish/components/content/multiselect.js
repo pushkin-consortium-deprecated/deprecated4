@@ -1,13 +1,12 @@
 /* eslint-disable max-len */
 
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
 
-class MultiSelect extends React.Component {
+export default class MultiSelect extends React.Component {
   componentDidUpdate() {
     const props = this.props;
     const page_1_questions = [this.props.question];
-    const page_1_options = ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"];
+    const page_1_options = this.props.choices;
     const multi_choice_block = {
       type: 'survey-multi-select',
       questions: page_1_questions,
@@ -15,19 +14,28 @@ class MultiSelect extends React.Component {
       required: [true, false],
       on_finish: function(data) {
         const response = JSON.parse(data.responses);
-        props.dispatch(userResponse({
-          question: props.question,
-          answer: response.answer,
-          time_elapsed: data.time_elapsed,
-          trial_type: data.trial_type,
-        }));
+        let choiceIds = [];
+        props.allChoices.map(currentChoice => {
+          response.answer.map(answeredChoice => {
+            if(currentChoice.imageUrl === answeredChoice){
+              choiceIds.push(currentChoice.id)
+            }
+          })
+        })
+        const formatResponse = {
+          choiceId: choiceIds,
+          questionId: props.questionId,
+          user: {
+            id: props.userId,
+          },
+        };
+        props.nextQuestion(formatResponse);
       },
     };
     jsPsych.init({
       display_element: this.refs.main,
       timeline: [multi_choice_block],
       on_finish: function() {
-        props.nextQuestion();
         props.progress();
       },
     });
@@ -35,7 +43,7 @@ class MultiSelect extends React.Component {
   componentDidMount() {
     const props = this.props;
     const page_1_questions = [this.props.question];
-    const page_1_options = ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"];
+    const page_1_options = this.props.choices;
     const multi_choice_block = {
       type: 'survey-multi-select',
       questions: page_1_questions,
@@ -43,19 +51,28 @@ class MultiSelect extends React.Component {
       required: [true, false],
       on_finish: function(data) {
         const response = JSON.parse(data.responses);
-        props.dispatch(userResponse({
-          question: props.question,
-          answer: response.answer,
-          time_elapsed: data.time_elapsed,
-          trial_type: data.trial_type,
-        }));
+        let choiceIds = [];
+        props.allChoices.map(currentChoice => {
+          response.answer.map(answeredChoice => {
+            if(currentChoice.imageUrl === answeredChoice){
+              choiceIds.push(currentChoice.id)
+            }
+          })
+        })
+        const formatResponse = {
+          choiceId: choiceIds,
+          questionId: props.questionId,
+          user: {
+            id: props.userId,
+          },
+        };
+        props.nextQuestion(formatResponse);
       },
     };
     jsPsych.init({
       display_element: this.refs.main,
       timeline: [multi_choice_block],
       on_finish: function() {
-        props.nextQuestion();
         props.progress();
       },
     });
@@ -68,5 +85,3 @@ class MultiSelect extends React.Component {
     );
   }
 }
-
-export default(connect(state => state))(MultiSelect);

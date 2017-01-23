@@ -1,9 +1,8 @@
 /* eslint-disable max-len */
 
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
 
-class MultiPicture extends React.Component {
+export default class MultiPicture extends React.Component {
   componentDidMount() {
     const props = this.props;
     const page_1_questions = [this.props.question];
@@ -82,5 +81,3 @@ class MultiPicture extends React.Component {
     );
   }
 }
-
-export default(connect(state => state))(MultiPicture);

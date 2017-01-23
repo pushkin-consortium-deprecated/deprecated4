@@ -82,21 +82,13 @@ class StartPage extends React.Component {
     const props = this.props;
     props.dispatch(progressPrecent(parseInt(props.nextpage.precent, 10) + 1));
   };
-  // fetchNextQustion = () => {
-  //   const props = this.props;
-  //   const index = props.questionlist.data.indexOf(props.current);
-  //   props.dispatch(nextQuestion(props.questionlist.data[index + 1]));
-  // }
   addCompleteQuestion = response => {
     const props = this.props;
     props.dispatch(completeQuestion(response));
   };
-  handlePictureChoices() {
-    //TODO need to move this to switch statement in handle text change
-    //TODO no check is needed
-    if (this.props.questionque.current) {
-      const choices = this.props.questionque.current.choices;
-      return choices.map(currentChoice => {
+  handlePictureChoices(currentQuestion) {
+    if(currentQuestion.type === "survey-multi-picture") {
+      return currentQuestion.choices.map(currentChoice => {
         return {
           url: currentChoice.imageUrl,
           label: currentChoice.displayText,
@@ -104,14 +96,15 @@ class StartPage extends React.Component {
         };
       });
     }
-    return null;
+    return currentQuestion.choices.map(currentChoice => {
+      return currentChoice.imageUrl;
+    })
   }
   fetchNextQuestion = response => {
     const props = this.props;
     props.dispatch(postAnswerGetQuestion(response));
   };
   handleTextChange() {
-    const choices = this.handlePictureChoices();
     let buttonText;
     if (this.props.nextpage.page === 2) {
       buttonText = 'Start Quiz';
@@ -125,6 +118,7 @@ class StartPage extends React.Component {
       if (!this.props.questionque.current) {
         return <ResultsContainer />
       } else {
+        const choices = this.handlePictureChoices(this.props.questionque.current);
         switch (this.props.questionque.current.type) {
           case "survey-multi-picture" : {
             return (
@@ -149,12 +143,13 @@ class StartPage extends React.Component {
                 <MultiChoice
                     question={this.props.questionque.current.prompt}
                     choices={choices}
+                    allChoices = {this.props.questionque.current.choices}
                     questionId={this.props.questionque.current.choices[0].questionId}
                     trialId={this.props.questionque.current.trialId}
                     nextQuestion={this.fetchNextQuestion}
                     completeQuestion={this.addCompleteQuestion}
                     progress={this.dispatchProgress}
-                    userId={this.props.userid.id}
+                    userId={this.props.userInfo.id}
                 />
                 {this.handleProgressBar()}
               </div>
@@ -166,12 +161,13 @@ class StartPage extends React.Component {
                 <MultiSelect
                       question={this.props.questionque.current.prompt}
                       choices={choices}
+                      allChoices={this.props.questionque.current.choices}
                       questionId={this.props.questionque.current.choices[0].questionId}
                       trialId={this.props.questionque.current.trialId}
                       nextQuestion={this.fetchNextQuestion}
                       completeQuestion={this.addCompleteQuestion}
                       progress={this.dispatchProgress}
-                      userId={this.props.userid.id}
+                      userId={this.props.userInfo.id}
                 />
                 {this.handleProgressBar()}
               </div>
