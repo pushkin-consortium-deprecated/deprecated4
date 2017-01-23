@@ -14,22 +14,30 @@ export default class MultiSelect extends React.Component {
       required: [true, false],
       on_finish: function(data) {
         const response = JSON.parse(data.responses);
-        let choiceIds = [];
+        // let choiceIds = [];
         props.allChoices.map(currentChoice => {
           response.answer.map(answeredChoice => {
             if(currentChoice.imageUrl === answeredChoice){
-              choiceIds.push(currentChoice.id)
+              const formatResponse = {
+                choiceId: currentChoice.id,
+                questionId: props.questionId,
+                user: {
+                  id: props.userId,
+                },
+              };
+              props.nextQuestion(formatResponse);
             }
           })
         })
-        const formatResponse = {
-          choiceId: choiceIds,
-          questionId: props.questionId,
-          user: {
-            id: props.userId,
-          },
-        };
-        props.nextQuestion(formatResponse);
+        // const formatResponse = {
+        //   choiceId: choiceIds,
+        //   questionId: props.questionId,
+        //   user: {
+        //     id: props.userId,
+        //   },
+        // };
+        // console.log("what i'm i sending in multiselect", formatResponse)
+        // props.nextQuestion(formatResponse);
       },
     };
     jsPsych.init({
@@ -51,22 +59,31 @@ export default class MultiSelect extends React.Component {
       required: [true, false],
       on_finish: function(data) {
         const response = JSON.parse(data.responses);
-        let choiceIds = [];
+        // let choiceIds = [];
         props.allChoices.map(currentChoice => {
           response.answer.map(answeredChoice => {
             if(currentChoice.imageUrl === answeredChoice){
-              choiceIds.push(currentChoice.id)
+              const formatResponse = {
+                choiceId: currentChoice.id,
+                questionId: props.questionId,
+                user: {
+                  id: props.userId,
+                },
+              };
+              props.nextQuestion(formatResponse);
             }
           })
         })
-        const formatResponse = {
-          choiceId: choiceIds,
-          questionId: props.questionId,
-          user: {
-            id: props.userId,
-          },
-        };
-        props.nextQuestion(formatResponse);
+        // const formatResponse = {
+        //   choiceId: choiceIds,
+        //   questionId: props.questionId,
+        //   user: {
+        //     id: props.userId,
+        //   },
+        // };
+        // console.log("what i'm i sending in multiselect", formatResponse)
+        // 
+        // props.nextQuestion(formatResponse);
       },
     };
     jsPsych.init({

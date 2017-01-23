@@ -28,7 +28,6 @@ export default class MultiChoice extends React.Component {
             id: props.userId,
           },
         };
-        console.log("what i'm i sending", formatResponse)
         props.nextQuestion(formatResponse);
       },
     };
