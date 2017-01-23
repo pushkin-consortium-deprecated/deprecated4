@@ -20,7 +20,6 @@ export default function nextQuestion(state = {
       };
     }
     case BUILD_INITIAL: {
-      console.log("getting called here too!", action.list)
       return {
         ...state,
         current: action.list[0],

@@ -23,7 +23,6 @@ function buildInitial(list) {
   }
 }
 export function questionList() {
-  console.log("got called")
   return (dispatch, getState) => {
     dispatch(fetchingList());
     return local.get('initialQuestions')
@@ -31,7 +30,6 @@ export function questionList() {
       if (resp.error) {
         return dispatch(error(resp.error));
       }
-      console.log("rLDKJFLSKJFLSJF", resp.data.questions)
       dispatch(buildInitial(resp.data.questions));
       return resp.data;
     })

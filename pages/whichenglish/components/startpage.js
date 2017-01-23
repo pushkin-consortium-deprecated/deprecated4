@@ -119,57 +119,66 @@ class StartPage extends React.Component {
       buttonText = 'Next';
     }
     if (this.props.nextpage.page === 6) {
-      if (!this.props.questionque.current) {
-        return <ResultsContainer />
-      }
       if (this.props.questionque.isFetching) {
         return <h3>Loading ... </h3>;
       }
-      // return (
-      //   <div>
-      //     <MultiChoice
-              // question={this.props.questionque.current.prompt}
-              // choices={choices}
-              // questionId={this.props.questionque.current.choices[0].questionId}
-              // trialId={this.props.questionque.current.trialId}
-              // nextQuestion={this.fetchNextQuestion}
-              // completeQuestion={this.addCompleteQuestion}
-              // progress={this.dispatchProgress}
-              // userId={this.props.userid.id}
-      //     />
-      //     {this.handleProgressBar()}
-      //   </div>
-      // );
-      return (
-        <div>
-          <MultiPicture
-            question={this.props.questionque.current.prompt}
-            choices={choices}
-            questionId={this.props.questionque.current.choices[0].questionId}
-            trialId={this.props.questionque.current.trialId}
-            nextQuestion={this.fetchNextQuestion}
-            completeQuestion={this.addCompleteQuestion}
-            progress={this.dispatchProgress}
-            userId={this.props.userInfo.id}
-          />
-          {this.handleProgressBar()}
-        </div>
-      );
-      // return (
-      //   <div>
-      //     <MultiSelect
-                // question={this.props.questionque.current.prompt}
-                // choices={choices}
-                // questionId={this.props.questionque.current.choices[0].questionId}
-                // trialId={this.props.questionque.current.trialId}
-                // nextQuestion={this.fetchNextQuestion}
-                // completeQuestion={this.addCompleteQuestion}
-                // progress={this.dispatchProgress}
-                // userId={this.props.userid.id}
-      //     />
-      //     {this.handleProgressBar()}
-      //   </div>
-      // );
+      if (!this.props.questionque.current) {
+        return <ResultsContainer />
+      } else {
+        switch (this.props.questionque.current.type) {
+          case "survey-multi-picture" : {
+            return (
+              <div>
+                <MultiPicture
+                  question={this.props.questionque.current.prompt}
+                  choices={choices}
+                  questionId={this.props.questionque.current.choices[0].questionId}
+                  trialId={this.props.questionque.current.trialId}
+                  nextQuestion={this.fetchNextQuestion}
+                  completeQuestion={this.addCompleteQuestion}
+                  progress={this.dispatchProgress}
+                  userId={this.props.userInfo.id}
+                />
+                {this.handleProgressBar()}
+              </div>
+            );
+          }
+          case "survey-multi-choice" : {
+            return (
+              <div>
+                <MultiChoice
+                    question={this.props.questionque.current.prompt}
+                    choices={choices}
+                    questionId={this.props.questionque.current.choices[0].questionId}
+                    trialId={this.props.questionque.current.trialId}
+                    nextQuestion={this.fetchNextQuestion}
+                    completeQuestion={this.addCompleteQuestion}
+                    progress={this.dispatchProgress}
+                    userId={this.props.userid.id}
+                />
+                {this.handleProgressBar()}
+              </div>
+            );
+          }
+          case "survey-multi-select" : {
+            return (
+              <div>
+                <MultiSelect
+                      question={this.props.questionque.current.prompt}
+                      choices={choices}
+                      questionId={this.props.questionque.current.choices[0].questionId}
+                      trialId={this.props.questionque.current.trialId}
+                      nextQuestion={this.fetchNextQuestion}
+                      completeQuestion={this.addCompleteQuestion}
+                      progress={this.dispatchProgress}
+                      userId={this.props.userid.id}
+                />
+                {this.handleProgressBar()}
+              </div>
+            );
+          }
+        }
+      }
     }
     return (
       <div>
