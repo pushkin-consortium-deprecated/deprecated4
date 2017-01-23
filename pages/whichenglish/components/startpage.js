@@ -4,7 +4,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Intro from './content/intro';
 import { Scripts } from './scripts';
-import { userInfo } from '../../../actions/userinfo';
+import { submitUserInfo } from '../../../actions/userinfo';
 import { Line } from 'rc-progress';
 import Globe from './globe';
 import MultiChoice from './content/multichoice';
@@ -26,7 +26,7 @@ class StartPage extends React.Component {
     this.props.dispatch(questionList());
   }
   dispatchUserInfo(state) {
-    this.props.dispatch(userInfo(state));
+    this.props.dispatch(submitUserInfo(state));
   }
   handleStateChange = (key, value) => {
     const state = this.state;
@@ -75,7 +75,9 @@ class StartPage extends React.Component {
         content: Scripts[parseInt(this.props.nextpage.page, 10) + 1]
       })
     );
-    this.dispatchUserInfo(this.state);
+    if(this.state.age && this.state.education && this.state.gender && this.state.languageDisorder && this.state.takenBefore) {
+      this.dispatchUserInfo(this.state);
+    }
     this.dispatchProgress();
   };
   dispatchProgress = () => {

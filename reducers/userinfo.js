@@ -1,6 +1,6 @@
 import {
   SUBMIT_USER_INFO_BEGIN,
-  SUBMIT_USER_INFO_SUCCESS
+  SUBMIT_USER_INFO_SUCCESS,
   SUBMIT_COMMENTS_BEGIN,
   SUBMIT_COMMENTS_SUCCESS,
 } from '../actions/userinfo';
@@ -13,10 +13,6 @@ import {
 
 export default function userInfo(state = {}, action) {
   switch (action.type) {
-    case SUBMIT_USER_INFO_BEGIN: {
-      ...state,
-      isFetching: true,
-    }
     case SUBMIT_USER_INFO_SUCCESS: {
       return {
         ...state,
@@ -26,6 +22,12 @@ export default function userInfo(state = {}, action) {
         languageDisorder: action.data.languageDisorder,
         education: action.data.education,
         isFetching: false,
+      };
+    }
+    case SUBMIT_USER_INFO_BEGIN: {
+      return {
+        ...state,
+        isFetching: true,
       };
     }
     case USER_ID: {

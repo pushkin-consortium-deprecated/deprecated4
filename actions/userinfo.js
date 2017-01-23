@@ -11,15 +11,18 @@ function submitUserInfoBegin() {
 }
 function submitUserInfoSuccess(data) {
   return {
-    type: SUBMIT_USER_INFO_SUCCESS.
+    type: SUBMIT_USER_INFO_SUCCESS,
     data,
   }
 }
 export function submitUserInfo(info) {
   return (dispatch, getState) => {
     const state = getState();
+    const userId = state.userInfo.id;
+    delete info.id;
+    const payload = {...info, id: userId};
     dispatch(submitUserInfoBegin());
-    local.put(`users/${state.userInfo.id}`, info, {
+    local.put(`users/${userId}`, payload, {
       headers: { 'Content-Type': 'application/json' }
     })
     .then(resp => resp.data)
