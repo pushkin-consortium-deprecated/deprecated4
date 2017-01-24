@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+/* eslint-disable camelcase */
 
 import React, { PropTypes } from 'react';
 
@@ -12,14 +13,15 @@ export default class MultiPicture extends React.Component {
       questions: [page_1_questions],
       options: [page_1_options],
       required: [true, false],
+      horizontal: true,
       on_finish: function(data) {
         const response = JSON.parse(data.responses);
         let choiceId;
         props.choices.filter(currentChoice => {
-          if(currentChoice.url === response.answer){
+          if (currentChoice.url === response.answer) {
             choiceId = currentChoice.choiceId;
           }
-        })
+        });
         const formatResponse = {
           choiceId: choiceId,
           questionId: props.questionId,
@@ -47,14 +49,15 @@ export default class MultiPicture extends React.Component {
       questions: [page_1_questions],
       options: [page_1_options],
       required: [true, false],
+      horizontal: true,
       on_finish: function(data) {
         const response = JSON.parse(data.responses);
         let choiceId;
         props.choices.filter(currentChoice => {
-          if(currentChoice.url === response.answer){
+          if (currentChoice.url === response.answer) {
             choiceId = currentChoice.choiceId;
           }
-        })
+        });
         const formatResponse = {
           choiceId: choiceId,
           questionId: props.questionId,
@@ -74,7 +77,6 @@ export default class MultiPicture extends React.Component {
     });
   }
   render() {
-    console.log("this.props multipicture", this.props)
     return (
       <div ref="main">
       </div>

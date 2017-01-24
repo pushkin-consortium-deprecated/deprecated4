@@ -198,7 +198,7 @@ class StartPage extends React.Component {
     );
   }
   handleLogo() {
-    if (this.props.nextpage.page !== 5) {
+    if (this.props.nextpage.page < 3) {
       const logo = require('../../../public/img/globe.jpg');
       return <Globe logo={logo} content={Scripts[0]} />;
     }
