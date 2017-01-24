@@ -99,7 +99,7 @@ class StartPage extends React.Component {
       });
     }
     return currentQuestion.choices.map(currentChoice => {
-      return currentChoice.imageUrl;
+      return currentChoice.displayText;
     })
   }
   fetchNextQuestion = response => {

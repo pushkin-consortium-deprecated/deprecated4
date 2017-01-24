@@ -21,6 +21,20 @@ function setResults(results) {
 export function postAnswerGetQuestion(response) {
   return (dispatch, getState) => {
     dispatch(requestQuestionBegin());
+    if(Array.isArray(response.choiceId)){
+      return Promise.all(response.choiceId.map(currentId => {
+         return local.post('response', {
+            choiceId: currentId,
+            questionId: response.questionId,
+            user: {
+              id: response.user.id,
+            }
+          })
+          .then(resp => resp.data)
+      })).then(data => {
+        return dispatch(nextQuestion(data[0]))
+      })
+    }
     return local.post('response', response)
     .then((resp) => {
       const state = getState();
@@ -43,5 +57,3 @@ export function postAnswerGetQuestion(response) {
     });
   };
 }
-
-

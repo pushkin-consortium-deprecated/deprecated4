@@ -16,11 +16,10 @@ export default class MultiChoice extends React.Component {
         const response = JSON.parse(data.responses);
         let choiceId;
         props.allChoices.filter(currentChoice => {
-          if(currentChoice.imageUrl === response.answer){
+          if(currentChoice.displayText === response.answer){
             choiceId = currentChoice.id;
           }
         })
-        console.log("i'm choice id", choiceId)
         const formatResponse = {
           choiceId: choiceId,
           questionId: props.questionId,
@@ -52,7 +51,7 @@ export default class MultiChoice extends React.Component {
         const response = JSON.parse(data.responses);
         let choiceId;
         props.allChoices.filter(currentChoice => {
-          if(currentChoice.imageUrl === response.answer){
+          if(currentChoice.displayText === response.answer){
             choiceId = currentChoice.id;
           }
         })
@@ -76,7 +75,6 @@ export default class MultiChoice extends React.Component {
   }
 
   render() {
-    console.log("yo in multi choice", this.props)
     return (
       <div ref="main">
       </div>
