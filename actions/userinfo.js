@@ -1,10 +1,35 @@
-export const USER_INFO = 'USER_INFO';
+import local from './axiosConfigInitial';
+export const SUBMIT_USER_INFO_BEGIN = 'SUBMIT_USER_INFO_BEGIN';
+export const SUBMIT_USER_INFO_SUCCESS = 'SUBMIT_USER_INFO_SUCCESS';
 export const SUBMIT_COMMENTS_BEGIN = 'SUBMIT_COMMENTS_BEGIN';
 export const SUBMIT_COMMENTS_SUCCESS = 'SUBMIT_COMMENTS_SUCCESS';
-import local from './axiosConfigInitial';
 
-export function userInfo(info) {
-  return { type: USER_INFO, info };
+function submitUserInfoBegin() {
+  return {
+    type: SUBMIT_USER_INFO_BEGIN
+  }
+}
+function submitUserInfoSuccess(data) {
+  return {
+    type: SUBMIT_USER_INFO_SUCCESS,
+    data,
+  }
+}
+export function submitUserInfo(info) {
+  return (dispatch, getState) => {
+    const state = getState();
+    const userId = state.userInfo.id;
+    delete info.id;
+    const payload = {...info, id: userId};
+    dispatch(submitUserInfoBegin());
+    local.put(`users/${userId}`, payload, {
+      headers: { 'Content-Type': 'application/json' }
+    })
+    .then(resp => resp.data)
+    .then(data => {
+      return dispatch(submitUserInfoSuccess(data))
+    });
+  }
 }
 
 function submitCommentsBegin() {

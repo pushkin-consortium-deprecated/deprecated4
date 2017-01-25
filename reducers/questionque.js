@@ -1,9 +1,10 @@
 import {
-  CURRENT_QUESTION,
   NEXT_QUESTION,
-  COMPLETE_QUESTION,
   REQUEST_QUESTION_BEGIN,
 } from '../actions/questionque';
+import {
+  BUILD_INITIAL,
+} from '../actions/questionlist';
 
 export default function nextQuestion(state = {
   isFetching: false,
@@ -18,18 +19,12 @@ export default function nextQuestion(state = {
         isFetching: true,
       };
     }
-    case 'BUILD_INITIAL': {
+    case BUILD_INITIAL: {
       return {
         ...state,
         current: action.list[0],
         next: action.list[1],
-      };
-    }
-    case CURRENT_QUESTION: {
-      return {
-        ...state,
-        current: action.currentQuestion,
-        isFetching: false,
+        isFetching: false
       };
     }
     case NEXT_QUESTION: {
@@ -39,12 +34,6 @@ export default function nextQuestion(state = {
         current: state.next,
         complete: [...state.complete, state.current],
         isFetching: false,
-      };
-    }
-    case COMPLETE_QUESTION: {
-      return {
-        ...state,
-        complete: [...state.complete, action.completeQuestion],
       };
     }
     default:
