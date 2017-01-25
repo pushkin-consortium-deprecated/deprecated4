@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import LANGUAGES from './LANGUAGES';
-import { Tokenizer } from 'react-typeahead';
 import s from './styles.css';
 import MultiSelect from '../MultiSelect/MultiSelect';
 
