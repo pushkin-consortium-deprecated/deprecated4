@@ -17,6 +17,7 @@ import LastPage from './content/lastPage';
 import { nextPage, progressPrecent } from '../../../actions/nextpage';
 import { postAnswerGetQuestion } from '../../../actions/questionque';
 import { questionList } from '../../../actions/questionlist';
+import { saveAnswers } from '../../../actions/saveanswers';
 
 class StartPage extends React.Component {
   constructor(props) {
@@ -24,6 +25,7 @@ class StartPage extends React.Component {
     this.state = {};
   }
   componentWillMount() {
+    this.props.dispatch(saveAnswers());
     this.props.dispatch(questionList());
   }
   dispatchUserInfo(state) {
@@ -88,9 +90,9 @@ class StartPage extends React.Component {
       return currentChoice.displayText;
     })
   }
-  fetchNextQuestion = response => {
+  fetchNextQuestion = (response, answer) => {
     const props = this.props;
-    props.dispatch(postAnswerGetQuestion(response));
+    props.dispatch(postAnswerGetQuestion(response, answer));
   };
   handleTextChange() {
     let buttonText;

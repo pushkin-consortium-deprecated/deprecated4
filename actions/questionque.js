@@ -3,6 +3,7 @@ import local from './axiosConfigInitial';
 import { requestQuestionBegin } from './fetch';
 import { error } from './error';
 
+export const ANSWER_COLLECTION = 'ANSWER_COLLECTION';
 export const NEXT_QUESTION = 'NEXT_QUESTION';
 export const SET_RESULTS = 'SET_RESULTS';
 
@@ -18,10 +19,17 @@ function setResults(results) {
     results,
   };
 }
-export function postAnswerGetQuestion(response) {
+function saveAnswers(answer) {
+  return {
+    type: ANSWER_COLLECTION,
+    answer,
+  };
+}
+export function postAnswerGetQuestion(response, answer) {
   return (dispatch, getState) => {
     dispatch(requestQuestionBegin());
     if(Array.isArray(response.choiceId)){
+      const state = getState();
       return Promise.all(response.choiceId.map(currentId => {
          return local.post('response', {
             choiceId: currentId,
@@ -32,7 +40,10 @@ export function postAnswerGetQuestion(response) {
           })
           .then(resp => resp.data)
       })).then(data => {
-        return dispatch(nextQuestion(data[0]))
+        if (state.options.saveAnswers) {
+          dispatch(saveAnswers(answer))
+        }
+        dispatch(nextQuestion(data[0]))
       })
     }
     return local.post('response', response)
@@ -49,7 +60,10 @@ export function postAnswerGetQuestion(response) {
           dispatch(nextQuestion(null))
         });
       } else {
-        dispatch(nextQuestion(resp.data));
+        if (state.options.saveAnswers) {
+          dispatch(saveAnswers(answer))
+        }
+         dispatch(nextQuestion(resp.data));
       }
     })
     .catch(err => {

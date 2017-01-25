@@ -1,6 +1,7 @@
 import {
   NEXT_QUESTION,
   REQUEST_QUESTION_BEGIN,
+  ANSWER_COLLECTION,
 } from '../actions/questionque';
 import {
   BUILD_INITIAL,
@@ -11,6 +12,7 @@ export default function nextQuestion(state = {
   next: null,
   current: null,
   complete: [],
+  answers: [],
 }, action) {
   switch (action.type) {
     case REQUEST_QUESTION_BEGIN: {
@@ -34,6 +36,12 @@ export default function nextQuestion(state = {
         current: state.next,
         complete: [...state.complete, state.current],
         isFetching: false,
+      };
+    }
+    case ANSWER_COLLECTION: {
+      return {
+        ...state,
+        answers: [...state.answers, action.answer],
       };
     }
     default:

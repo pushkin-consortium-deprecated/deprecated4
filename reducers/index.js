@@ -5,8 +5,20 @@ import nextpage from './nextpage';
 import questionque from './questionque';
 import error from './error';
 
-
+const SAVE_ANSWERS = 'SAVE_ANSWERS';
+function saveAnswers(state = { saveAnswers: false, responses: [] }, action) {
+  switch (action.type) {
+    case SAVE_ANSWERS: {
+      return {
+        saveAnswers: true,
+      };
+    }
+    default:
+      return state;
+  }
+}
 export const rootReducer = combineReducers({
+  options: saveAnswers,
   nextpage,
   questionque,
   userInfo,
