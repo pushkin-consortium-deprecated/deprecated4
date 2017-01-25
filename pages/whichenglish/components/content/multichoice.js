@@ -16,7 +16,8 @@ export default class MultiChoice extends React.Component {
       on_finish: function(data) {
         const response = JSON.parse(data.responses);
         let choiceId;
-        props.allChoices.filter(currentChoice => {
+
+        props.allChoices.forEach(currentChoice => {
           if (currentChoice.displayText === response.answer) {
             choiceId = currentChoice.id;
           }
@@ -48,10 +49,10 @@ export default class MultiChoice extends React.Component {
       questions: page_1_questions,
       options: [page_1_options],
       required: [true, false],
-      on_finish: function(data) {
+      on_finish: (data) => {
         const response = JSON.parse(data.responses);
         let choiceId;
-        props.allChoices.filter(currentChoice => {
+        props.allChoices.forEach(currentChoice => {
           if (currentChoice.displayText === response.answer) {
             choiceId = currentChoice.id;
           }
