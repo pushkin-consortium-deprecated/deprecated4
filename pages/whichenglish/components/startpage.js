@@ -5,8 +5,9 @@ import { connect } from 'react-redux';
 import Intro from './content/intro';
 import { Scripts } from './scripts';
 import { submitUserInfo } from '../../../actions/userinfo';
-import { Line } from 'rc-progress';
+import { Line, Circle } from 'rc-progress';
 import Globe from './globe';
+import Progress from './progress';
 import MultiChoice from './content/multichoice';
 import MultiPicture from './content/multipicture';
 import MultiSelect from './content/multiselect';
@@ -52,21 +53,6 @@ class StartPage extends React.Component {
     }
     return null;
   }
-  handleProgressBar() {
-    if (this.props.nextpage.page > 2) {
-      return (
-        <div style={{ marginTop: 10 }}>
-          <label> Progress: {this.props.nextpage.precent} / 38 </label>
-          <Line
-            percent={this.props.nextpage.precent}
-            strokeWidth="4"
-            strokeColor="#68C8F5"
-          />
-        </div>
-      );
-    }
-    return null;
-  }
   dispatchNextPage = () => {
     const props = this.props;
     props.dispatch(
@@ -82,7 +68,7 @@ class StartPage extends React.Component {
   };
   dispatchProgress = () => {
     const props = this.props;
-    props.dispatch(progressPrecent(parseInt(props.nextpage.precent, 10) + 1));
+    props.dispatch(progressPrecent((parseFloat(props.nextpage.precent) + 2.63).toFixed(2)));
   };
   addCompleteQuestion = response => {
     const props = this.props;
@@ -135,7 +121,6 @@ class StartPage extends React.Component {
                   progress={this.dispatchProgress}
                   userId={this.props.userInfo.id}
                 />
-                {this.handleProgressBar()}
               </div>
             );
           }
@@ -153,7 +138,6 @@ class StartPage extends React.Component {
                     progress={this.dispatchProgress}
                     userId={this.props.userInfo.id}
                 />
-                {this.handleProgressBar()}
               </div>
             );
           }
@@ -171,7 +155,6 @@ class StartPage extends React.Component {
                       progress={this.dispatchProgress}
                       userId={this.props.userInfo.id}
                 />
-                {this.handleProgressBar()}
               </div>
             );
           }
@@ -193,7 +176,6 @@ class StartPage extends React.Component {
         >
           {buttonText}
         </button>
-        {this.handleProgressBar()}
       </div>
     );
   }
@@ -201,6 +183,11 @@ class StartPage extends React.Component {
     if (this.props.nextpage.page < 3) {
       const logo = require('../../../public/img/globe.jpg');
       return <Globe logo={logo} content={Scripts[0]} />;
+    }
+    if (this.props.questionque.current) {
+      return (
+        <Progress precent={this.props.nextpage.precent} />
+      );
     }
     return null;
   }
@@ -210,7 +197,7 @@ class StartPage extends React.Component {
     }
     const logo = require('../../../public/img/globe.jpg');
     return (
-      <div className="container">
+      <div style={{ marginTop: 30 }}className="container">
         <div className="row">
           <div className="col-xs-8">
             <h5 style={{ marginTop: 20 }}>Which English?</h5>
