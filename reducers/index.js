@@ -4,6 +4,7 @@ import userInfo from './userinfo';
 import nextpage from './nextpage';
 import questionque from './questionque';
 import error from './error';
+import { reducer as formReducer } from 'redux-form';
 
 
 export const rootReducer = combineReducers({
@@ -12,4 +13,5 @@ export const rootReducer = combineReducers({
   userInfo,
   error,
   routing: routerReducer,
+  form: formReducer,
 });

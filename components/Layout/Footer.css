@@ -7,12 +7,10 @@
 	text-align: center;
 }
 
-.sticky {
+.footer {
   margin: 0px;
   padding: 0px;
   background-color: #0B6075;
-  position: fixed;
-  bottom: 0px;
   width: 100%;
   /* Set the fixed height of the footer here */
   height: 110px;
