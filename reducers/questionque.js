@@ -19,7 +19,6 @@ export default function nextQuestion(state = {
       };
     }
     case 'BUILD_INITIAL': {
-      debugger;
       return {
         ...state,
         current: action.list[0],

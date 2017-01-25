@@ -29,6 +29,7 @@
     "react-social-icons": "*",
     "react-tap-event-plugin": "*",
     "redux": "^3.5.2",
+    "redux-form": "^6.4.3",
     "redux-logger": "^2.7.4",
     "redux-thunk": "^2.1.0",
     "whatwg-fetch": "^1.0.0"
