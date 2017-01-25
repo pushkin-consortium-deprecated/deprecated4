@@ -6,7 +6,7 @@ import questionque from './questionque';
 import error from './error';
 
 const SAVE_ANSWERS = 'SAVE_ANSWERS';
-function saveAnswers(state = { saveAnswers: false, responses: [] }, action) {
+function saveAnswers(state = { saveAnswers: false }, action) {
   switch (action.type) {
     case SAVE_ANSWERS: {
       return {

@@ -25,7 +25,9 @@ class StartPage extends React.Component {
     this.state = {};
   }
   componentWillMount() {
-    this.props.dispatch(saveAnswers());
+    // uncomment line 30 to save answers
+    // you can find your answers saved under state.questionque -> answers
+    //this.props.dispatch(saveAnswers());
     this.props.dispatch(questionList());
   }
   dispatchUserInfo(state) {
@@ -186,12 +188,14 @@ class StartPage extends React.Component {
       const logo = require('../../../public/img/globe.jpg');
       return <Globe logo={logo} content={Scripts[0]} />;
     }
-    if (this.props.questionque.current) {
-      return (
-        <Progress precent={this.props.nextpage.precent} />
-      );
-    }
     return null;
+  }
+  handleProgressBar() {
+    if(this.props.questionque.current && this.props.nextpage.page >=3 ) {
+      return (
+        <Progress strokeWidth="1" precent={this.props.nextpage.precent} />
+      )
+    }
   }
   render() {
     if (this.props.questionque.isFetching) {
@@ -204,6 +208,7 @@ class StartPage extends React.Component {
           <div className="col-xs-8">
             <h5 style={{ marginTop: 20 }}>Which English?</h5>
             {this.handleTextChange()}
+            {this.handleProgressBar()}
           </div>
           {this.handleLogo()}
         </div>
