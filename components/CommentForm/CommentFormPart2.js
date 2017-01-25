@@ -51,7 +51,7 @@ export class CommentFormPart2 extends Component {
             <label htmlFor="householdEnglish">
               Does anyone in your home (spouse, child, etc?) speak mostly English?
               <Field
-                name="houseHoldEnglish"
+                name="householdEnglish"
                 component={householdEnglish =>
                   <select
                     type="text"

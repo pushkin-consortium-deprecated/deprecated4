@@ -37,8 +37,6 @@ class CommentFormPart3 extends Component {
                     {...countryOfResidence.input}
                     options={COUNTRIES.filter(lang => countryOfResidence.input.value.indexOf(lang) < 0)}
                   />
-                  {JSON.stringify(countryOfResidence.meta)}
-                  {JSON.stringify(countryOfResidence.input.value)}
                   {countryOfResidence.meta.touched && countryOfResidence.meta.error ? <span className={s.validationMessage}>{countryOfResidence.meta.error}</span> : null}
                 </div>
               }
