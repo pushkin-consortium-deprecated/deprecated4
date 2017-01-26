@@ -1,9 +1,9 @@
 /* eslint-disable max-len */
+/* eslint-disable camelcase */
 
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
 
-class MultiPicture extends React.Component {
+export default class MultiPicture extends React.Component {
   componentDidMount() {
     const props = this.props;
     const page_1_questions = [this.props.question];
@@ -13,14 +13,15 @@ class MultiPicture extends React.Component {
       questions: [page_1_questions],
       options: [page_1_options],
       required: [true, false],
+      horizontal: true,
       on_finish: function(data) {
         const response = JSON.parse(data.responses);
         let choiceId;
         props.choices.filter(currentChoice => {
-          if(currentChoice.url === response.answer){
+          if (currentChoice.url === response.answer) {
             choiceId = currentChoice.choiceId;
           }
-        })
+        });
         const formatResponse = {
           choiceId: choiceId,
           questionId: props.questionId,
@@ -28,7 +29,13 @@ class MultiPicture extends React.Component {
             id: props.userId,
           },
         };
-        props.nextQuestion(formatResponse);
+        const answerObj = {
+          questionId: props.questionId,
+          questionText: props.question,
+          answer: response.answer,
+          choiceId: choiceId,
+        };
+        props.nextQuestion(formatResponse, answerObj);
       },
     };
     jsPsych.init({
@@ -48,14 +55,15 @@ class MultiPicture extends React.Component {
       questions: [page_1_questions],
       options: [page_1_options],
       required: [true, false],
+      horizontal: true,
       on_finish: function(data) {
         const response = JSON.parse(data.responses);
         let choiceId;
         props.choices.filter(currentChoice => {
-          if(currentChoice.url === response.answer){
+          if (currentChoice.url === response.answer) {
             choiceId = currentChoice.choiceId;
           }
-        })
+        });
         const formatResponse = {
           choiceId: choiceId,
           questionId: props.questionId,
@@ -63,7 +71,13 @@ class MultiPicture extends React.Component {
             id: props.userId,
           },
         };
-        props.nextQuestion(formatResponse);
+        const answerObj = {
+          questionId: props.questionId,
+          questionText: props.question,
+          answer: response.answer,
+          choiceId: choiceId,
+        };
+        props.nextQuestion(formatResponse, answerObj);
       },
     };
     jsPsych.init({
@@ -75,12 +89,9 @@ class MultiPicture extends React.Component {
     });
   }
   render() {
-    console.log("this.props multipicture", this.props)
     return (
       <div ref="main">
       </div>
     );
   }
 }
-
-export default(connect(state => state))(MultiPicture);

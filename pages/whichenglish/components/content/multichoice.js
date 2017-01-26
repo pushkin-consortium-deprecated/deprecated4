@@ -1,42 +1,13 @@
 /* eslint-disable max-len */
+/* eslint-disable camelcase */
 
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
 
-class MultiChoice extends React.Component {
-  componentDidUpdate() {
-    const props = this.props;
-    const page_1_questions = [this.props.question];
-    const page_1_options = ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"];
-    const multi_choice_block = {
-      type: 'survey-multi-choice',
-      questions: page_1_questions,
-      options: [page_1_options],
-      required: [true, false],
-      on_finish: function(data) {
-        const response = JSON.parse(data.responses);
-        props.dispatch(userResponse({
-          question: props.question,
-          answer: response.answer,
-          time_elapsed: data.time_elapsed,
-          trial_type: data.trial_type,
-        }));
-      },
-    };
-    jsPsych.init({
-      display_element: this.refs.main,
-      timeline: [multi_choice_block],
-      on_finish: function() {
-        props.dispatch(received());
-        props.nextQuestion();
-        props.progress();
-      },
-    });
-  }
+export default class MultiChoice extends React.Component {
   componentDidMount() {
     const props = this.props;
     const page_1_questions = [this.props.question];
-    const page_1_options = ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"];
+    const page_1_options = this.props.choices;
     const multi_choice_block = {
       type: 'survey-multi-choice',
       questions: page_1_questions,
@@ -44,24 +15,77 @@ class MultiChoice extends React.Component {
       required: [true, false],
       on_finish: function(data) {
         const response = JSON.parse(data.responses);
-        props.dispatch(userResponse({
-          question: props.question,
+        let choiceId;
+        props.allChoices.filter(currentChoice => {
+          if (currentChoice.displayText === response.answer) {
+            choiceId = currentChoice.id;
+          }
+        });
+        const formatResponse = {
+          choiceId: choiceId,
+          questionId: props.questionId,
+          user: {
+            id: props.userId,
+          },
+        };
+        const answerObj = {
+          questionId: props.questionId,
+          questionText: props.question,
           answer: response.answer,
-          time_elapsed: data.time_elapsed,
-          trial_type: data.trial_type,
-        }));
+          choiceId: choiceId,
+        };
+        props.nextQuestion(formatResponse, answerObj);
       },
     };
     jsPsych.init({
       display_element: this.refs.main,
       timeline: [multi_choice_block],
       on_finish: function() {
-        props.nextQuestion();
         props.progress();
       },
     });
   }
-
+  componentDidUpdate() {
+    const props = this.props;
+    const page_1_questions = [this.props.question];
+    const page_1_options = this.props.choices;
+    const multi_choice_block = {
+      type: 'survey-multi-choice',
+      questions: page_1_questions,
+      options: [page_1_options],
+      required: [true, false],
+      on_finish: function(data) {
+        const response = JSON.parse(data.responses);
+        let choiceId;
+        props.allChoices.filter(currentChoice => {
+          if (currentChoice.displayText === response.answer) {
+            choiceId = currentChoice.id;
+          }
+        });
+        const formatResponse = {
+          choiceId: choiceId,
+          questionId: props.questionId,
+          user: {
+            id: props.userId,
+          },
+        };
+        const answerObj = {
+          questionId: props.questionId,
+          questionText: props.question,
+          answer: response.answer,
+          choiceId: choiceId,
+        };
+        props.nextQuestion(formatResponse, answerObj);
+      },
+    };
+    jsPsych.init({
+      display_element: this.refs.main,
+      timeline: [multi_choice_block],
+      on_finish: function() {
+        props.progress();
+      },
+    });
+  }
   render() {
     return (
       <div ref="main">
@@ -69,5 +93,3 @@ class MultiChoice extends React.Component {
     );
   }
 }
-
-export default(connect(state => state))(MultiChoice);

@@ -4,9 +4,10 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Intro from './content/intro';
 import { Scripts } from './scripts';
-import { userInfo } from '../../../actions/userInfo';
-import { Line } from 'rc-progress';
+import { submitUserInfo } from '../../../actions/userinfo';
+import { Line, Circle } from 'rc-progress';
 import Globe from './globe';
+import Progress from './progress';
 import MultiChoice from './content/multichoice';
 import MultiPicture from './content/multipicture';
 import MultiSelect from './content/multiselect';
@@ -16,6 +17,7 @@ import LastPage from './content/lastPage';
 import { nextPage, progressPrecent } from '../../../actions/nextpage';
 import { postAnswerGetQuestion } from '../../../actions/questionque';
 import { questionList } from '../../../actions/questionlist';
+import { saveAnswers } from '../../../actions/saveanswers';
 
 class StartPage extends React.Component {
   constructor(props) {
@@ -23,10 +25,13 @@ class StartPage extends React.Component {
     this.state = {};
   }
   componentWillMount() {
+    // uncomment line 30 to save answers
+    // you can find your answers saved under state.questionque -> answers
+    //this.props.dispatch(saveAnswers());
     this.props.dispatch(questionList());
   }
   dispatchUserInfo(state) {
-    this.props.dispatch(userInfo(state));
+    this.props.dispatch(submitUserInfo(state));
   }
   handleStateChange = (key, value) => {
     const state = this.state;
@@ -52,21 +57,6 @@ class StartPage extends React.Component {
     }
     return null;
   }
-  handleProgressBar() {
-    if (this.props.nextpage.page > 2) {
-      return (
-        <div style={{ marginTop: 10 }}>
-          <label> Progress: {this.props.nextpage.precent} / 38 </label>
-          <Line
-            percent={this.props.nextpage.precent}
-            strokeWidth="4"
-            strokeColor="#68C8F5"
-          />
-        </div>
-      );
-    }
-    return null;
-  }
   dispatchNextPage = () => {
     const props = this.props;
     props.dispatch(
@@ -75,28 +65,22 @@ class StartPage extends React.Component {
         content: Scripts[parseInt(this.props.nextpage.page, 10) + 1]
       })
     );
-    this.dispatchUserInfo(this.state);
+    if(this.state.age && this.state.education && this.state.gender && this.state.languageDisorder && this.state.takenBefore) {
+      this.dispatchUserInfo(this.state);
+    }
     this.dispatchProgress();
   };
   dispatchProgress = () => {
     const props = this.props;
-    props.dispatch(progressPrecent(parseInt(props.nextpage.precent, 10) + 1));
+    props.dispatch(progressPrecent((parseFloat(props.nextpage.precent) + 2.63).toFixed(2)));
   };
-  // fetchNextQustion = () => {
-  //   const props = this.props;
-  //   const index = props.questionlist.data.indexOf(props.current);
-  //   props.dispatch(nextQuestion(props.questionlist.data[index + 1]));
-  // }
   addCompleteQuestion = response => {
     const props = this.props;
     props.dispatch(completeQuestion(response));
   };
-  handlePictureChoices() {
-    //TODO need to move this to switch statement in handle text change
-    //TODO no check is needed
-    if (this.props.questionque.current) {
-      const choices = this.props.questionque.current.choices;
-      return choices.map(currentChoice => {
+  handlePictureChoices(currentQuestion) {
+    if(currentQuestion.type === "survey-multi-picture") {
+      return currentQuestion.choices.map(currentChoice => {
         return {
           url: currentChoice.imageUrl,
           label: currentChoice.displayText,
@@ -104,14 +88,15 @@ class StartPage extends React.Component {
         };
       });
     }
-    return null;
+    return currentQuestion.choices.map(currentChoice => {
+      return currentChoice.displayText;
+    })
   }
-  fetchNextQuestion = response => {
+  fetchNextQuestion = (response, answer) => {
     const props = this.props;
-    props.dispatch(postAnswerGetQuestion(response));
+    props.dispatch(postAnswerGetQuestion(response, answer));
   };
   handleTextChange() {
-    const choices = this.handlePictureChoices();
     let buttonText;
     if (this.props.nextpage.page === 2) {
       buttonText = 'Start Quiz';
@@ -119,57 +104,66 @@ class StartPage extends React.Component {
       buttonText = 'Next';
     }
     if (this.props.nextpage.page === 6) {
-      if (!this.props.questionque.current) {
-        return <ResultsContainer />
-      }
       if (this.props.questionque.isFetching) {
         return <h3>Loading ... </h3>;
       }
-      // return (
-      //   <div>
-      //     <MultiChoice
-              // question={this.props.questionque.current.prompt}
-              // choices={choices}
-              // questionId={this.props.questionque.current.choices[0].questionId}
-              // trialId={this.props.questionque.current.trialId}
-              // nextQuestion={this.fetchNextQuestion}
-              // completeQuestion={this.addCompleteQuestion}
-              // progress={this.dispatchProgress}
-              // userId={this.props.userid.id}
-      //     />
-      //     {this.handleProgressBar()}
-      //   </div>
-      // );
-      return (
-        <div>
-          <MultiPicture
-            question={this.props.questionque.current.prompt}
-            choices={choices}
-            questionId={this.props.questionque.current.choices[0].questionId}
-            trialId={this.props.questionque.current.trialId}
-            nextQuestion={this.fetchNextQuestion}
-            completeQuestion={this.addCompleteQuestion}
-            progress={this.dispatchProgress}
-            userId={this.props.userInfo.id}
-          />
-          {this.handleProgressBar()}
-        </div>
-      );
-      // return (
-      //   <div>
-      //     <MultiSelect
-                // question={this.props.questionque.current.prompt}
-                // choices={choices}
-                // questionId={this.props.questionque.current.choices[0].questionId}
-                // trialId={this.props.questionque.current.trialId}
-                // nextQuestion={this.fetchNextQuestion}
-                // completeQuestion={this.addCompleteQuestion}
-                // progress={this.dispatchProgress}
-                // userId={this.props.userid.id}
-      //     />
-      //     {this.handleProgressBar()}
-      //   </div>
-      // );
+      if (!this.props.questionque.current) {
+        return <ResultsContainer />
+      } else {
+        const choices = this.handlePictureChoices(this.props.questionque.current);
+        switch (this.props.questionque.current.type) {
+          case "survey-multi-picture" : {
+            return (
+              <div>
+                <MultiPicture
+                  question={this.props.questionque.current.prompt}
+                  choices={choices}
+                  questionId={this.props.questionque.current.choices[0].questionId}
+                  trialId={this.props.questionque.current.trialId}
+                  nextQuestion={this.fetchNextQuestion}
+                  completeQuestion={this.addCompleteQuestion}
+                  progress={this.dispatchProgress}
+                  userId={this.props.userInfo.id}
+                />
+              </div>
+            );
+          }
+          case "survey-multi-choice" : {
+            return (
+              <div>
+                <MultiChoice
+                    question={this.props.questionque.current.prompt}
+                    choices={choices}
+                    allChoices = {this.props.questionque.current.choices}
+                    questionId={this.props.questionque.current.choices[0].questionId}
+                    trialId={this.props.questionque.current.trialId}
+                    nextQuestion={this.fetchNextQuestion}
+                    completeQuestion={this.addCompleteQuestion}
+                    progress={this.dispatchProgress}
+                    userId={this.props.userInfo.id}
+                />
+              </div>
+            );
+          }
+          case "survey-multi-select" : {
+            return (
+              <div>
+                <MultiSelect
+                      question={this.props.questionque.current.prompt}
+                      choices={choices}
+                      allChoices={this.props.questionque.current.choices}
+                      questionId={this.props.questionque.current.choices[0].questionId}
+                      trialId={this.props.questionque.current.trialId}
+                      nextQuestion={this.fetchNextQuestion}
+                      completeQuestion={this.addCompleteQuestion}
+                      progress={this.dispatchProgress}
+                      userId={this.props.userInfo.id}
+                />
+              </div>
+            );
+          }
+        }
+      }
     }
     return (
       <div>
@@ -186,28 +180,40 @@ class StartPage extends React.Component {
         >
           {buttonText}
         </button>
-        {this.handleProgressBar()}
       </div>
     );
   }
   handleLogo() {
-    if (this.props.nextpage.page !== 5) {
+    if (this.props.nextpage.page < 3) {
       const logo = require('../../../public/img/globe.jpg');
       return <Globe logo={logo} content={Scripts[0]} />;
     }
+    if(this.props.questionque.current) {
+      if (this.props.questionque.current.type === 'survey-multi-choice' || this.props.questionque.current.type === 'survey-multi-select') {
+        return <Globe logo={this.props.questionque.current.choices[0].imageUrl} content={null} />;
+      }
+    }
     return null;
   }
+  handleProgressBar() {
+    if(this.props.questionque.current && this.props.nextpage.page >=3 ) {
+      return (
+        <Progress strokeWidth="1" precent={this.props.nextpage.precent} />
+      )
+    }
+  }
   render() {
-    if (this.props.questionlist.isFetching) {
+    if (this.props.questionque.isFetching) {
       return <h3> loading ... </h3>;
     }
     const logo = require('../../../public/img/globe.jpg');
     return (
-      <div className="container">
+      <div style={{ marginTop: 30 }}className="container">
         <div className="row">
           <div className="col-xs-8">
             <h5 style={{ marginTop: 20 }}>Which English?</h5>
             {this.handleTextChange()}
+            {this.handleProgressBar()}
           </div>
           {this.handleLogo()}
         </div>

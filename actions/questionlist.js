@@ -1,19 +1,10 @@
 import local from './axiosConfigInitial';
-
-import { currentQuestion, nextQuestion } from './questionque';
 import { error } from './error';
 
-export const QUESTION_LIST = 'QUESTION_LIST';
-export const ADD_QUESTION_TO_LIST = 'ADD_QUESTION_TO_LIST';
 export const USER_ID = 'USER_ID';
 export const FETCHING_LIST = 'FETCHING_LIST';
+export const BUILD_INITIAL = 'BUILD_INITIAL';
 
-function sendQuestion(data) {
-  return {
-    type: QUESTION_LIST,
-    data,
-  };
-}
 function sendUserId(id) {
   return {
     type: USER_ID,
@@ -27,7 +18,7 @@ function fetchingList() {
 }
 function buildInitial(list) {
   return {
-    type: 'BUILD_INITIAL',
+    type: BUILD_INITIAL,
     list,
   }
 }
@@ -39,9 +30,6 @@ export function questionList() {
       if (resp.error) {
         return dispatch(error(resp.error));
       }
-      resp.data.questions.map(cq => {
-        return dispatch(sendQuestion(cq));
-      });
       dispatch(buildInitial(resp.data.questions));
       return resp.data;
     })
