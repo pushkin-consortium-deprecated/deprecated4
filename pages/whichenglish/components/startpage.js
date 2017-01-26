@@ -188,6 +188,11 @@ class StartPage extends React.Component {
       const logo = require('../../../public/img/globe.jpg');
       return <Globe logo={logo} content={Scripts[0]} />;
     }
+    if(this.props.questionque.current) {
+      if (this.props.questionque.current.type === 'survey-multi-choice' || this.props.questionque.current.type === 'survey-multi-select') {
+        return <Globe logo={this.props.questionque.current.choices[0].imageUrl} content={null} />;
+      }
+    }
     return null;
   }
   handleProgressBar() {
