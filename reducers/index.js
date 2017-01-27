@@ -4,6 +4,7 @@ import userInfo from './userinfo';
 import nextpage from './nextpage';
 import questionque from './questionque';
 import error from './error';
+import { reducer as formReducer } from 'redux-form';
 
 const SAVE_ANSWERS = 'SAVE_ANSWERS';
 function saveAnswers(state = { saveAnswers: false }, action) {
@@ -24,4 +25,5 @@ export const rootReducer = combineReducers({
   userInfo,
   error,
   routing: routerReducer,
+  form: formReducer,
 });

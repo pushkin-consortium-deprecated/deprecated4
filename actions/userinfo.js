@@ -39,23 +39,6 @@ function submitCommentsBegin() {
 function submitCommentsSuccess(data) {
   return { type: SUBMIT_COMMENTS_SUCCESS, data };
 }
-export function submitPart2(answers) {
-  return (dispatch, getState) => {
-    const state = getState();
-    const userId = state.userInfo.id;
-    const payload = { ...answers, id: userId };
-    dispatch(submitCommentsBegin());
-    local
-      .put(`/users/${userId}`, payload, {
-        headers: { 'Content-Type': 'application/json' }
-      })
-      .then(resp => resp.data)
-      .then(data => {
-          return dispatch(submitCommentsSuccess(data))
-      });
-  }
-}
-
 export function submitComments(comments) {
   return (dispatch, getState) => {
     const state = getState();
@@ -65,9 +48,7 @@ export function submitComments(comments) {
       if (comments.nativeLanguages) {
         payload = {
           userId,
-          nativeLanguages: comments.nativeLanguages,
-          primaryLanguages: comments.primaryLanguages,
-          learnEnglishAge: comments.learnEnglishAge
+          ...comments,
         };
       }
 

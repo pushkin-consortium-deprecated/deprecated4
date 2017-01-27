@@ -94,7 +94,11 @@ class StartPage extends React.Component {
   }
   fetchNextQuestion = (response, answer) => {
     const props = this.props;
-    props.dispatch(postAnswerGetQuestion(response, answer));
+    if (!response.choiceId) {
+      console.log(response, 'had no choice id');
+    } else {
+      props.dispatch(postAnswerGetQuestion(response));
+    }
   };
   handleTextChange() {
     let buttonText;
