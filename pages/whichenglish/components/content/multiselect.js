@@ -27,7 +27,13 @@ export default class MultiSelect extends React.Component {
             id: props.userId,
           },
         };
-        props.nextQuestion(formatResponse);
+        const answerObj = {
+          questionId: props.questionId,
+          questionText: props.question,
+          answer: response.answer,
+          choiceId: choiceIds,
+        };
+        props.nextQuestion(formatResponse, answerObj)
       },
     };
     jsPsych.init({
@@ -60,7 +66,13 @@ export default class MultiSelect extends React.Component {
             id: props.userId,
           },
         };
-        props.nextQuestion(formatResponse);
+        const answerObj = {
+          questionId: props.questionId,
+          questionText: props.question,
+          answer: response.answer,
+          choiceId: choiceIds,
+        };
+        props.nextQuestion(formatResponse, answerObj)
       },
     };
     jsPsych.init({

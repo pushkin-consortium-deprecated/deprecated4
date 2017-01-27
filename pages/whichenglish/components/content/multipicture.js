@@ -29,7 +29,13 @@ export default class MultiPicture extends React.Component {
             id: props.userId,
           },
         };
-        props.nextQuestion(formatResponse);
+        const answerObj = {
+          questionId: props.questionId,
+          questionText: props.question,
+          answer: response.answer,
+          choiceId: choiceId,
+        };
+        props.nextQuestion(formatResponse, answerObj);
       },
     };
     jsPsych.init({
@@ -65,7 +71,13 @@ export default class MultiPicture extends React.Component {
             id: props.userId,
           },
         };
-        props.nextQuestion(formatResponse);
+        const answerObj = {
+          questionId: props.questionId,
+          questionText: props.question,
+          answer: response.answer,
+          choiceId: choiceId,
+        };
+        props.nextQuestion(formatResponse, answerObj);
       },
     };
     jsPsych.init({

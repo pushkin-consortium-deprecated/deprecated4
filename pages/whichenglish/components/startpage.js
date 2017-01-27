@@ -5,8 +5,9 @@ import { connect } from 'react-redux';
 import Intro from './content/intro';
 import { Scripts } from './scripts';
 import { submitUserInfo } from '../../../actions/userinfo';
-import { Line } from 'rc-progress';
+import { Line, Circle } from 'rc-progress';
 import Globe from './globe';
+import Progress from './progress';
 import MultiChoice from './content/multichoice';
 import MultiPicture from './content/multipicture';
 import MultiSelect from './content/multiselect';
@@ -16,6 +17,7 @@ import LastPage from './content/lastPage';
 import { nextPage, progressPrecent } from '../../../actions/nextpage';
 import { postAnswerGetQuestion } from '../../../actions/questionque';
 import { questionList } from '../../../actions/questionlist';
+import { saveAnswers } from '../../../actions/saveanswers';
 
 class StartPage extends React.Component {
   constructor(props) {
@@ -23,6 +25,9 @@ class StartPage extends React.Component {
     this.state = {};
   }
   componentWillMount() {
+    // uncomment line 30 to save answers
+    // you can find your answers saved under state.questionque -> answers
+    //this.props.dispatch(saveAnswers());
     this.props.dispatch(questionList());
   }
   dispatchUserInfo(state) {
@@ -52,21 +57,6 @@ class StartPage extends React.Component {
     }
     return null;
   }
-  handleProgressBar() {
-    if (this.props.nextpage.page > 2) {
-      return (
-        <div style={{ marginTop: 10 }}>
-          <label> Progress: {this.props.nextpage.precent} / 38 </label>
-          <Line
-            percent={this.props.nextpage.precent}
-            strokeWidth="4"
-            strokeColor="#68C8F5"
-          />
-        </div>
-      );
-    }
-    return null;
-  }
   dispatchNextPage = () => {
     const props = this.props;
     props.dispatch(
@@ -82,7 +72,7 @@ class StartPage extends React.Component {
   };
   dispatchProgress = () => {
     const props = this.props;
-    props.dispatch(progressPrecent(parseInt(props.nextpage.precent, 10) + 1));
+    props.dispatch(progressPrecent((parseFloat(props.nextpage.precent) + 2.63).toFixed(2)));
   };
   addCompleteQuestion = response => {
     const props = this.props;
@@ -102,10 +92,10 @@ class StartPage extends React.Component {
       return currentChoice.displayText;
     })
   }
-  fetchNextQuestion = response => {
+  fetchNextQuestion = (response, answer) => {
     const props = this.props;
-    if(!response.choiceId){
-      console.log(response, 'had no choice id')
+    if (!response.choiceId) {
+      console.log(response, 'had no choice id');
     } else {
       props.dispatch(postAnswerGetQuestion(response));
     }
@@ -139,7 +129,6 @@ class StartPage extends React.Component {
                   progress={this.dispatchProgress}
                   userId={this.props.userInfo.id}
                 />
-                {this.handleProgressBar()}
               </div>
             );
           }
@@ -157,7 +146,6 @@ class StartPage extends React.Component {
                     progress={this.dispatchProgress}
                     userId={this.props.userInfo.id}
                 />
-                {this.handleProgressBar()}
               </div>
             );
           }
@@ -175,7 +163,6 @@ class StartPage extends React.Component {
                       progress={this.dispatchProgress}
                       userId={this.props.userInfo.id}
                 />
-                {this.handleProgressBar()}
               </div>
             );
           }
@@ -197,7 +184,6 @@ class StartPage extends React.Component {
         >
           {buttonText}
         </button>
-        {this.handleProgressBar()}
       </div>
     );
   }
@@ -206,7 +192,19 @@ class StartPage extends React.Component {
       const logo = require('../../../public/img/globe.jpg');
       return <Globe logo={logo} content={Scripts[0]} />;
     }
+    if(this.props.questionque.current) {
+      if (this.props.questionque.current.type === 'survey-multi-choice' || this.props.questionque.current.type === 'survey-multi-select') {
+        return <Globe logo={this.props.questionque.current.choices[0].imageUrl} content={null} />;
+      }
+    }
     return null;
+  }
+  handleProgressBar() {
+    if(this.props.questionque.current && this.props.nextpage.page >=3 ) {
+      return (
+        <Progress strokeWidth="1" precent={this.props.nextpage.precent} />
+      )
+    }
   }
   render() {
     if (this.props.questionque.isFetching) {
@@ -214,11 +212,12 @@ class StartPage extends React.Component {
     }
     const logo = require('../../../public/img/globe.jpg');
     return (
-      <div className="container">
+      <div style={{ marginTop: 30 }}className="container">
         <div className="row">
           <div className="col-xs-8">
             <h5 style={{ marginTop: 20 }}>Which English?</h5>
             {this.handleTextChange()}
+            {this.handleProgressBar()}
           </div>
           {this.handleLogo()}
         </div>
