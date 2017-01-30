@@ -62,67 +62,67 @@ class Header extends React.Component {
       return (
         <header>
           <Link to="/paths"><div className={s.landing} style={{background: 'url(/../../img/logo_button-min.png) no-repeat center center', '-webkit-background-size': 'cover', '-moz-background-size': 'cover', '-o-background-size': 'cover', backgroundSize: 'cover', width: '100%', height: '80vh'}}></div></Link>
-        <b.Image style={{display: 'none'}} src="/../../favicon.ico" onLoad={this.props.onLoad} onError={this.props.onError} />
+        <b.Image style={{display: 'none'}} src="/../../favicon.ico"  />
         </header>
       );
     }
     else if (this.state.mobile && !this.home()) {
       return (
-        <header style={window.innerWidth < 278 ? {minHeight: '105px'} : null} id="header" ref={node => (this.root = node)} className={s.gray} >
-          <b.Navbar.Brand>
-            <b.Image src="/../../img/gww_logo.png" onLoad={this.props.onLoad} onError={this.props.onError} responsive style={{padding: '3px', marginTop: '2px'}}/>
-          </b.Navbar.Brand>
-          <b.Nav pullRight bsStyle="pills" activeKey={this.getLocation()}>
-            <b.NavDropdown active pullRight title="Menu" style={{padding: '3px', marginTop: '2px'}} id="bg-nested-dropdown">
-              <LinkContainer to="/paths">
-                <b.MenuItem eventKey={'paths'}>
+        <header className={s.header} id="header" ref={node => (this.root = node)} >
+          <b.Image src="/../../img/gww_logo.png" className={s.logo}/>
+          <div className={s.navWrapper}>
+            <b.Nav bsStyle="pills" activeKey={this.getLocation()}>
+              <b.NavDropdown active title="Menu" style={{padding: '3px', marginTop: '2px'}} id="bg-nested-dropdown">
+                <LinkContainer to="/paths">
+                  <b.MenuItem eventKey={'paths'}>
+                    <font className={s.navLinks}>
+                        Paths
+                    </font>
+                  </b.MenuItem>
+                </LinkContainer>
+                <LinkContainer to="/projects">
+                  <b.MenuItem eventKey={'projects'}>
+                    <font className={s.navLinks}>
+                        Projects
+                    </font>
+                  </b.MenuItem>
+                </LinkContainer>
+                <LinkContainer to="/quizzes">
+                  <b.MenuItem eventKey={'quizzes'}>
+                    <font className={s.navLinks}>
+                        Quizzes
+                    </font>
+                  </b.MenuItem>
+                </LinkContainer>
+                <LinkContainer to="/findings">
+                  <b.MenuItem eventKey={'findings'}>
+                    <font className={s.navLinks}>
+                        Findings
+                    </font>
+                  </b.MenuItem>
+                </LinkContainer>
+                <LinkContainer to="/about">
+                  <b.MenuItem eventKey={'about'} href="/about">
+                    <font className={s.navLinks}>
+                        About
+                    </font>
+                  </b.MenuItem>
+                </LinkContainer>
+                <b.MenuItem eventKey={'blog'} href="https://blog.gameswithwords.org/">
                   <font className={s.navLinks}>
-                      Paths
+                    Blog
                   </font>
                 </b.MenuItem>
-              </LinkContainer>
-              <LinkContainer to="/projects">
-                <b.MenuItem eventKey={'projects'}>
-                  <font className={s.navLinks}>
-                      Projects
-                  </font>
-                </b.MenuItem>
-              </LinkContainer>
-              <LinkContainer to="/quizzes">
-                <b.MenuItem eventKey={'quizzes'}>
-                  <font className={s.navLinks}>
-                      Quizzes
-                  </font>
-                </b.MenuItem>
-              </LinkContainer>
-              <LinkContainer to="/findings">
-                <b.MenuItem eventKey={'findings'}>
-                  <font className={s.navLinks}>
-                      Findings
-                  </font>
-                </b.MenuItem>
-              </LinkContainer>
-              <LinkContainer to="/about">
-                <b.MenuItem eventKey={'about'} href="/about">
-                  <font className={s.navLinks}>
-                      About
-                  </font>
-                </b.MenuItem>
-              </LinkContainer>
-              <b.MenuItem eventKey={'blog'} href="https://blog.gameswithwords.org/">
-                <font className={s.navLinks}>
-                  Blog
-                </font>
-              </b.MenuItem>
-            </b.NavDropdown>
-          </b.Nav>
+              </b.NavDropdown>
+            </b.Nav>
+          </div>
         </header>
       );
     }
     else {
       return (
-        <header ref={node => (this.root = node)}>
-          {this.home() ? <b.Image src="/../../img/logo_square-min.png" onLoad={this.props.onLoad} onError={this.props.onError} responsive /> : <b.Image src="/../../img/gww_nav_gray-min.png" onLoad={this.props.onLoad} onError={this.props.onError} responsive />}
+        <header className={s.header} ref={node => (this.root = node)}>
+          {this.home() ? <b.Image src="/../../img/logo_square-min.png"  responsive /> : <b.Image src="/../../img/gww_logo.png" className={s.logo} />}
           <b.Nav style={{margin: '0px', fontFamily: '\'Ribeye Marrow\', cursive', fontSize: '20px', backgroundColor: '#a9a9a9'}} bsStyle="tabs" justified activeKey={this.getLocation()}>
               <LinkContainer to="/paths">
             <b.NavItem eventKey={'paths'}>

@@ -25,6 +25,15 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto+Slab");
 @import url("https://fonts.googleapis.com/css?family=News+Cycle|Ribeye+Marrow|Antic+Slab");
 
+@media all and (max-width: 1024px) {
+	.column {
+		margin-top: 35px;
+	}
+}
+
+.border {
+	border-right: dashed #a9a9a9;
+}
 .tan {
 	background-color: #ebebe1;
 	border-width: 0px;

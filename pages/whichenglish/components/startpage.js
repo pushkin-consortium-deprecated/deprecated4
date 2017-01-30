@@ -212,10 +212,10 @@ class StartPage extends React.Component {
     }
     const logo = require('../../../public/img/globe.jpg');
     return (
-      <div style={{ marginTop: 30 }}className="container">
+      <div className="container">
         <div className="row">
           <div className="col-xs-8">
-            <h5 style={{ marginTop: 20 }}>Which English?</h5>
+            <h5 >Which English?</h5>
             {this.handleTextChange()}
             {this.handleProgressBar()}
           </div>

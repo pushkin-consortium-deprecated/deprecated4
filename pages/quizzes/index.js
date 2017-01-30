@@ -51,7 +51,7 @@ class HomePage extends React.Component {
       return (
         <div>
           <b.Image style={{ display: 'none' }} src="/../../img/favicon.ico" />
-          <div style={{ margin: '20px', marginTop: this.state.mobile ? '50px' : '100px' }}>
+          <div>
             <b.Row>
               <b.Col xs={12}>
                 <div className={s.blurb} style={this.state.mobile ? null : { marginRight: '20px', fontSize: '18px' }}>

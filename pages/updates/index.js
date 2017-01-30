@@ -49,7 +49,7 @@ class HomePage extends React.Component {
     return (
       <div>
         <b.Image style={{display: 'none'}} src="/../../img/favicon.ico" />
-        <div style={{margin: '20px', marginTop: this.state.mobile ? '20px' : null}}>
+        <div >
           <iframe src="http://eepurl.com/cck0nb" frameBorder="0" width="100%" height={this.state.mobile ? '1300px' : '1100px'} />
         </div>
       </div>

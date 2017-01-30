@@ -48,7 +48,7 @@ class HomePage extends React.Component {
     return (
       <div>
         <f.Callout className={s.white}>
-          <f.Row className="display" style={{marginTop: '90px', marginBottom: '90px'}}>
+          <f.Row className="display">
             <f.Column small={12} large={6} className={s.textCenter}>
               <b.Image src="/../../gif/3.gif" responsive className={s.gif}/>
             </f.Column>
@@ -61,7 +61,7 @@ class HomePage extends React.Component {
             {this.state.mobile 
             ?
             <f.Callout className={s.tan}>
-              <f.Row className="display" style={{marginTop: '90px', marginBottom: '90px'}}>
+              <f.Row className="display">
                   <f.Column small={12} className={s.textCenter}>
                     <b.Image src="/../../gif/2.gif" responsive className={s.gif}/>
                   </f.Column>
@@ -79,7 +79,7 @@ class HomePage extends React.Component {
             null
             :
             <f.Callout className={s.tan}>
-              <f.Row className="display" style={{marginTop: '90px', marginBottom: '90px'}}>
+              <f.Row className="display">
                   <f.Column large={1} />
                   <f.Column large={5} className={s.textCenter}>
                     <p className={s.title}><b>Collaborate with citizen scientists.</b></p>
