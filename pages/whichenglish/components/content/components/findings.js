@@ -6,7 +6,7 @@ export default class Findings extends React.Component {
   render() {
     const logo = require('../../../../../public/img/mglass.png')
     return (
-      <div className="col-xs-2">
+      <div>
         <Link to="/findings">
           <img src={logo} style={{ height: 80, width: 80 }} alt="" />
         </Link>

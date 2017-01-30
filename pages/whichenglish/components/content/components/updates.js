@@ -7,7 +7,7 @@ export default class Update extends React.Component {
   render() {
     const logo = require('../../../../../public/img/update.png')
     return (
-      <div className="col-xs-2">
+      <div>
         <Link to="/updates">
           <img src={logo} style={{ height: 80, width: 80 }} alt="" />
         </Link>
