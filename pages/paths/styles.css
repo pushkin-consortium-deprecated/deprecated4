@@ -25,6 +25,22 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto+Slab");
 @import url("https://fonts.googleapis.com/css?family=News+Cycle|Ribeye+Marrow|Antic+Slab");
 
+@media all and (max-width: 1200px) {
+	.column {
+		margin-top: 35px;
+	}
+	.margin {
+		margin-top: 35px;
+	}
+	.border {
+		border: none !important;
+
+	}
+}
+
+.border {
+	border-right: dashed #a9a9a9;
+}
 .tan {
 	background-color: #ebebe1;
 	border-width: 0px;
@@ -79,6 +95,7 @@
 	/*font-family: 'Oswald', sans-serif;*/
 	font-family: 'Ribeye Marrow', cursive;
 	font-size: 60px;
+	line-height: 60px;
 	color: #000000;
 	text-align: center;
 }

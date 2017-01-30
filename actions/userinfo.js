@@ -1,4 +1,3 @@
-import { browserHistory } from 'react-router';
 import local from './axiosConfigInitial';
 export const SUBMIT_USER_INFO_BEGIN = 'SUBMIT_USER_INFO_BEGIN';
 export const SUBMIT_USER_INFO_SUCCESS = 'SUBMIT_USER_INFO_SUCCESS';
@@ -40,26 +39,6 @@ function submitCommentsBegin() {
 function submitCommentsSuccess(data) {
   return { type: SUBMIT_COMMENTS_SUCCESS, data };
 }
-export function submitPart2(answers) {
-  return (dispatch, getState) => {
-    const state = getState();
-    const userId = state.userInfo.id;
-    const payload = { ...answers, id: userId };
-    dispatch(submitCommentsBegin());
-    local
-      .put(`/users/${userId}`, payload, {
-        headers: { 'Content-Type': 'application/json' }
-      })
-      .then(resp => resp.data)
-      .then(data => {
-          return dispatch(submitCommentsSuccess(data))
-      })
-      .then(() => {
-        browserHistory.push(`/results/user/${userId}`);
-      })
-  }
-}
-
 export function submitComments(comments) {
   return (dispatch, getState) => {
     const state = getState();
@@ -69,9 +48,7 @@ export function submitComments(comments) {
       if (comments.nativeLanguages) {
         payload = {
           userId,
-          nativeLanguages: comments.nativeLanguages,
-          primaryLanguages: comments.primaryLanguages,
-          learnEnglishAge: comments.learnEnglishAge
+          ...comments,
         };
       }
 

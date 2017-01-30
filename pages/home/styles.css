@@ -28,6 +28,11 @@
 	margin: 0px;
 }
 
+.display {
+	margin-top: 90px;
+	margin-bottom: 90px;
+}
+
 .white {
 	background-color: #ffffff;
 	border-width: 0px;

@@ -94,7 +94,11 @@ class StartPage extends React.Component {
   }
   fetchNextQuestion = (response, answer) => {
     const props = this.props;
-    props.dispatch(postAnswerGetQuestion(response, answer));
+    if (!response.choiceId) {
+      console.log(response, 'had no choice id');
+    } else {
+      props.dispatch(postAnswerGetQuestion(response));
+    }
   };
   handleTextChange() {
     let buttonText;
@@ -216,19 +220,14 @@ class StartPage extends React.Component {
     if (this.props.questionque.isFetching) {
       return <h3> loading ... </h3>;
     }
-    const logo = require('../../../public/img/globe.jpg');
     return (
-      <div style={{ marginTop: 50 }}className="container">
-        <h5 style={{ marginLeft: 12 }}>Which English?</h5>
-        <div style={{ marginTop: 20 }}>
-          <div className="row">
-            <div className={this.switchClassName()}>
-              {this.handleTextChange()}
-              {this.handleProgressBar()}
-            </div>
-            {this.handleLogo()}
-          </div>
+      <div className="row">
+        <div className="col-xs-8">
+          <h5 >Which English?</h5>
+          {this.handleTextChange()}
+          {this.handleProgressBar()}
         </div>
+        {this.handleLogo()}
       </div>
     );
   }
