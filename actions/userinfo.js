@@ -1,3 +1,4 @@
+import { browserHistory } from 'react-router';
 import local from './axiosConfigInitial';
 export const SUBMIT_USER_INFO_BEGIN = 'SUBMIT_USER_INFO_BEGIN';
 export const SUBMIT_USER_INFO_SUCCESS = 'SUBMIT_USER_INFO_SUCCESS';
@@ -52,7 +53,10 @@ export function submitPart2(answers) {
       .then(resp => resp.data)
       .then(data => {
           return dispatch(submitCommentsSuccess(data))
-      });
+      })
+      .then(() => {
+        browserHistory.push(`/results/user/${userId}`);
+      })
   }
 }
 

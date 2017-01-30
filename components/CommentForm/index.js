@@ -3,7 +3,6 @@ import LANGUAGES from './LANGUAGES';
 import s from './styles.css';
 import MultiSelect from '../MultiSelect/MultiSelect';
 
-
 const OPTIONS = [
   { label: 'From Birth', value: 0 },
 ];
@@ -44,6 +43,7 @@ export default class CommentForm extends Component {
   }
 
   render() {
+    console.log("this .props in comment form", this.props)
     switch(this.state.page) {
       case 1:
     return (
@@ -160,16 +160,12 @@ export default class CommentForm extends Component {
                   type="submit"
                 >
                   Next
-                </button> 
+                </button>
               </div>
             </div>
           </form>
         </div>
-
-
-
-      )
-
+      );
     }
   }
 }

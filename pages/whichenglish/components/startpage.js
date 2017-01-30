@@ -204,8 +204,11 @@ class StartPage extends React.Component {
     }
   }
   switchClassName() {
-    if(this.props.nextpage.page === 6 && this.props.questionque.current.type === 'survey-multi-picture') {
-      return 'col-xs-8 col-xs-offset-2';
+    if(this.props.questionque.current) {
+      if(this.props.nextpage.page === 6 && this.props.questionque.current.type === 'survey-multi-picture') {
+        return 'col-xs-8 col-xs-offset-2';
+      }
+      return 'col-xs-8';
     }
     return 'col-xs-8';
   }

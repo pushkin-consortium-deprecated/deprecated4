@@ -13,7 +13,7 @@ import * as b from 'react-bootstrap';
 import React, { PropTypes } from 'react';
 import s from './styles.css';
 
-class HomePage extends React.Component {
+class Updates extends React.Component {
 
   constructor(){
     super();
@@ -58,4 +58,4 @@ class HomePage extends React.Component {
 
 }
 
-export default HomePage;
+export default Updates;

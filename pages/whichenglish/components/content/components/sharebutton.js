@@ -24,7 +24,7 @@ export default class ShareButton extends React.Component {
         href="mailto:?subject=Mapping English grammar around the world.&body=I helped GamesWithWords.org train their algorithm to guess which English I speak (http://www.gameswithwords.org/WhichEnglish/). It guessed that I speak Singaporean and that my native language is Spanish. Which English do you speak?"
         title="share by Email"
       >
-        <img src={logo} style={{ height: 30, width: 30 }} alt="" />
+        <img src={logo} style={{ height: 50, width: 50 }} alt="" />
       </a>
     );
   }
@@ -32,41 +32,36 @@ export default class ShareButton extends React.Component {
     const shareUrl = 'http://localhost/WhichEnglish';
     const title = 'WhichEnglish'
     return (
-      <div>
+      <div style={{ marginBottom: 40 }}>
         <h5>Share your results and help us map the Englishes of the world!</h5>
-        <div className="share-buttons">
-          <FacebookShareButton
-            url={shareUrl}
-            title={title}
-            style={{ display: 'inline-block', 'margin-right': 3 }}
-          >
-            <FacebookIcon
-              size={32}
-              round
-            />
-          </FacebookShareButton>
-          <GooglePlusShareButton
-            url={shareUrl}
-            style={{ display: 'inline-block', 'margin-right': 3 }}
-          >
-            <GooglePlusIcon
-              size={32}
-              round
-            />
-          </GooglePlusShareButton>
-          <TwitterShareButton
-            url={shareUrl}
-            title={title}
-            style={{ display: 'inline-block', 'margin-right': 3 }}
-          >
-            <TwitterIcon
-              size={32}
-              round
-            />
-          </TwitterShareButton>
-          <div style={{ display: 'inline-block', 'margin-right': 3 }}>
+        <div className="row">
+            <FacebookShareButton
+              url={shareUrl}
+              title={title}
+            >
+              <FacebookIcon
+                size={50}
+                round
+              />
+            </FacebookShareButton>
+            <GooglePlusShareButton
+              url={shareUrl}
+            >
+              <GooglePlusIcon
+                size={50}
+                round
+              />
+            </GooglePlusShareButton>
+            <TwitterShareButton
+              url={shareUrl}
+              title={title}
+            >
+              <TwitterIcon
+                size={50}
+                round
+              />
+            </TwitterShareButton>
             {this.showMailIcon()}
-          </div>
         </div>
       </div>
     );
