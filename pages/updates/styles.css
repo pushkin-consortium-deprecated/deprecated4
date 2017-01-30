@@ -26,6 +26,16 @@
 @import url("https://fonts.googleapis.com/css?family=News+Cycle|Ribeye+Marrow|Antic+Slab");
 /*@import url("https://cdn-images.mailchimp.com/embedcode/classic-10_7.css");*/
 
+@media all and (max-width: 768px) {
+    .iframe {
+        height: 1300px;
+    }
+}
+
+.iframe {
+    height: 1100px;
+}
+
 .tan {
 	background-color: #ebebe1;
 	border-width: 0px;
