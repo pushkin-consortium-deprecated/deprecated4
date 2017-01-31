@@ -17,7 +17,7 @@ class Footer extends React.Component {
   render() {
     return (
       <footer >
-        <f.Callout className={s.footer}>
+        <div className={s.footer}>
           <div className={s.vert}>
             <nobr>
               <span className={s.pad5}><i.SocialIcon network="twitter" color={'#ffffff'}/></span>
@@ -25,11 +25,11 @@ class Footer extends React.Component {
               <span className={s.pad5}><i.SocialIcon network="google" color={'#ffffff'}/></span>
               <span className={s.pad5}><i.SocialIcon network="linkedin" color={'#ffffff'}/></span>
               <span className={s.pad5}><i.SocialIcon network="pinterest" color={'#ffffff'}/></span>
-              <span className={s.pad5}><i.SocialIcon network="vk" color={'#ffffff'}/></span>
+              <span className={s.pad5}><i.SocialIcon network="vk" color={'#ffffff'} style={{}} /></span>
               <span className={s.pad5}><i.SocialIcon network="email" color={'#ffffff'}/></span>
             </nobr>
           </div>
-        </f.Callout>
+        </div>
       </footer>
     );
   }
