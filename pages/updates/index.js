@@ -9,48 +9,17 @@
  */
 
 import * as f from 'react-foundation';
-import * as b from 'react-bootstrap';
+import { Image } from 'react-bootstrap';
 import React, { PropTypes } from 'react';
 import s from './styles.css';
 
 class Updates extends React.Component {
-
-  constructor(){
-    super();
-    this.state = {};
-    this.updateDimensions = this.updateDimensions.bind(this);
-  }
-
-  componentWillMount() {
-    window.addEventListener('resize', this.updateDimensions);
-    this.updateDimensions();
-  }
-
-  componentDidMount() {
-    document.title = 'Games With Words';
-    this.updateDimensions();
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateDimensions);
-  }
-
-  updateDimensions() {
-    if (window.innerWidth < 676) {
-      this.setState({mobile: true});
-    }
-    else {
-      this.setState({mobile: false});
-    }
-    // console.log(document.getElementById('myiframe').contentDocument.body.scrollHeight);
-  }
-
   render() {
     return (
       <div>
-        <b.Image style={{display: 'none'}} src="/../../img/favicon.ico" />
+        <Image style={{display: 'none'}} src="/../../img/favicon.ico" />
         <div >
-          <iframe src="http://eepurl.com/cck0nb" frameBorder="0" width="100%" height={this.state.mobile ? '1300px' : '1100px'} />
+          <iframe src="http://eepurl.com/cck0nb" frameBorder="0" width="100%" className={s.iframe} />
         </div>
       </div>
     );
