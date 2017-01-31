@@ -5,11 +5,16 @@ import ShareButton from './components/sharebutton';
 import MoreInfo from './components/moreinfo';
 import MoreProjects from './components/moreprojects';
 import { connect } from 'react-redux';
-
+import ResultsList from '../../../../components/ResultsList/index';
 class LastPage extends React.Component {
   render() {
     return (
-      <div className="container" style={{ marginTop: 50 }}>
+      <div className="container">
+        {this.props.userInfo.results &&
+          <ResultsList
+            results={this.props.userInfo.results}
+          />
+        }
         <ShareButton />
         <MoreInfo />
         <MoreProjects />
