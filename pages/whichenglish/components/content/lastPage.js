@@ -7,6 +7,7 @@ import MoreProjects from './components/moreprojects';
 import { connect } from 'react-redux';
 import ResultsList from '../../../../components/ResultsList/index';
 class LastPage extends React.Component {
+  //Mount the user results from the db insdead of getting from state
   render() {
     return (
       <div className="container">

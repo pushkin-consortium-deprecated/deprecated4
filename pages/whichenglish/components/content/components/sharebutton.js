@@ -21,7 +21,7 @@ export default class ShareButton extends React.Component {
     const logo = require('../../../../../public/img/mail.png')
     return (
       <div>
-        <a 
+        <a
           href="mailto:?subject=Mapping English grammar around the world.&body=I helped GamesWithWords.org train their algorithm to guess which English I speak (http://www.gameswithwords.org/WhichEnglish/). It guessed that I speak Singaporean and that my native language is Spanish. Which English do you speak?"
           title="share by Email"
         >
