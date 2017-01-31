@@ -20,12 +20,14 @@ export default class ShareButton extends React.Component {
   showMailIcon() {
     const logo = require('../../../../../public/img/mail.png')
     return (
-      <a 
-        href="mailto:?subject=Mapping English grammar around the world.&body=I helped GamesWithWords.org train their algorithm to guess which English I speak (http://www.gameswithwords.org/WhichEnglish/). It guessed that I speak Singaporean and that my native language is Spanish. Which English do you speak?"
-        title="share by Email"
-      >
-        <img src={logo} style={{ height: 50, width: 50 }} alt="" />
-      </a>
+      <div>
+        <a 
+          href="mailto:?subject=Mapping English grammar around the world.&body=I helped GamesWithWords.org train their algorithm to guess which English I speak (http://www.gameswithwords.org/WhichEnglish/). It guessed that I speak Singaporean and that my native language is Spanish. Which English do you speak?"
+          title="share by Email"
+        >
+          <img src={logo} style={{ height: 50, width: 50 }} alt="" />
+        </a>
+      </div>
     );
   }
   render() {
