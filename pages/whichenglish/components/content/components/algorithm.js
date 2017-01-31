@@ -16,12 +16,10 @@ export default class Algorithm extends React.Component {
     const logo = require('../../../../../public/img/algorithms.png');
     return (
       <div>
-        <section>
-          <div onClick={() => this.refs.simpleDialog.show()} style={{ display: 'inline-block', 'margin-right': 10 }}>
-            <img src={logo} style={{ height: 80, width: 80 }} />
-            <p style={{ 'text-align': 'center' }}>the algorithm</p>
-          </div>
-        </section>
+        <div onClick={() => this.refs.simpleDialog.show()}>
+          <img src={logo} style={{ height: 80, width: 80 }} />
+          <p>the algorithm</p>
+        </div>
         <SkyLight dialogStyles={styles} hideOnOverlayClicked ref="simpleDialog" title="How it works">
           <p>The algorithm that guesses your native language and dialect works like this:
             We measure the Euclidean distance between your responses and the typical responses for each dialect. Whichever dialect you are closest to is likely your dialect.
@@ -84,7 +82,7 @@ export default class Algorithm extends React.Component {
   }
   render() {
     return (
-      <div style={{ display: 'inline-block' }}>
+      <div>
         {this.switchContent()}
       </div>
     );

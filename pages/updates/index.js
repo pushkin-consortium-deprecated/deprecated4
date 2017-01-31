@@ -9,15 +9,15 @@
  */
 
 import * as f from 'react-foundation';
-import * as b from 'react-bootstrap';
+import { Image } from 'react-bootstrap';
 import React, { PropTypes } from 'react';
 import s from './styles.css';
 
-class HomePage extends React.Component {
+class Updates extends React.Component {
   render() {
     return (
       <div>
-        <b.Image style={{display: 'none'}} src="/../../img/favicon.ico" />
+        <Image style={{display: 'none'}} src="/../../img/favicon.ico" />
         <div >
           <iframe src="http://eepurl.com/cck0nb" frameBorder="0" width="100%" className={s.iframe} />
         </div>
@@ -27,4 +27,4 @@ class HomePage extends React.Component {
 
 }
 
-export default HomePage;
+export default Updates;

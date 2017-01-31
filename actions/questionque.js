@@ -40,11 +40,23 @@ export function postAnswerGetQuestion(response, answer) {
           })
           .then(resp => resp.data)
       })).then(data => {
+        if (!data[0]) {
+          return local.get(`/results/${state.userInfo.id}`)
+          .then(resp => resp.data.results)
+          .then(results=> {
+            dispatch(setResults(results));
+            dispatch(nextQuestion(null))
+          });
+        } else {
         if (state.options.saveAnswers) {
           dispatch(saveAnswers(answer))
         }
         dispatch(nextQuestion(data[0]))
+        }
       })
+      .catch(err => {
+        return dispatch(error(err));
+      });
     }
     return local.post('response', response)
     .then((resp) => {

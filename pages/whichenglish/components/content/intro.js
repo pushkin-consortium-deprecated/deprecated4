@@ -26,6 +26,7 @@ export default class Intro extends React.Component {
         return (
           <div>
             <p>{this.props.content}</p>
+            <p>{this.props.timeLimit}</p>
           </div>
         );
       case 2:

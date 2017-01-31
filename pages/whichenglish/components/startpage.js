@@ -173,13 +173,14 @@ class StartPage extends React.Component {
       <div>
         <Intro
           content={this.props.nextpage.content}
+          timeLimit={Scripts[0]}
           page={this.props.nextpage.page}
           setState={this.handleStateChange}
         />
         <button
           onClick={this.dispatchNextPage}
-          style={{ marginTop: 30, width: 180 }}
-          className="btn btn-success"
+          style={{ marginTop: 40, width: 180 }}
+          className="btn btn-success col-xs-offset-4"
           disabled={this.handleDisable()}
         >
           {buttonText}
@@ -210,17 +211,14 @@ class StartPage extends React.Component {
     if (this.props.questionque.isFetching) {
       return <h3> loading ... </h3>;
     }
-    const logo = require('../../../public/img/globe.jpg');
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-xs-8">
-            <h5 >Which English?</h5>
-            {this.handleTextChange()}
-            {this.handleProgressBar()}
-          </div>
-          {this.handleLogo()}
+      <div className="container row">
+        <div className="col-xs-8">
+          <h5 >Which English?</h5>
+          {this.handleTextChange()}
+          {this.handleProgressBar()}
         </div>
+        {this.handleLogo()}
       </div>
     );
   }

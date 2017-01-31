@@ -89,8 +89,7 @@ class CommentFormPart1 extends Component {
           <div className="row">
             <div className="col-xs-12">
               <button
-                style={{ width: 100, margin: '0 auto', display: 'block' }}
-                className="btn btn-success"
+                className={"btn btn-success " + s.nextbutton}
                 type="submit"
                 disabled={pristine || submitting}
               >
