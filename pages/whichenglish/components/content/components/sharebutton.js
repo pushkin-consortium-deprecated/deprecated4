@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-
+import s from '../../survey.css';
 import React, { PropTypes } from 'react';
 import {
   ShareButtons,
@@ -33,11 +33,14 @@ export default class ShareButton extends React.Component {
     const title = 'WhichEnglish'
     return (
       <div style={{ marginBottom: 40 }}>
-        <h5>Share your results and help us map the Englishes of the world!</h5>
+        <div>
+          <h5>Share your results and help us map the Englishes of the world!</h5>
+        </div>
         <div className="row">
             <FacebookShareButton
               url={shareUrl}
               title={title}
+              className={s.sharebutton}
             >
               <FacebookIcon
                 size={50}
@@ -46,6 +49,7 @@ export default class ShareButton extends React.Component {
             </FacebookShareButton>
             <GooglePlusShareButton
               url={shareUrl}
+              className={s.sharebutton}
             >
               <GooglePlusIcon
                 size={50}
@@ -55,6 +59,7 @@ export default class ShareButton extends React.Component {
             <TwitterShareButton
               url={shareUrl}
               title={title}
+              className={s.sharebutton}
             >
               <TwitterIcon
                 size={50}
