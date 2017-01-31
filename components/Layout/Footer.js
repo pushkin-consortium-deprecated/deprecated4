@@ -25,7 +25,7 @@ class Footer extends React.Component {
               <span className={s.pad5}><i.SocialIcon network="google" color={'#ffffff'}/></span>
               <span className={s.pad5}><i.SocialIcon network="linkedin" color={'#ffffff'}/></span>
               <span className={s.pad5}><i.SocialIcon network="pinterest" color={'#ffffff'}/></span>
-              <span className={s.pad5}><i.SocialIcon network="vk" color={'#ffffff'}/></span>
+              <span className={s.pad5}><i.SocialIcon network="vk" color={'#ffffff'} style={{}} /></span>
               <span className={s.pad5}><i.SocialIcon network="email" color={'#ffffff'}/></span>
             </nobr>
           </div>

@@ -20,6 +20,9 @@
   /* Set the fixed height of the footer here */
   height: 110px;
 }
+.socialIcon {
+  color: red;
+}
 
 .vert {
   text-align: center;
@@ -28,6 +31,15 @@
   transform: translateY(-50%);
 }
 
+@media all and (max-width: 768px) {
+  .pad5 {
+    padding: 2.5px !important;
+  }
+  :global .social-icon {
+    width: 40px !important;
+    height: 40px !important;
+  }
+}
 .pad5 {
   padding: 5px;
 }
