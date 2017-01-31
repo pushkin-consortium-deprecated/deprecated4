@@ -59,8 +59,6 @@ class HomePage extends React.Component {
           </b.Col>
           <b.Col xs={12} md={3}>
             <div style={this.state.mobile ? {marginTop: '20px'} : null}>
-
-
               <a><h1 className={s.title} onTouchTap={() => this.setState({people: true})}>People</h1></a>
                 <b.Modal show={this.state.people}>
                   <b.Modal.Header>

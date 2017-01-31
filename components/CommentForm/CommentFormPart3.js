@@ -47,7 +47,7 @@ class CommentFormPart3 extends Component {
           <div className="col-xs-12">
             <button
               type="submit"
-              className="btn btn-success"
+              className={"btn btn-success " + s.nextbutton}
               disabled={pristine || submitting}
             >
               Submit

@@ -1,4 +1,5 @@
 import local from './axiosConfigInitial';
+import { browserHistory } from 'react-router';
 export const SUBMIT_USER_INFO_BEGIN = 'SUBMIT_USER_INFO_BEGIN';
 export const SUBMIT_USER_INFO_SUCCESS = 'SUBMIT_USER_INFO_SUCCESS';
 export const SUBMIT_COMMENTS_BEGIN = 'SUBMIT_COMMENTS_BEGIN';
@@ -75,7 +76,10 @@ export function submitComments(comments) {
             primaryLanguages: [ ...primaryLanguages ]
           };
           return dispatch(submitCommentsSuccess(obj));
-        });
+        })
+        .then(() => {
+          browserHistory.push(`/results/user/${userId}`)
+        })
     } else {
       throw new Error(
         'there is no user id to attach these comments and demographic data too'
