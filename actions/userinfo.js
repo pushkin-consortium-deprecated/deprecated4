@@ -1,26 +1,49 @@
 import local from './axiosConfigInitial';
 import { browserHistory } from 'react-router';
+import { error } from './error';
+
 export const SUBMIT_USER_INFO_BEGIN = 'SUBMIT_USER_INFO_BEGIN';
 export const SUBMIT_USER_INFO_SUCCESS = 'SUBMIT_USER_INFO_SUCCESS';
 export const SUBMIT_COMMENTS_BEGIN = 'SUBMIT_COMMENTS_BEGIN';
 export const SUBMIT_COMMENTS_SUCCESS = 'SUBMIT_COMMENTS_SUCCESS';
+export const USER_ID = 'USER_ID';
 
+function sendUserId(id) {
+  return {
+    type: USER_ID,
+    id,
+  };
+}
 function submitUserInfoBegin() {
   return {
     type: SUBMIT_USER_INFO_BEGIN
-  }
+  };
 }
 function submitUserInfoSuccess(data) {
   return {
     type: SUBMIT_USER_INFO_SUCCESS,
     data,
-  }
+  };
+}
+export function getUserId() {
+  return (dispatch) => {
+    dispatch(submitUserInfoBegin());
+    return local.get('initialQuestions')
+    .then((resp) => {
+      if (resp.error) {
+        return dispatch(error(resp.error));
+      }
+      return dispatch(sendUserId(resp.data.user.id));
+    })
+    .catch((err) => {
+      return dispatch(error(err));
+    });
+  };
 }
 export function submitUserInfo(info) {
   return (dispatch, getState) => {
     const state = getState();
     const userId = state.userInfo.id;
-    delete info.id;
     const payload = {...info, id: userId};
     dispatch(submitUserInfoBegin());
     local.put(`users/${userId}`, payload, {

@@ -3,10 +3,9 @@ import {
   SUBMIT_USER_INFO_SUCCESS,
   SUBMIT_COMMENTS_BEGIN,
   SUBMIT_COMMENTS_SUCCESS,
-} from '../actions/userinfo';
-import {
   USER_ID,
-} from '../actions/questionlist';
+} from '../actions/userinfo';
+
 import {
   SET_RESULTS
 } from '../actions/questionque';
@@ -34,6 +33,7 @@ export default function userInfo(state = {}, action) {
       return {
         ...state,
         id: action.id,
+        isFetching: false,
       };
     }
     case SUBMIT_COMMENTS_BEGIN: {
