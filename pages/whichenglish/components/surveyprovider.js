@@ -8,12 +8,17 @@ import ResultsContainer from '../../containers/ResultsContainer';
 import { questionList } from '../../../actions/questionlist';
 import { postAnswerGetQuestion } from '../../../actions/questionque';
 import { saveAnswers } from '../../../actions/saveanswers';
+import Instruction from './content/instruction';
+import { startInstruction } from '../../../actions/instruction';
 
 class SurveyProvider extends React.Component {
   componentWillMount() {
     // uncomment line 30 to save answers
     // you can find your answers saved under state.questionque -> answers
     //this.props.dispatch(saveAnswers());
+    this.props.dispatch(startInstruction("In this quiz, you will decide which sentences are grammatical (correct) and which are not. Do not worry about whether the sentence is formal or 'proper' or is what you learned in school. Scientists have discovered that many of the 'rules' taught in school are wrong anyway. Focus on your gut instincts. Does the sentence sound correct, or does it sound like a mistake -- for instance, a mistake made by a young child or a recent immigrant?"))
+  }
+  buildInitial = () => {
     this.props.dispatch(questionList());
   }
   fetchNextQuestion = (response, answer) => {
@@ -39,6 +44,14 @@ class SurveyProvider extends React.Component {
     })
   }
   render() {
+    if (this.props.questionque.instruction) {
+      return (
+        <Instruction
+          text={this.props.questionque.instruction}
+          buidInitial={this.buildInitial}
+        />
+      )
+    }
     if (this.props.questionque.isFetching && !this.props.questionque.current) {
       return <h3>Loading ... </h3>;
     }

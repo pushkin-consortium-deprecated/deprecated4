@@ -2,6 +2,7 @@
 
 import React, { PropTypes } from 'react';
 import Instruction from './instruction';
+import SurveyProvider from '../surveyprovider';
 
 export default class Intro extends React.Component {
   handleGender = (e) => {
@@ -132,12 +133,6 @@ export default class Intro extends React.Component {
               <option value="High School Degree (12-13 years ed)">High School Degree (12-13 years ed)</option>
               <option value="Haven't finished High School (less than 13 years ed)">Haven&apos;t finished High School (less than 13 years ed)</option>
             </select>
-          </div>
-        );
-      case 5:
-        return (
-          <div>
-            <Instruction />
           </div>
         );
       default:

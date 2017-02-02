@@ -8,19 +8,30 @@ import {
 import {
   REQUEST_QUESTION_BEGIN,
 } from '../actions/fetch';
+import {
+  INSTRUCTION,
+} from '../actions/instruction';
 
 export default function nextQuestion(state = {
   isFetching: false,
+  instruction: null,
   next: null,
   current: null,
   complete: [],
   answers: [],
 }, action) {
   switch (action.type) {
+    case INSTRUCTION: {
+      return {
+        ...state,
+        instruction: action.script,
+      }
+    }
     case REQUEST_QUESTION_BEGIN: {
       return {
         ...state,
         isFetching: true,
+        instruction: null,
       };
     }
     case BUILD_INITIAL: {
@@ -28,7 +39,7 @@ export default function nextQuestion(state = {
         ...state,
         current: action.list[0],
         next: action.list[1],
-        isFetching: false
+        isFetching: false,
       };
     }
     case NEXT_QUESTION: {

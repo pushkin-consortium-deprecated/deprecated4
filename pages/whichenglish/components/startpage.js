@@ -60,7 +60,7 @@ class StartPage extends React.Component {
   };
   dispatchProgress = () => {
     const props = this.props;
-    props.dispatch(progressPrecent(Math.round((parseFloat(props.nextpage.precent) + 2.70) * 100) / 100));
+    props.dispatch(progressPrecent(Math.round((parseFloat(props.nextpage.precent) + 2.725) * 100) / 100));
   };
   handleTextChange() {
     let buttonText;
@@ -69,7 +69,7 @@ class StartPage extends React.Component {
     } else {
       buttonText = 'Next';
     }
-    if (this.props.nextpage.page === 6) {
+    if (this.props.nextpage.page === 5) {
       return (
         <SurveyProvider 
           progress={this.dispatchProgress}
@@ -83,6 +83,7 @@ class StartPage extends React.Component {
           timeLimit={Scripts[0]}
           page={this.props.nextpage.page}
           setState={this.handleStateChange}
+          progress={this.dispatchProgress}
         />
         <button
           onClick={this.dispatchNextPage}

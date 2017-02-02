@@ -7,7 +7,7 @@ export default class Instruction extends React.Component {
     var trial = {
       type: 'instructions',
       pages: [
-        "In this quiz, you will decide which sentences are grammatical (correct) and which are not. Do not worry about whether the sentence is formal or 'proper' or is what you learned in school. Scientists have discovered that many of the 'rules' taught in school are wrong anyway. Focus on your gut instincts. Does the sentence sound correct, or does it sound like a mistake -- for instance, a mistake made by a young child or a recent immigrant?"
+        this.props.text,
       ],
       show_clickable_nav: false
     }
@@ -21,7 +21,16 @@ export default class Instruction extends React.Component {
 
   render() {
     return (
+      <div>
       <div ref="main">
+      </div>
+      <button
+      style={{ marginTop: 40, width: 180 }}
+      className="btn btn-success col-xs-offset-4"
+      onClick={this.props.buidInitial}
+      >
+      Next
+      </button>
       </div>
     );
   }
