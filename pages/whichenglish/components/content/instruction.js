@@ -20,15 +20,15 @@ export default class Instruction extends React.Component {
   render() {
     return (
       <div>
-      <div ref="main">
-      </div>
-      <button
-      style={{ marginTop: 40, width: 180 }}
-      className="btn btn-success col-xs-offset-4"
-      onClick={this.props.buidInitial}
-      >
-      Next
-      </button>
+        <div ref="main">
+        </div>
+        <button
+          style={{ marginTop: 40, width: 180 }}
+          className="btn btn-success col-xs-offset-4"
+          onClick={this.props.buidInitial}
+        >
+        Next
+        </button>
       </div>
     );
   }
