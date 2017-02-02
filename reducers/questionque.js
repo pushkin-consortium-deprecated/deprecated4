@@ -1,11 +1,13 @@
 import {
   NEXT_QUESTION,
-  REQUEST_QUESTION_BEGIN,
   ANSWER_COLLECTION,
 } from '../actions/questionque';
 import {
   BUILD_INITIAL,
 } from '../actions/questionlist';
+import {
+  REQUEST_QUESTION_BEGIN,
+} from '../actions/fetch';
 
 export default function nextQuestion(state = {
   isFetching: false,

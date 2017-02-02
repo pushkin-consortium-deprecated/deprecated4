@@ -42,7 +42,7 @@ class SurveyProvider extends React.Component {
     if (this.props.questionque.isFetching && !this.props.questionque.current) {
       return <h3>Loading ... </h3>;
     }
-    if (!this.props.questionque.current) {
+    if (!this.props.questionque.current && !this.props.questionque.isFetching) {
       return <ResultsContainer />
     }
     const choices = this.handlePictureChoices(this.props.questionque.current);
