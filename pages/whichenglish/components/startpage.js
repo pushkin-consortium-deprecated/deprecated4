@@ -5,18 +5,10 @@ import { connect } from 'react-redux';
 import Intro from './content/intro';
 import { Scripts } from './scripts';
 import { submitUserInfo, getUserId } from '../../../actions/userinfo';
-import { Line, Circle } from 'rc-progress';
 import Globe from './globe';
 import Progress from './progress';
 import SurveyProvider from './surveyprovider';
-// import MultiChoice from './content/multichoice';
-// import MultiPicture from './content/multipicture';
-// import MultiSelect from './content/multiselect';
-// import ResultsContainer from '../../containers/ResultsContainer';
-
 import { nextPage, progressPrecent } from '../../../actions/nextpage';
-// import { postAnswerGetQuestion } from '../../../actions/questionque';
-import { saveAnswers } from '../../../actions/saveanswers';
 
 class StartPage extends React.Component {
   constructor(props) {
@@ -24,9 +16,6 @@ class StartPage extends React.Component {
     this.state = {};
   }
   componentWillMount() {
-    // uncomment line 30 to save answers
-    // you can find your answers saved under state.questionque -> answers
-    //this.props.dispatch(saveAnswers());
     this.props.dispatch(getUserId());
   }
   dispatchUserInfo(state) {
@@ -71,30 +60,8 @@ class StartPage extends React.Component {
   };
   dispatchProgress = () => {
     const props = this.props;
-    props.dispatch(progressPrecent((parseFloat(props.nextpage.precent) + 2.63).toFixed(2)));
+    props.dispatch(progressPrecent(Math.round((parseFloat(props.nextpage.precent) + 2.70) * 100) / 100));
   };
-  // handlePictureChoices(currentQuestion) {
-  //   if(currentQuestion.type === "survey-multi-picture") {
-  //     return currentQuestion.choices.map(currentChoice => {
-  //       return {
-  //         url: currentChoice.imageUrl,
-  //         label: currentChoice.displayText,
-  //         choiceId: currentChoice.id
-  //       };
-  //     });
-  //   }
-  //   return currentQuestion.choices.map(currentChoice => {
-  //     return currentChoice.displayText;
-  //   })
-  // }
-  // fetchNextQuestion = (response, answer) => {
-  //   const props = this.props;
-  //   if (!response.choiceId) {
-  //     console.log(response, 'had no choice id');
-  //   } else {
-  //     props.dispatch(postAnswerGetQuestion(response));
-  //   }
-  // };
   handleTextChange() {
     let buttonText;
     if (this.props.nextpage.page === 2) {
@@ -133,7 +100,7 @@ class StartPage extends React.Component {
       const logo = require('../../../public/img/globe.jpg');
       return <Globe logo={logo} content={Scripts[0]} />;
     }
-    if(this.props.questionque.current) {
+    if (this.props.questionque.current) {
       if (this.props.questionque.current.type === 'survey-multi-choice' || this.props.questionque.current.type === 'survey-multi-select') {
         return <Globe logo={this.props.questionque.current.choices[0].imageUrl} content={null} />;
       }
