@@ -6,9 +6,7 @@ export default class Instruction extends React.Component {
   componentDidMount() {
     var trial = {
       type: 'instructions',
-      pages: [
-        this.props.text,
-      ],
+      pages: this.props.text,
       show_clickable_nav: false
     }
 
