@@ -27,9 +27,10 @@ function saveAnswers(answer) {
 }
 export function postAnswerGetQuestion(response, answer) {
   return (dispatch, getState) => {
+    const state = getState().pushkin;
     dispatch(requestQuestionBegin());
+    debugger;
     if(Array.isArray(response.choiceId)){
-      const state = getState();
       return Promise.all(response.choiceId.map(currentId => {
          return local.post('response', {
             choiceId: currentId,
@@ -60,7 +61,6 @@ export function postAnswerGetQuestion(response, answer) {
     }
     return local.post('response', response)
     .then((resp) => {
-      const state = getState();
       if (resp.error) {
         return dispatch(error(resp.error));
       }
@@ -72,14 +72,14 @@ export function postAnswerGetQuestion(response, answer) {
           dispatch(nextQuestion(null))
         });
       } else {
-        if (state.options.saveAnswers) {
-          dispatch(saveAnswers(answer))
-        }
+        // if (state.options.saveAnswers) {
+        //   dispatch(saveAnswers(answer))
+        // }
          dispatch(nextQuestion(resp.data));
       }
     })
-    .catch(err => {
-      return dispatch(error(err));
-    });
+    // .catch(err => {
+    //   return dispatch(error(err));
+    // });
   };
 }

@@ -29,9 +29,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import { rootReducer } from './reducers/index';
 import thunkMiddleware from 'redux-thunk';
 import { compose, createStore, applyMiddleware } from 'redux';
-// import createLogger from 'redux-logger';
 
-// const loggerMiddleware = createLogger();
 
 export default function configureStore(initialState) {
   const middleWares = [thunkMiddleware];
@@ -58,7 +56,6 @@ const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
 function render(routes) {
-  console.log('RENDERING HOT?', module.hot);
   FastClick.attach(document.body);
   ReactDOM.render(
     <Provider store={store}>

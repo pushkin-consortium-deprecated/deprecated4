@@ -2,7 +2,7 @@
 /* eslint-disable camelcase */
 
 import React, { PropTypes } from 'react';
-import Progress from '../progress';
+import Progress from './progress';
 
 export default class MultiPicture extends React.Component {
   componentDidMount() {

@@ -8,9 +8,9 @@ class ResultsContainer extends Component {
   render(){
     return (
       <div>
-      {this.props.userInfo.results &&
+      {this.props.results &&
         <ResultsList
-          results={this.props.userInfo.results}
+          results={this.props.results}
         />
       }
         <CommentForm

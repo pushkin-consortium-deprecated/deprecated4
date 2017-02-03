@@ -7,13 +7,15 @@ import { Scripts } from './scripts';
 import { submitUserInfo, getUserId } from '../../../actions/userinfo';
 import Globe from './globe';
 import Progress from './progress';
-import SurveyProvider from './surveyprovider';
+import SurveyProvider from '../../../pushkin-react/surveyprovider';
+import ResultsContainer from '../../containers/ResultsContainer';
+
 import { nextPage, progressPrecent } from '../../../actions/nextpage';
 
 class StartPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { gatheringInfo: true, infoPage: 1 };
   }
   componentWillMount() {
     this.props.dispatch(getUserId());
@@ -63,38 +65,37 @@ class StartPage extends React.Component {
     props.dispatch(progressPrecent(Math.round((parseFloat(props.nextpage.precent) + 2.725) * 100) / 100));
   };
   handleTextChange() {
-    let buttonText;
-    if (this.props.nextpage.page === 2) {
-      buttonText = 'Start Quiz';
-    } else {
-      buttonText = 'Next';
+    if (this.state.gatheringInfo) {
+      return (
+        <div>
+          <Intro
+          handleStateChange={this.handleStateChange}
+            content={Scripts[this.state.infoPage]}
+            page={this.state.infoPage}
+          />
+          <button 
+          onClick={() => 
+            this.setState((state) => {
+              return {
+                ...state,
+                infoPage: state.infoPage + 1,
+                gatheringInfo: state.infoPage != 4
+              };
+            })
+          }>Next</button>
+        </div>
+      );
     }
-    if (this.props.nextpage.page === 5) {
+      let buttonText = 'Next';
       return (
         <SurveyProvider 
           progress={this.dispatchProgress}
+          instructions={Scripts}
+          resultsContainer={(results) => (
+            <ResultsContainer results={results} />
+          )}
         />
       )
-    }
-    return (
-      <div>
-        <Intro
-          content={this.props.nextpage.content}
-          timeLimit={Scripts[0]}
-          page={this.props.nextpage.page}
-          setState={this.handleStateChange}
-          progress={this.dispatchProgress}
-        />
-        <button
-          onClick={this.dispatchNextPage}
-          style={{ marginTop: 40, width: 180 }}
-          className="btn btn-success col-xs-offset-4"
-          disabled={this.handleDisable()}
-        >
-          {buttonText}
-        </button>
-      </div>
-    );
   }
   handleLogo() {
     if (this.props.nextpage.page < 3) {
@@ -121,9 +122,7 @@ class StartPage extends React.Component {
         <div className="col-xs-8">
           <h5 >Which English?</h5>
           {this.handleTextChange()}
-          {this.handleProgressBar()}
         </div>
-        {this.handleLogo()}
       </div>
     );
   }
