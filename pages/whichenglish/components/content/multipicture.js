@@ -2,6 +2,7 @@
 /* eslint-disable camelcase */
 
 import React, { PropTypes } from 'react';
+import Progress from '../progress';
 
 export default class MultiPicture extends React.Component {
   componentDidMount() {
@@ -42,6 +43,9 @@ export default class MultiPicture extends React.Component {
       display_element: this.refs.main,
       timeline: [multi_choice_block],
       on_finish: function() {
+        if(props.showProgress){
+          props.dispatchPrecent(35)
+        }
         props.progress();
       },
     });
@@ -84,13 +88,27 @@ export default class MultiPicture extends React.Component {
       display_element: this.refs.main,
       timeline: [multi_choice_block],
       on_finish: function() {
+        if(props.showProgress){
+          props.dispatchPrecent(35)
+        }
         props.progress();
       },
     });
   }
+  showProgress() {
+    if(this.props.showProgress) {
+      return (
+        <Progress precent={this.props.precent} />
+      )
+    }
+  }
   render() {
+    console.log("pic", this.props)
     return (
-      <div ref="main">
+      <div>
+        <div ref="main">
+        </div>
+        {this.showProgress()}
       </div>
     );
   }

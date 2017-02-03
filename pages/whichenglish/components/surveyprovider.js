@@ -11,6 +11,7 @@ import { questionList } from '../../../actions/questionlist';
 import { postAnswerGetQuestion } from '../../../actions/questionque';
 import { saveAnswers } from '../../../actions/saveanswers';
 import { startInstruction } from '../../../actions/instruction';
+import { startProgress } from '../../../actions/progress';
 
 class SurveyProvider extends React.Component {
   componentWillMount() {
@@ -45,6 +46,10 @@ class SurveyProvider extends React.Component {
       return currentChoice.displayText;
     })
   }
+  dispatchPrecent = (numberOfQuestions) => {
+    const precent = 100/numberOfQuestions;
+    this.props.dispatch(startProgress((parseFloat(this.props.options.precent, 10)) + precent))
+  }
   render() {
     if (this.props.questionque.instruction) {
       return (
@@ -68,11 +73,14 @@ class SurveyProvider extends React.Component {
             <MultiPicture
               question={this.props.questionque.current.prompt}
               choices={choices}
+              showProgress={true}
+              dispatchPrecent={this.dispatchPrecent}
               questionId={this.props.questionque.current.choices[0].questionId}
               trialId={this.props.questionque.current.trialId}
               nextQuestion={this.fetchNextQuestion}
               progress={this.props.progress}
               userId={this.props.userInfo.id}
+              precent={this.props.options.precent}
             />
           </div>
         );
@@ -83,12 +91,15 @@ class SurveyProvider extends React.Component {
             <MultiChoice
                 question={this.props.questionque.current.prompt}
                 choices={choices}
+                showProgress={false}
+                dispatchPrecent={this.dispatchPrecent}
                 allChoices = {this.props.questionque.current.choices}
                 questionId={this.props.questionque.current.choices[0].questionId}
                 trialId={this.props.questionque.current.trialId}
                 nextQuestion={this.fetchNextQuestion}
                 progress={this.props.progress}
                 userId={this.props.userInfo.id}
+                precent={this.props.options.precent}
             />
           </div>
         );
@@ -99,12 +110,15 @@ class SurveyProvider extends React.Component {
             <MultiSelect
               question={this.props.questionque.current.prompt}
               choices={choices}
+              showProgress={false}
+              dispatchPrecent={this.dispatchPrecent}
               allChoices={this.props.questionque.current.choices}
               questionId={this.props.questionque.current.choices[0].questionId}
               trialId={this.props.questionque.current.trialId}
               nextQuestion={this.fetchNextQuestion}
               progress={this.props.progress}
               userId={this.props.userInfo.id}
+              precent={this.props.options.precent}
             />
           </div>
         );

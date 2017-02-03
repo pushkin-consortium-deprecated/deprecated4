@@ -40,6 +40,9 @@ export default class MultiSelect extends React.Component {
       display_element: this.refs.main,
       timeline: [multi_choice_block],
       on_finish: function() {
+      if(props.showProgress){
+          props.dispatchPrecent(35)
+        }
         props.progress();
       },
     });
@@ -79,13 +82,26 @@ export default class MultiSelect extends React.Component {
       display_element: this.refs.main,
       timeline: [multi_choice_block],
       on_finish: function() {
+      if(props.showProgress){
+          props.dispatchPrecent(35)
+        }
         props.progress();
       },
     });
   }
+  showProgress() {
+    if(this.props.showProgress) {
+      return (
+        <Progress precent={this.props.precent} />
+      )
+    }
+  }
   render() {
     return (
-      <div ref="main">
+      <div>
+        <div ref="main">
+        </div>
+        {this.showProgress()}
       </div>
     );
   }
