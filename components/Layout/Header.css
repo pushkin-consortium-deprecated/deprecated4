@@ -84,6 +84,12 @@ li a:hover {
   background-color: #ffffff;
   min-height: 53px;
 }
+.nav {
+  margin: 0;
+  font-family: 'Ribeye Marrow', cursive; 
+  font-size: 20px;
+  background-color: #A9A9A9;
+}
 
 .navLinks {
     font-family: 'Roboto Slab', serif;

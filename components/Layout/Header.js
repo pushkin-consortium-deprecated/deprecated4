@@ -19,15 +19,11 @@ class Header extends React.Component {
 
   constructor(){
     super();
-    this.state = {};
+    this.state = { mobile: false };
     this.updateDimensions = this.updateDimensions.bind(this);
   }
-
-  componentWillMount() {
-    this.updateDimensions();
-  }
-
   componentDidMount() {
+    this.updateDimensions();
     window.addEventListener('resize', this.updateDimensions);
   }
 
@@ -49,7 +45,9 @@ class Header extends React.Component {
   }
 
   updateDimensions() {
-    if (window.innerWidth < 768 || this.home()) {
+    console.log('update dimentsions');
+    console.log(window.innerWidth);
+    if (window.innerWidth < 768) {
       this.setState({mobile: true});
     }
     else {
@@ -61,12 +59,16 @@ class Header extends React.Component {
     if (this.home()) {
       return (
         <header>
-          <Link to="/paths"><div className={s.landing} style={{background: 'url(/../../img/logo_button-min.png) no-repeat center center', '-webkit-background-size': 'cover', '-moz-background-size': 'cover', '-o-background-size': 'cover', backgroundSize: 'cover', width: '100%', height: '80vh'}}></div></Link>
-        <b.Image style={{display: 'none'}} src="/../../favicon.ico"  />
+          <Link to="/paths">
+            <div
+              className={s.landing}
+              style={{background: 'url(/../../img/logo_button-min.png) no-repeat center center', '-webkit-background-size': 'cover', '-moz-background-size': 'cover', '-o-background-size': 'cover', backgroundSize: 'cover', width: '100%', height: '80vh'}}>
+            </div>
+          </Link>
+          <b.Image style={{display: 'none'}} src="/../../favicon.ico"  />
         </header>
       );
-    }
-    else if (this.state.mobile && !this.home()) {
+    } else if (this.state.mobile && !this.home()) {
       return (
         <header className={s.header} id="header" ref={node => (this.root = node)} >
           <b.Image src="/../../img/gww_logo.png" className={s.logo}/>
@@ -123,7 +125,12 @@ class Header extends React.Component {
       return (
         <header className={s.header} ref={node => (this.root = node)}>
           {this.home() ? <b.Image src="/../../img/logo_square-min.png"  responsive /> : <b.Image src="/../../img/gww_logo.png" className={s.logo} />}
-          <b.Nav style={{margin: '0px', fontFamily: '\'Ribeye Marrow\', cursive', fontSize: '20px', backgroundColor: '#a9a9a9'}} bsStyle="tabs" justified activeKey={this.getLocation()}>
+          <b.Nav 
+            className={s.nav}
+            bsStyle="tabs" 
+            justified 
+            activeKey={this.getLocation()}
+            >
               <LinkContainer to="/paths">
             <b.NavItem eventKey={'paths'}>
                 Paths
