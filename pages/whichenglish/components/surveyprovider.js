@@ -73,7 +73,7 @@ class SurveyProvider extends React.Component {
             <MultiPicture
               question={this.props.questionque.current.prompt}
               choices={choices}
-              showProgress={true}
+              showProgress={false}
               dispatchPrecent={this.dispatchPrecent}
               questionId={this.props.questionque.current.choices[0].questionId}
               trialId={this.props.questionque.current.trialId}
