@@ -13,7 +13,7 @@ export default class Algorithm extends React.Component {
       marginTop: '-300px',
       marginLeft: '-35%',
     };
-    const logo = require('../../../../../public/img/algorithms.png');
+    const logo = require('../../../../..//img/algorithms.png');
     return (
       <div>
         <div onClick={() => this.refs.simpleDialog.show()}>

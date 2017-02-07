@@ -42,7 +42,7 @@ const config = {
   // Options affecting the output of the compilation
   output: {
     path: path.resolve(__dirname, './public/dist'),
-    publicPath: '/dist/',
+    publicPath: isDebug ? '/dist/' : "//d7gvdmeqbqrlo.cloudfront.net/dist/",
     filename: isDebug ? '[name].js?[hash]' : '[name].[hash].js',
     chunkFilename: isDebug ? '[id].js?[chunkhash]' : '[id].[chunkhash].js',
     sourcePrefix: '  ',
@@ -134,7 +134,7 @@ const config = {
         ],
       },
       {
-        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ico)$/,
         loader: 'url-loader?limit=10000',
       },
       {
