@@ -49,9 +49,9 @@ export function postAnswerGetQuestion(response, answer) {
             dispatch(nextQuestion(null))
           });
         } else {
-        if (state.options.saveAnswers) {
-          dispatch(saveAnswers(answer))
-        }
+        // if (state.options.saveAnswers) {
+        //   dispatch(saveAnswers(answer))
+        // }
         dispatch(nextQuestion(data[0]))
         }
       })

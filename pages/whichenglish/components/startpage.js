@@ -29,13 +29,13 @@ class StartPage extends React.Component {
     this.setState(state);
   };
   handleDisable() {
-    if (this.props.nextpage.page === 3) {
+    if (this.state.infoPage === 3) {
       if (this.state.gender && this.state.age) {
         return false;
       }
       return true;
     }
-    if (this.props.nextpage.page === 4) {
+    if (this.state.infoPage === 4) {
       if (
         this.state.takenBefore &&
           this.state.education &&
@@ -69,11 +69,12 @@ class StartPage extends React.Component {
       return (
         <div>
           <Intro
-          handleStateChange={this.handleStateChange}
+            handleStateChange={this.handleStateChange}
             content={Scripts[this.state.infoPage]}
             page={this.state.infoPage}
           />
           <button 
+          disabled={this.handleDisable()}
           onClick={() => 
             this.setState((state) => {
               return {
@@ -81,6 +82,10 @@ class StartPage extends React.Component {
                 infoPage: state.infoPage + 1,
                 gatheringInfo: state.infoPage != 4
               };
+            }, () => {
+              if (this.state.age && this.state.education && this.state.gender && this.state.languageDisorder && this.state.takenBefore) {
+                this.dispatchUserInfo(this.state);
+              }
             })
           }>Next</button>
         </div>

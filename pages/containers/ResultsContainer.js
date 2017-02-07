@@ -27,4 +27,4 @@ class ResultsContainer extends Component {
 
   }
 }
-export default connect(state => state)(ResultsContainer)
+export default connect(state => state.pushkin)(ResultsContainer)
