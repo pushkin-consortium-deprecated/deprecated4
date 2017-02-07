@@ -12,11 +12,11 @@ import { Row, Col, Image } from 'react-bootstrap';
 import React, { PropTypes } from 'react';
 import s from './styles.css';
 
-class HomePage extends React.Component {
+class ProjectPage extends React.Component {
   render() {
     return (
       <div>
-        <Image style={{display: 'none'}} src="/../../img/favicon.ico" />
+        <Image style={{display: 'none'}} src={require('../../img/favicon.ico')}  />
         <div >
           <Row>
             <Col xs={12}>
@@ -37,4 +37,4 @@ class HomePage extends React.Component {
 
 }
 
-export default HomePage;
+export default ProjectPage;

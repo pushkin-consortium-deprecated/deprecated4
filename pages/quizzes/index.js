@@ -15,12 +15,12 @@ import React, { PropTypes } from 'react';
 import s from './styles.css';
 import { Link } from 'react-router';
 
-class HomePage extends React.Component {
+class QuizPage extends React.Component {
   render() {
     if (!this.props.children) {
       return (
         <div>
-          <Image style={{ display: 'none' }} src="/../../img/favicon.ico" />
+        <Image style={{display: 'none'}} src={require('../../img/favicon.ico')}  />
           <div>
             <Row>
               <Col xs={12}>
@@ -46,5 +46,5 @@ class HomePage extends React.Component {
   }
 }
 
-export default HomePage;
+export default QuizPage;
 /* eslint-disable max-len */
