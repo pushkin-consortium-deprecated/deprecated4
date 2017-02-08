@@ -15,12 +15,12 @@ render() {
         </Row>
         <Row className="display">
           <Col sm={12} lg={6} className={s.gif + ' ' + s.border}>
-            <Link href="/projects"><Image src={require("./res.gif")} responsive className={s.gif}/></Link>
+            <Link href="/projects"><Image src={require("../../gif/res.gif")} responsive className={s.gif}/></Link>
             <p className={s.subText} ><b>Researcher</b></p>
             <p className={s.subText} style={{marginBottom: '50px'}}>Take control and help unlock the mysteries of language.</p>
           </Col>
           <Col sm={12} lg={6} className={s.gif + ' ' + s.margin}>
-            <Link to="/quizzes"><Image src={require("./par.gif")} responsive className={s.gif}/></Link>
+            <Link to="/quizzes"><Image src={require("../../gif/par.gif")} responsive className={s.gif}/></Link>
             <p className={s.subText}><b>Participant</b></p>
             <p className={s.subText} style={{marginBottom: '50px'}}>Be a part of linguistics research and support our scientists.</p>
           </Col>
