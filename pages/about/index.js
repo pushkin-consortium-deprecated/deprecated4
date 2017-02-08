@@ -13,7 +13,7 @@ import * as b from 'react-bootstrap';
 import React, { PropTypes } from 'react';
 import s from './styles.css';
 
-class HomePage extends React.Component {
+class AboutPage extends React.Component {
 
   constructor(){
     super();
@@ -70,13 +70,13 @@ class HomePage extends React.Component {
                     <p>Joshua Hartshorne is an assistant professor of psychology at <a href="http://www.bc.edu/schools/cas/psych.html">Boston College</a>, and the founder of GamesWithWords.org. He is hroadly interested in human behavior, with a particular interest in language and inference. By &quot;inference,&quot; he means the application of learned information to make predictions about a novel situation. </p>
                     <hr />
                     <p><b>Claire Bonial</b></p>
-                    <p>Claire Bonial is a graduate student at the University of Colorado-Boulder and is a collaborator on the <a href="http://www.gameswithwords.org/VerbCorner">VerbCorner Project.</a></p>
+                    <p>Claire Bonial is a graduate student at the University of Colorado-Boulder and is a collaborator on the <a href="/VerbCorner">VerbCorner Project.</a></p>
                     <hr />
                     <p><b>Amy Geojo</b></p>
-                    <p>Amy Geojo is a graduate student in the Psychology Department at Harvard University. She collaborated with Josh on the<a href="http://www.gameswithwords.org/GorpTest/index.html"> Gorp Test</a>.</p>
+                    <p>Amy Geojo is a graduate student in the Psychology Department at Harvard University. She collaborated with Josh on the<a href="/GorpTest/index.html"> Gorp Test</a>.</p>
                     <hr />
                     <p><a href="http://www.lauragermine.org/"><b>Laura Germine</b></a></p>
-                    <p>Laura Germine is a postdoctoral researcher in the Psychiatric and Neurodevelopmental Genetics Unit at MGH, and the developer of <a href="http://testmyhrain.org">TestMyBrain.org</a>. She collaborated on the <a href="http://www.gameswithwords.org/MemoryTest/index.html">Memory Test</a>.</p>
+                    <p>Laura Germine is a postdoctoral researcher in the Psychiatric and Neurodevelopmental Genetics Unit at MGH, and the developer of <a href="http://testmyhrain.org">TestMyBrain.org</a>. She collaborated on the <a href="/MemoryTest/index.html">Memory Test</a>.</p>
                     <hr />
                     <p><a href="http://www.cmich.edu/academics/humanities_social_behavioral_sciences/CHSBSDepartments/CHSBSPsychology/charge/Pages/default.aspx/People/Tim.html"><b>Timothy Hartshorne</b></a></p>
                     <p>Timothy Hartshorne is a professor at Central Michigan University. His primary topic of research is CHARGE Syndrome. He is also interested in Adlerian Psychology. He is collaborating with Josh on the <a href="BirthOrder/index.html">Birth Order</a> project. Yes, they are related. </p>
@@ -247,4 +247,4 @@ class HomePage extends React.Component {
 
 }
 
-export default HomePage;
+export default AboutPage;

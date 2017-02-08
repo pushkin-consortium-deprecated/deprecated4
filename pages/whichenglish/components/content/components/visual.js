@@ -7,7 +7,7 @@ export default class Algorithm extends React.Component {
     const logo = require('../../../../../public/img/visual.png')
     return (
       <div>
-        <a href="http://www.gameswithwords.org/WhichEnglish/dialect_results.html" target="_blank">
+        <a href="/WhichEnglish/dialect_results.html" target="_blank">
           <img src={logo} style={{ height: 80, width: 80 }} />
         </a>
         <p>visual</p>

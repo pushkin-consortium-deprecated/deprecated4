@@ -17,7 +17,7 @@ class HomePage extends React.Component {
     return (
       <div>
         {/* needed for sticky footer */}
-        <b.Image style={{display: 'none'}} src={require('../../img/favicon.ico')}  />
+        <Image style={{display: 'none'}} src={require('../../img/favicon.ico')}  />
         <div>
           <StartPage />
         </div>
