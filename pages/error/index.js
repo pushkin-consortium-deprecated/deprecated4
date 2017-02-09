@@ -66,7 +66,7 @@ class ErrorPage extends React.Component {
     return (
       <div>
         {/* needed for sticky footer */}
-        <b.Image style={{display: 'none'}} src="/../../img/favicon.ico" />
+        <b.Image style={{display: 'none'}} src={require('../../img/favicon.ico')}  />
         <div style={{margin: '20px', marginTop: this.state.mobile ? '50px' : '100px'}}>
           <b.Row>
             <b.Col xs={12}>

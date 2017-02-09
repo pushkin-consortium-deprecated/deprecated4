@@ -31,7 +31,7 @@ export default class ShareButton extends React.Component {
     );
   }
   render() {
-    const shareUrl = 'http://localhost/WhichEnglish';
+    const shareUrl = 'http://gameswithwords.org/quizzes/whichenglish';
     const title = 'WhichEnglish'
     return (
       <div style={{ marginBottom: 40 }}>

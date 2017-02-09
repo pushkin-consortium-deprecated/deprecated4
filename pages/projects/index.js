@@ -12,18 +12,18 @@ import { Row, Col, Image } from 'react-bootstrap';
 import React, { PropTypes } from 'react';
 import s from './styles.css';
 
-class HomePage extends React.Component {
+class ProjectPage extends React.Component {
   render() {
     return (
       <div>
-        <Image style={{display: 'none'}} src="/../../img/favicon.ico" />
+        <Image style={{display: 'none'}} src={require('../../img/favicon.ico')}  />
         <div >
           <Row>
             <Col xs={12}>
               <div className={s.blurb} >
                 <p>Want to participate in science not just as a subject but as a researcher? Professional researchers are increasingly <a href="http://en.wikipedia.org/wiki/Citizen_science">turning to amateurs</a> to solve critical scientific problems. Help out with one of our projects below.</p>
                 <hr />
-                <p className={s.title} ><a href="http://gameswithwords.org/VerbCorner">VerbCorner</a></p>
+                <p className={s.title} ><a href="/VerbCorner">VerbCorner</a></p>
                 <p className={s.blurb}>Help us crowdsource the structure of language, meaning, and thought</p>
                 <hr />
                 <p>More coming soon... In the meantime, check <a href="http://scistarter.org">SciStarter.org</a> for more &quot;citizen science&quot; projects.</p>
@@ -37,4 +37,4 @@ class HomePage extends React.Component {
 
 }
 
-export default HomePage;
+export default ProjectPage;

@@ -1,18 +1,9 @@
-/**
- * React Static Boilerplate
- * https://github.com/kriasoft/react-static-boilerplate
- *
- * Copyright © 2015-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import { Row, Col, Image } from 'react-bootstrap';
+import { Link } from 'react-router';
 import React, { PropTypes } from 'react';
 import s from './styles.css';
 
-class HomePage extends React.Component {
+class PathPage extends React.Component {
 render() {
   return (
     <div className={s.white}>
@@ -24,12 +15,12 @@ render() {
         </Row>
         <Row className="display">
           <Col sm={12} lg={6} className={s.gif + ' ' + s.border}>
-            <a href="/projects"><Image src="/../../gif/res.gif" responsive className={s.gif}/></a>
+            <Link href="/projects"><Image src={require("../../gif/res.gif")} responsive className={s.gif}/></Link>
             <p className={s.subText} ><b>Researcher</b></p>
             <p className={s.subText} style={{marginBottom: '50px'}}>Take control and help unlock the mysteries of language.</p>
           </Col>
           <Col sm={12} lg={6} className={s.gif + ' ' + s.margin}>
-            <a href="/quizzes"><Image src="/../../gif/par.gif" responsive className={s.gif}/></a>
+            <Link to="/quizzes"><Image src={require("../../gif/par.gif")} responsive className={s.gif}/></Link>
             <p className={s.subText}><b>Participant</b></p>
             <p className={s.subText} style={{marginBottom: '50px'}}>Be a part of linguistics research and support our scientists.</p>
           </Col>
@@ -40,4 +31,4 @@ render() {
 
 }
 
-export default HomePage;
+export default PathPage;

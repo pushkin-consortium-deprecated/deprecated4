@@ -13,7 +13,7 @@ import * as b from 'react-bootstrap';
 import React, { PropTypes } from 'react';
 import s from './styles.css';
 
-class HomePage extends React.Component {
+class FindingPage extends React.Component {
 
   constructor(){
     super();
@@ -47,7 +47,7 @@ class HomePage extends React.Component {
   render() {
     return (
       <div>
-        <b.Image style={{display: 'none'}} src="/../../img/favicon.ico" />
+        <b.Image style={{display: 'none'}} src={require('../../img/favicon.ico')}  />
         <div >
         <b.Row>
           <b.Col xs={12} md={9} style={this.state.border}>
@@ -240,4 +240,4 @@ class HomePage extends React.Component {
 
 }
 
-export default HomePage;
+export default FindingPage;

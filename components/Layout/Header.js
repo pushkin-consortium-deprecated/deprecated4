@@ -62,16 +62,18 @@ class Header extends React.Component {
           <Link to="/paths">
             <div
               className={s.landing}
-              style={{background: 'url(/../../img/logo_button-min.png) no-repeat center center', '-webkit-background-size': 'cover', '-moz-background-size': 'cover', '-o-background-size': 'cover', backgroundSize: 'cover', width: '100%', height: '80vh'}}>
-            </div>
+              style={{
+                backgroundImage: `url(${require('../../img/logo_button-min.png')})`
+              }}
+            />
           </Link>
-          <b.Image style={{display: 'none'}} src="/../../favicon.ico"  />
+        <b.Image style={{display: 'none'}} src={require('../../img/favicon.ico')}  />
         </header>
       );
     } else if (this.state.mobile && !this.home()) {
       return (
         <header className={s.header} id="header" ref={node => (this.root = node)} >
-          <b.Image src="/../../img/gww_logo.png" className={s.logo}/>
+          <b.Image src={require("../../img/gww_logo.png")} className={s.logo}/>
           <div className={s.navWrapper}>
             <b.Nav bsStyle="pills" activeKey={this.getLocation()}>
               <b.NavDropdown active title="Menu" style={{padding: '3px', marginTop: '2px'}} id="bg-nested-dropdown">
@@ -124,13 +126,8 @@ class Header extends React.Component {
     else {
       return (
         <header className={s.header} ref={node => (this.root = node)}>
-          {this.home() ? <b.Image src="/../../img/logo_square-min.png"  responsive /> : <b.Image src="/../../img/gww_logo.png" className={s.logo} />}
-          <b.Nav 
-            className={s.nav}
-            bsStyle="tabs" 
-            justified 
-            activeKey={this.getLocation()}
-            >
+          {this.home() ? <b.Image src={require("../../img/logo_square-min.png")}  responsive /> : <b.Image src={require("../../img/gww_logo.png")} className={s.logo} />}
+          <b.Nav style={{margin: '0px', fontFamily: '\'Ribeye Marrow\', cursive', fontSize: '20px', backgroundColor: '#a9a9a9'}} bsStyle="tabs" justified activeKey={this.getLocation()}>
               <LinkContainer to="/paths">
             <b.NavItem eventKey={'paths'}>
                 Paths
@@ -154,11 +151,6 @@ class Header extends React.Component {
             <LinkContainer to="/about">
               <b.NavItem eventKey={'about'}>
                   About
-              </b.NavItem>
-            </LinkContainer>
-            <LinkContainer to="/results">
-              <b.NavItem eventKey={'results'}>
-                  Results
               </b.NavItem>
             </LinkContainer>
             <b.NavItem eventKey={'blog'} href="https://blog.gameswithwords.org/">
