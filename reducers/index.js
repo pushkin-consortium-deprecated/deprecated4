@@ -1,29 +1,34 @@
 import { routerReducer } from 'react-router-redux';
 import { combineReducers } from 'redux';
-import userInfo from './userinfo';
-import nextpage from './nextpage';
-import questionque from './questionque';
+import pushkin from '../pushkin-react/reducers/index'
 import error from './error';
+import userInfo from './userInfo';
 import { reducer as formReducer } from 'redux-form';
+import nextpage from './nextpage';
+// import { START_PROGRESS } from '../actions/progress';
 
-const SAVE_ANSWERS = 'SAVE_ANSWERS';
-function saveAnswers(state = { saveAnswers: false }, action) {
-  switch (action.type) {
-    case SAVE_ANSWERS: {
-      return {
-        saveAnswers: true,
-      };
-    }
-    default:
-      return state;
-  }
-}
+// const SAVE_ANSWERS = 'SAVE_ANSWERS';
+// function saveAnswers(state = { saveAnswers: false, precent: 0}, action) {
+//   switch (action.type) {
+//     case SAVE_ANSWERS: {
+//       return {
+//         saveAnswers: true,
+//       };
+//     }
+//     case START_PROGRESS: {
+//       return {
+//         precent: action.precent
+//       }
+//     }
+//     default:
+//       return state;
+//   }
+// }
 export const rootReducer = combineReducers({
-  options: saveAnswers,
-  nextpage,
-  questionque,
-  userInfo,
+  pushkin,
   error,
+  nextpage,
+  userInfo,
   routing: routerReducer,
   form: formReducer,
 });

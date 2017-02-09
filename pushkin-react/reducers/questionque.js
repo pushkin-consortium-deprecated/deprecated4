@@ -14,7 +14,7 @@ import {
 
 export default function nextQuestion(state = {
   isFetching: false,
-  instruction: 'Instruction',
+  instruction: null,
   next: null,
   current: null,
   complete: [],

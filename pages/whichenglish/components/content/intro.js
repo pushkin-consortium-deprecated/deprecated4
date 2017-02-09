@@ -1,23 +1,22 @@
 /* eslint-disable max-len */
 
 import React, { PropTypes } from 'react';
-import Instruction from './instruction';
 
 export default class Intro extends React.Component {
   handleGender = (e) => {
-    this.props.setState('gender', e.target.value);
+    this.props.handleStateChange('gender', e.target.value);
   }
   handleAge = (e) => {
-    this.props.setState('age', e.target.value);
+    this.props.handleStateChange('age', e.target.value);
   }
   handleTakenBefore = (e) => {
-    this.props.setState('takenBefore', e.target.value);
+    this.props.handleStateChange('takenBefore', e.target.value);
   }
   handleDisorder = (e) => {
-    this.props.setState('languageDisorder', e.target.value);
+    this.props.handleStateChange('languageDisorder', e.target.value);
   }
   handleEducation = (e) => {
-    this.props.setState('education', e.target.value);
+    this.props.handleStateChange('education', e.target.value);
   }
   showContent() {
     const location = this.props.page;
@@ -132,12 +131,6 @@ export default class Intro extends React.Component {
               <option value="High School Degree (12-13 years ed)">High School Degree (12-13 years ed)</option>
               <option value="Haven't finished High School (less than 13 years ed)">Haven&apos;t finished High School (less than 13 years ed)</option>
             </select>
-          </div>
-        );
-      case 5:
-        return (
-          <div>
-            <Instruction />
           </div>
         );
       default:

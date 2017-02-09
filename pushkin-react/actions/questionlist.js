@@ -1,21 +1,10 @@
 import local from './axiosConfigInitial';
 import { error } from './error';
+import  { requestQuestionBegin } from './fetch';
 
-export const USER_ID = 'USER_ID';
 export const FETCHING_LIST = 'FETCHING_LIST';
 export const BUILD_INITIAL = 'BUILD_INITIAL';
 
-function sendUserId(id) {
-  return {
-    type: USER_ID,
-    id,
-  };
-}
-function fetchingList() {
-  return {
-    type: FETCHING_LIST,
-  };
-}
 function buildInitial(list) {
   return {
     type: BUILD_INITIAL,
@@ -24,7 +13,7 @@ function buildInitial(list) {
 }
 export function questionList() {
   return (dispatch, getState) => {
-    dispatch(fetchingList());
+    dispatch(requestQuestionBegin());
     return local.get('initialQuestions')
     .then((resp) => {
       if (resp.error) {
@@ -32,9 +21,6 @@ export function questionList() {
       }
       dispatch(buildInitial(resp.data.questions));
       return resp.data;
-    })
-    .then((data) => {
-      return dispatch(sendUserId(data.user.id));
     })
     .catch((err) => {
       return dispatch(error(err));

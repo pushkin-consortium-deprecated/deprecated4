@@ -19,15 +19,11 @@ class Header extends React.Component {
 
   constructor(){
     super();
-    this.state = {};
+    this.state = { mobile: false };
     this.updateDimensions = this.updateDimensions.bind(this);
   }
-
-  componentWillMount() {
-    this.updateDimensions();
-  }
-
   componentDidMount() {
+    this.updateDimensions();
     window.addEventListener('resize', this.updateDimensions);
   }
 
@@ -49,7 +45,9 @@ class Header extends React.Component {
   }
 
   updateDimensions() {
-    if (window.innerWidth < 768 || this.home()) {
+    console.log('update dimentsions');
+    console.log(window.innerWidth);
+    if (window.innerWidth < 768) {
       this.setState({mobile: true});
     }
     else {
@@ -72,8 +70,7 @@ class Header extends React.Component {
         <b.Image style={{display: 'none'}} src={require('../../img/favicon.ico')}  />
         </header>
       );
-    }
-    else if (this.state.mobile && !this.home()) {
+    } else if (this.state.mobile && !this.home()) {
       return (
         <header className={s.header} id="header" ref={node => (this.root = node)} >
           <b.Image src={require("../../img/gww_logo.png")} className={s.logo}/>

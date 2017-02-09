@@ -6,9 +6,9 @@ import {
   USER_ID,
 } from '../actions/userinfo';
 
-// import {
-//   SET_RESULTS
-// } from '../actions/questionque';
+import {
+  SET_RESULTS
+} from '../actions/questionque';
 
 export default function userInfo(state = {}, action) {
   switch (action.type) {
@@ -50,12 +50,12 @@ export default function userInfo(state = {}, action) {
         primaryLanguages: action.data.primaryLanguages,
       };
     }
-    // case SET_RESULTS: {
-    //   return {
-    //     ...state,
-    //     results: action.results,
-    //   };
-    // }
+    case SET_RESULTS: {
+      return {
+        ...state,
+        results: action.results,
+      };
+    }
     default:
       return state;
   }

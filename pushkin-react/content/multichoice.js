@@ -12,7 +12,7 @@ export default class MultiChoice extends React.Component {
       type: 'survey-multi-choice',
       questions: page_1_questions,
       options: [page_1_options],
-      required: [true, false],
+      required: false,
       on_finish: function(data) {
         const response = JSON.parse(data.responses);
         let choiceId;
@@ -42,6 +42,9 @@ export default class MultiChoice extends React.Component {
       display_element: this.refs.main,
       timeline: [multi_choice_block],
       on_finish: function() {
+        if(props.showProgress){
+          props.dispatchPrecent(35)
+        }
         props.progress();
       },
     });
@@ -83,13 +86,26 @@ export default class MultiChoice extends React.Component {
       display_element: this.refs.main,
       timeline: [multi_choice_block],
       on_finish: function() {
+        if(props.showProgress){
+          props.dispatchPrecent(35)
+        }
         props.progress();
       },
     });
   }
+  showProgress() {
+    if(this.props.showProgress) {
+      return (
+        <Progress precent={this.props.precent} />
+      )
+    }
+  }
   render() {
     return (
-      <div ref="main">
+      <div>
+        <div ref="main">
+        </div>
+        {this.showProgress()}
       </div>
     );
   }

@@ -29,15 +29,18 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import { rootReducer } from './reducers/index';
 import thunkMiddleware from 'redux-thunk';
 import { compose, createStore, applyMiddleware } from 'redux';
-import createLogger from 'redux-logger';
 
-const loggerMiddleware = createLogger();
 
 export default function configureStore(initialState) {
+  const middleWares = [thunkMiddleware];
+  if (process.env.NODE_ENV === 'development') {
+    middleWares.push(require('redux-logger')());
+  }
+
   const store = createStore(
     rootReducer,
     initialState,
-    compose(applyMiddleware(thunkMiddleware, loggerMiddleware))
+    compose(applyMiddleware.apply(this, middleWares))
   );
   // Hot reload reducers (requires Webpack or Browserify HMR to be enabled)
   if (module.hot) {

@@ -1,7 +1,7 @@
 import Axios from 'axios';
 
 const axiosInstance = Axios.create({
-  baseURL: '/api',
+  baseURL: process.env.NODE_ENV === "production" ? '/api' : '//localhost/api',
 });
 
 module.exports = axiosInstance;

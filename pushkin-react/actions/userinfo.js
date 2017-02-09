@@ -65,7 +65,7 @@ function submitCommentsSuccess(data) {
 }
 export function submitComments(comments) {
   return (dispatch, getState) => {
-    const state = getState();
+    const state = getState().pushkin;
     if (state.userInfo.id) {
       const userId = state.userInfo.id;
       let payload;
