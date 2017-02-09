@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import MultiChoice from './content/multichoice';
 import MultiPicture from './content/multipicture';
 import MultiSelect from './content/multiselect';
-import Instruction from './content/instruction';
 import { questionList } from './actions/questionlist';
 import { postAnswerGetQuestion } from './actions/questionque';
 import { startInstruction } from './actions/instruction';
 import { startProgress } from './actions/progress';
+import Spinner from './content/Spinner';
 
 class SurveyProvider extends React.Component {
   componentWillMount() {
@@ -26,11 +26,16 @@ class SurveyProvider extends React.Component {
   }
   fetchNextQuestion = (response, answer) => {
     const props = this.props;
-    if (!response.choiceId) {
-      console.log(response, 'had no choice id');
-    } else {
-      props.dispatch(postAnswerGetQuestion(response));
-    }
+    // Disabled to allow for empty responses by users
+    // if (!response.choiceId) {
+    //   console.log(response, 'had no choice id');
+    // } else {
+      if (!response.questionId) {
+        console.log(response, 'had no question id');
+      } else {
+        props.dispatch(postAnswerGetQuestion(response));
+      }
+    // }
   };
   handlePictureChoices(currentQuestion) {
     if(currentQuestion.type === "survey-multi-picture") {
@@ -52,15 +57,9 @@ class SurveyProvider extends React.Component {
   }
   render() {
 
-    console.log(this.props, 'usrveyprovider');
-    // if (this.props.questionque.instruction) {
-    //   return (
-    //     <Instruction
-    //       text={this.props.questionque.instruction}
-    //       buidInitial={this.buildInitial}
-    //     />
-    //   )
-    // }
+    if (this.props.questionque.isFetching) {
+      return null;
+    }
     if (this.props.questionque.isFetching && !this.props.questionque.current) {
       return <h3>Loading ... </h3>;
     }
@@ -88,16 +87,16 @@ class SurveyProvider extends React.Component {
         return (
           <div>
             <MultiChoice
-                question={this.props.questionque.current.prompt}
-                choices={choices}
-                showProgress={false}
-                dispatchPrecent={this.dispatchPrecent}
-                allChoices = {this.props.questionque.current.choices}
-                questionId={this.props.questionque.current.choices[0].questionId}
-                trialId={this.props.questionque.current.trialId}
-                nextQuestion={this.fetchNextQuestion}
-                progress={this.props.progress}
-                userId={this.props.userInfo.id}
+              question={this.props.questionque.current.prompt}
+              choices={choices}
+              showProgress={false}
+              dispatchPrecent={this.dispatchPrecent}
+              allChoices = {this.props.questionque.current.choices}
+              questionId={this.props.questionque.current.choices[0].questionId}
+              trialId={this.props.questionque.current.trialId}
+              nextQuestion={this.fetchNextQuestion}
+              progress={this.props.progress}
+              userId={this.props.userInfo.id}
             />
           </div>
         );

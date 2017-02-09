@@ -13,7 +13,7 @@ export default class MultiSelect extends React.Component {
       type: 'survey-multi-select',
       questions: page_1_questions,
       options: [page_1_options],
-      required: [true, false],
+      required: [false, false],
       on_finish: function(data) {
         const response = JSON.parse(data.responses);
         const choiceIds = response.answer.map(answer => {
@@ -55,7 +55,7 @@ export default class MultiSelect extends React.Component {
       type: 'survey-multi-select',
       questions: page_1_questions,
       options: [page_1_options],
-      required: [true, false],
+      required: [false, false],
       on_finish: function(data) {
         const response = JSON.parse(data.responses);
         const choiceIds = response.answer.map(answer => {

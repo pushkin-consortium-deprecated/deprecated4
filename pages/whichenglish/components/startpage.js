@@ -84,7 +84,14 @@ class StartPage extends React.Component {
               };
             }, () => {
               if (this.state.age && this.state.education && this.state.gender && this.state.languageDisorder && this.state.takenBefore) {
-                this.dispatchUserInfo(this.state);
+                const { age, education, gender, languageDisorder, takenBefore } = this.state;
+                this.dispatchUserInfo({
+                  age,
+                  education,
+                  gender,
+                  languageDisorder,
+                  takenBefore
+                });
               }
             })
           }>Next</button>

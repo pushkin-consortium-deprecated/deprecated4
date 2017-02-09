@@ -13,7 +13,7 @@ export default class MultiPicture extends React.Component {
       type: 'survey-multi-picture',
       questions: [page_1_questions],
       options: [page_1_options],
-      required: [true, false],
+      required: false,
       horizontal: true,
       on_finish: function(data) {
         const response = JSON.parse(data.responses);
@@ -103,7 +103,6 @@ export default class MultiPicture extends React.Component {
     }
   }
   render() {
-    console.log("pic", this.props)
     return (
       <div>
         <div ref="main">

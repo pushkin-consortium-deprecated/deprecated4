@@ -12,7 +12,7 @@ export default class MultiChoice extends React.Component {
       type: 'survey-multi-choice',
       questions: page_1_questions,
       options: [page_1_options],
-      required: [true, false],
+      required: false,
       on_finish: function(data) {
         const response = JSON.parse(data.responses);
         let choiceId;

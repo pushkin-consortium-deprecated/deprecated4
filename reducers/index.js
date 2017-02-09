@@ -2,6 +2,7 @@ import { routerReducer } from 'react-router-redux';
 import { combineReducers } from 'redux';
 import pushkin from '../pushkin-react/reducers/index'
 import error from './error';
+import userInfo from './userInfo';
 import { reducer as formReducer } from 'redux-form';
 import nextpage from './nextpage';
 // import { START_PROGRESS } from '../actions/progress';
@@ -27,6 +28,7 @@ export const rootReducer = combineReducers({
   pushkin,
   error,
   nextpage,
+  userInfo,
   routing: routerReducer,
   form: formReducer,
 });
