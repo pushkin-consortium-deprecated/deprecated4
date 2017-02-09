@@ -21,8 +21,7 @@ export default class MultiSelect extends React.Component {
           return props.allChoices[index].id;
         });
         const formatResponse = {
-          choiceId: choiceIds,
-          questionId: props.questionId,
+         questionId: props.questionId,
           user: {
             id: props.userId,
           },
@@ -31,8 +30,11 @@ export default class MultiSelect extends React.Component {
           questionId: props.questionId,
           questionText: props.question,
           answer: response.answer,
-          choiceId: choiceIds,
         };
+        if (choiceIds.length > 0) {
+          answerObj.choiceId = choiceIds;
+          formatResponse.choiceId = choiceIds;
+        }
         props.nextQuestion(formatResponse, answerObj)
       },
     };
@@ -63,7 +65,6 @@ export default class MultiSelect extends React.Component {
           return props.allChoices[index].id;
         });
         const formatResponse = {
-          choiceId: choiceIds,
           questionId: props.questionId,
           user: {
             id: props.userId,
@@ -73,8 +74,11 @@ export default class MultiSelect extends React.Component {
           questionId: props.questionId,
           questionText: props.question,
           answer: response.answer,
-          choiceId: choiceIds,
         };
+        if (choiceIds.length > 0) {
+          answerObj.choiceId = choiceIds;
+          formatResponse.choiceId = choiceIds;
+        }
         props.nextQuestion(formatResponse, answerObj)
       },
     };

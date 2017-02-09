@@ -29,8 +29,7 @@ export function postAnswerGetQuestion(response, answer) {
   return (dispatch, getState) => {
     const state = getState().pushkin;
     dispatch(requestQuestionBegin());
-    debugger;
-    if(Array.isArray(response.choiceId)){
+    if(Array.isArray(response.choiceId) && response.choiceId.length > 0){
       return Promise.all(response.choiceId.map(currentId => {
          return local.post('response', {
             choiceId: currentId,
