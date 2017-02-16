@@ -23,7 +23,6 @@ class AboutPage extends React.Component {
 
   componentWillMount() {
     window.addEventListener('resize', this.updateDimensions);
-    this.updateDimensions();
   }
 
   componentDidMount() {
@@ -40,25 +39,25 @@ class AboutPage extends React.Component {
       this.setState({mobile: true, border: {borderBottom: 'dashed #a9a9a9'}});
     }
     else {
-      this.setState({mobile: false, border: {borderRight: 'dashed #a9a9a9'}});
+      this.setState({mobile: false, border: {borderRight: 'dashed #a9a9a9', minHeight: this.refs.list.offsetHeight + 20}});
     }
   }
 
   render() {
     return (
-      <div>
-        <b.Image style={{display: 'none'}} src={require('../../img/favicon.ico')}  />
+      <div style={{marginLeft:'20px', marginRight: '20px'}}>
+        <b.Image style={{display: 'none'}} src={require('../../img/favicon.ico')} onLoad={this.updateDimensions} />
         <div>
         <b.Row>
           <b.Col xs={12} md={9} style={this.state.border}>
             <div className={s.blurb} style={this.state.mobile ? null : {marginRight: '20px', fontSize: '18px'}}>
-              <p>GamesWithWords.org is a Web-based research laboratory. The quizzes and projects are research studies  probing the nature of language. Learn more about the research and the people involved by clicking on the links on the right. To read reports of completed studies, choose <a href="/findings">findings</a> from the menu bar.</p>
-              <p>To get updates about all GamesWithWords.org projects, including announcements of publications based on this research, click <a onTouchTap={() => this.setState({updates: true})}>here</a>.</p>
-              <p>Through November 2009, GamesWithWords.org was called CogLangLab.org. Empirical research found that the older name was too hard to say.</p>
+              <p className={s.sub} >GamesWithWords.org is a Web-based research laboratory. The quizzes and projects are research studies  probing the nature of language. Learn more about the research and the people involved by clicking on the links on the right. To read reports of completed studies, choose <a href="/findings">findings</a> from the menu bar.</p>
+              <p className={s.sub} >To get updates about all GamesWithWords.org projects, including announcements of publications based on this research, click <a onTouchTap={() => this.setState({updates: true})}>here</a>.</p>
+              <p className={s.sub} >Through November 2009, GamesWithWords.org was called CogLangLab.org. Empirical research found that the older name was too hard to say.</p>
             </div>
           </b.Col>
           <b.Col xs={12} md={3}>
-            <div style={this.state.mobile ? {marginTop: '20px'} : null}>
+            <div style={{marginTop: '20px'}} ref="list">
               <a><h1 className={s.title} onTouchTap={() => this.setState({people: true})}>People</h1></a>
                 <b.Modal show={this.state.people}>
                   <b.Modal.Header>
@@ -221,7 +220,7 @@ class AboutPage extends React.Component {
 
               {window.innerWidth < 768
               ? 
-              <a href="/updates"><h1 className={s.title}>Updates</h1></a>
+              <a href="/updates"><h1 style={{marginBottom:'50px'}} className={s.title}>Updates</h1></a>
               :
               <a><h1 className={s.title} onTouchTap={() => this.setState({updates: true})}>Updates</h1></a>
               }

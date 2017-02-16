@@ -13,7 +13,7 @@ import * as b from 'react-bootstrap';
 import s from './Header.css';
 import l from './Layout.css';
 import { Link } from 'react-router';
-import { LinkContainer } from 'react-router-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap';
 
 class Header extends React.Component {
 
@@ -45,8 +45,6 @@ class Header extends React.Component {
   }
 
   updateDimensions() {
-    console.log('update dimentsions');
-    console.log(window.innerWidth);
     if (window.innerWidth < 768) {
       this.setState({mobile: true});
     }

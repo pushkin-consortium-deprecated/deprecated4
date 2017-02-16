@@ -9,6 +9,10 @@
 	margin: 0px;
 }
 
+.sub {
+	font-size: 16px;
+}
+
 .white {
 	background-color: #ffffff;
 	border-width: 0px;

@@ -31,6 +31,7 @@
 	}
 	.margin {
 		margin-top: 35px;
+		border-top: dashed #a9a9a9;
 	}
 	.border {
 		border: none !important;
@@ -38,9 +39,17 @@
 	}
 }
 
+@media all and (min-width: 768px) {
+	.textCenter {
+		text-align: center;
+		margin-bottom: 15px;
+	}
+}
+
 .border {
 	border-right: dashed #a9a9a9;
 }
+
 .tan {
 	background-color: #ebebe1;
 	border-width: 0px;
@@ -51,6 +60,8 @@
 	background-color: #ffffff;
 	border-width: 0px;
 	margin: 0px;
+	margin-left: 20px;
+	margin-right: 20px;
 }
 
 .gray {
@@ -106,6 +117,7 @@
 	font-size: 31px;
 	color: #000000;
 	text-align: center;
+	line-height: 1;
 }
 
 .rightBorder {

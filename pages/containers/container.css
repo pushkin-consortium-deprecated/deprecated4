@@ -1,11 +1,13 @@
 .wrap {
-  min-height: calc(100vh - 250px);
-  padding: 20px;
+  min-height: calc(100vh - 300px);
+  padding: 0px;
+  margin-top: 50px
 }
 
 @media all and (max-width: 768px) {
   .wrap {
-    min-height: calc(100vh - 200px);
-    padding: 20px;
+    min-height: calc(100vh - 225px);
+    padding: 0px;
+    margin-top: 25px
   }
 }

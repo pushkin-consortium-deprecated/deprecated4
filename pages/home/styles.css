@@ -56,6 +56,8 @@
 	font-family: 'Noticia Text', serif;
 	font-size: 23px;
 	color: #D19336;
+	margin-left: 20px;
+	margin-right: 20px;
 }
 
 .blurb {
@@ -64,6 +66,8 @@
 	color: #082046;
     text-align: justify;
     text-justify: inter-word;
+	margin-left: 20px;
+	margin-right: 20px;
 }
 
 .gif {

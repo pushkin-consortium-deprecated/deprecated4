@@ -19,7 +19,7 @@ class HomePage extends React.Component {
         <div className={s.white}>
           <Row className={s.display}>
             <Col sm={12} lg={6} className={s.textCenter}>
-              <Image src={require("../../gif/3.gif")} responsive className={s.gif}/>
+              <Image src={require('../../gif/3.gif')} responsive className={s.gif}/>
             </Col>
             <Col sm={12} lg={5} className={s.textCenter}>
               <p className={s.title}><b>Contribute to linguistics research.</b></p>
@@ -31,18 +31,18 @@ class HomePage extends React.Component {
           <Row className={s.display}>
             <Col lg={1} />
             <Col lg={5} className={s.textCenter}>
-              <p className={s.title}><b>Collaborate with citizen scientists.</b></p>
-              <p className={s.blurb}>It doesn't matter who you are. Join our interdisciplinary team of psychologists, computer scientists, and linguists today. Whether it's contributing to our blog or posting a question in the forum, you can advance science and mingle with people who are just as interested in research as you are.</p>
+              <p className={s.title} style={{marginTop:'90px'}}><b>Collaborate with citizen scientists.</b></p>
+              <p className={s.blurb}>It doesn't matter who you are. Join our interdisciplinary team of psychologists, computer scientists, and linguists today. Whether it's contributing to our blog or posting a question in the forum, you can advance science and mingle with people who are just as interested in research  as you are.</p>
             </Col>
             <Col lg={6} className={s.textCenter}>
-              <Image src={require("../../gif/2.gif")} responsive className={s.gif}/>
+              <Image style={{marginTop:'90px'}} src={require('../../gif/2.gif')} responsive className={s.gif}/>
             </Col>
           </Row>
         </div>
         <div className={s.white}>
-          <Row className={s.display} style={{marginTop: '90px', marginBottom: '0px'}}>
+          <Row className={s.display}>
             <Col sm={12} lg={6} className={s.textCenter}>
-              <Image src={require("../../gif/1.gif")} responsive className={s.gif}/>
+              <Image src={require('../../gif/1.gif')} responsive className={s.gif}/>
             </Col>
             <Col sm={12} lg={5} className={s.textCenter}>
               <p className={s.title}><b>Discover new findings and learn.</b></p>
