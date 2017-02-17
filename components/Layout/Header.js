@@ -71,7 +71,7 @@ class Header extends React.Component {
     } else if (this.state.mobile && !this.home()) {
       return (
         <header className={s.header} id="header" ref={node => (this.root = node)} >
-          <b.Image src={require("../../img/gww_logo.png")} className={s.logo}/>
+          <b.Image src={require("../../img/gww_logo.png")} className={s.logo} style={{marginTop: '5px', height: '90px'}}/>
           <div className={s.navWrapper}>
             <b.Nav bsStyle="pills" activeKey={this.getLocation()}>
               <b.NavDropdown active title="Menu" style={{padding: '3px', marginTop: '2px'}} id="bg-nested-dropdown">
