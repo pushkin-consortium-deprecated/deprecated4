@@ -13,7 +13,7 @@ import * as b from 'react-bootstrap';
 import s from './Header.css';
 import l from './Layout.css';
 import { Link } from 'react-router';
-import { LinkContainer } from 'react-router-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap';
 
 class Header extends React.Component {
 
@@ -45,8 +45,6 @@ class Header extends React.Component {
   }
 
   updateDimensions() {
-    console.log('update dimentsions');
-    console.log(window.innerWidth);
     if (window.innerWidth < 768) {
       this.setState({mobile: true});
     }
@@ -73,7 +71,7 @@ class Header extends React.Component {
     } else if (this.state.mobile && !this.home()) {
       return (
         <header className={s.header} id="header" ref={node => (this.root = node)} >
-          <b.Image src={require("../../img/gww_logo.png")} className={s.logo}/>
+          <b.Image src={require("../../img/gww_logo.png")} className={s.logo} style={{marginTop: '5px', height: '90px'}}/>
           <div className={s.navWrapper}>
             <b.Nav bsStyle="pills" activeKey={this.getLocation()}>
               <b.NavDropdown active title="Menu" style={{padding: '3px', marginTop: '2px'}} id="bg-nested-dropdown">

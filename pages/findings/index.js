@@ -23,7 +23,6 @@ class FindingPage extends React.Component {
 
   componentWillMount() {
     window.addEventListener('resize', this.updateDimensions);
-    this.updateDimensions();
   }
 
   componentDidMount() {
@@ -40,24 +39,23 @@ class FindingPage extends React.Component {
       this.setState({mobile: true, border: {borderBottom: 'dashed #a9a9a9'}});
     }
     else {
-      this.setState({mobile: false, border: {borderRight: 'dashed #a9a9a9'}});
+      this.setState({mobile: false, border: {borderRight: 'dashed #a9a9a9', minHeight: this.refs.list.offsetHeight + 20}});
     }
   }
 
   render() {
     return (
-      <div>
-        <b.Image style={{display: 'none'}} src={require('../../img/favicon.ico')}  />
+      <div style={{marginLeft:'20px', marginRight: '20px'}}>
+        <b.Image style={{display: 'none'}} onLoad={this.updateDimensions} src={require('../../img/favicon.ico')}  />
         <div >
         <b.Row>
           <b.Col xs={12} md={9} style={this.state.border}>
             <div className={s.blurb} style={this.state.mobile ? null : {marginRight: '20px', fontSize: '18px'}}>
-                <p>Read some of the previous research findings from GamesWithWords.org below. Results are also posted (more frequently) on the <a href="https://blog.gameswithwords.org/search?q=findings">blog under the tag &quot;findings&quot;</a>.</p>
+                <p className={s.sub} >Read some of the previous research findings from GamesWithWords.org below. Results are also posted (more frequently) on the <a href="https://blog.gameswithwords.org/search?q=findings">blog under the tag &quot;findings&quot;</a>.</p>
             </div>
           </b.Col>
           <b.Col xs={12} md={3}>
-            <div>
-
+            <div ref="list">
               <a><h1 className={s.title} onTouchTap={() => this.setState({whichenglish: true})}>Englishes of the World</h1></a>
                 <b.Modal show={this.state.whichenglish}>
                   <b.Modal.Header>
@@ -213,7 +211,7 @@ class FindingPage extends React.Component {
                   </b.Modal.Footer>
                 </b.Modal>
 
-                <a><h1 style={{marginBottom: '0px'}} className={s.title} onTouchTap={() => this.setState({actions: true})}>The Meaning of Actions</h1></a>
+                <a><h1 style={{marginBottom: '50px'}} className={s.title} onTouchTap={() => this.setState({actions: true})}>The Meaning of Actions</h1></a>
                 <b.Modal show={this.state.actions}>
                   <b.Modal.Header>
                     <span style={{float: 'right', marginLeft: '7px'}}><a style={{color: '#000000', fontSize: '17px'}} onTouchTap={() => this.setState({actions: false})}>x</a></span>

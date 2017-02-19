@@ -27,5 +27,6 @@ export const routes = (<Route path="/" component={Container}>
   <Route path="/about" component={About} />
   <Route path="/updates" component={Updates} />
   <Route path="/error" component={ErrorPage} />
+  <Route path="*" component={ErrorPage} />
 </Route>
 );
