@@ -1,6 +1,3 @@
 [submodule "jsPsych"]
 	path = jsPsych
 	url = https://github.com/pushkin-consortium/jsPsych.git
-[submodule "react-components"]
-	path = react-components
-	url = https://github.com/pushkin-consortium/react-components.git
