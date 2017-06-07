@@ -7,6 +7,7 @@ import HomePage from '../pages/home/index';
 import Paths from '../pages/paths/index';
 import Projects from '../pages/projects/index';
 import Quizzes from '../pages/quizzes/index';
+import Archive from '../pages/archive/index';
 import WhichEnglish from '../pages/whichenglish/index';
 import Updates from '../pages/updates/index';
 import Container from '../pages/containers/container';
@@ -20,6 +21,7 @@ export const routes = (<Route path="/" component={Container}>
   <Route path="/quizzes" component={Quizzes}>
     <Route path="/quizzes/whichenglish" component={WhichEnglish} />
   </Route>
+  <Route path="/archive" component={Archive} />
   <Route path="/results" component={ResultsContainer} />
   <Route path="/results/user/:id" component={LastPage} />
   <Route path="/projects" component={Projects} />
