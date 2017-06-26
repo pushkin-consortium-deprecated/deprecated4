@@ -27,7 +27,11 @@ class QuizPage extends React.Component {
                 <div className={s.blurb} >
                   <p className={s.sub} >Want to learn new things about yourself while simultaneously making important contributions to science? Take one of our quizzes below.</p>
                   <hr />
-                  <p className={s.mb25} ><Link className={s.title} to="/quizzes/whichenglish">Which English?</Link><br />Help us map the grammar of English around the world? <strong>See our best guess as to which world English you speak.</strong></p>
+                  {/*
+                  <p className={s.mb25} ><Link className={s.title} to="//archive.gameswithwords.org/WhichEnglish">Which English?</Link><br />Help us map the grammar of English around the world? <strong>See our best guess as to which world English you speak.</strong></p>*/}
+
+                  <p className={s.mb25}><a className={s.title} href="//archive.gameswithwords.org/WhichEnglish">Which English</a><br />Help us map the grammar of English around the world? <strong>See our best guess as to which world English you speak.</strong></p>
+
                   <p className={s.mb25}><a className={s.title} href="//archive.gameswithwords.org/VocabQuiz">The Vocab Quiz</a><br />How many words do you know? <strong>See your results at the end.</strong></p>
                   <p><a className={s.title} style={{marginLeft:'20px', marginRight:'20px'}} href="/archive">Archives</a></p>
                   <hr />

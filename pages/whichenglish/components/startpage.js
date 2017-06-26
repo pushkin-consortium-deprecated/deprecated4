@@ -98,16 +98,16 @@ class StartPage extends React.Component {
         </div>
       );
     }
-      let buttonText = 'Next';
-      return (
-        <SurveyProvider 
-          progress={this.dispatchProgress}
-          instructions={Scripts}
-          resultsContainer={(results) => (
-            <ResultsContainer results={results} />
-          )}
-        />
-      )
+    let buttonText = 'Next';
+    return (
+      <SurveyProvider 
+        progress={this.dispatchProgress}
+        instructions={Scripts}
+        resultsContainer={(results) => (
+          <ResultsContainer results={results} />
+        )}
+      />
+    );
   }
   handleLogo() {
     if (this.props.nextpage.page < 3) {
