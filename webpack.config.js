@@ -99,6 +99,11 @@ const config = {
           path.resolve(__dirname, './main.js'),
           path.resolve(__dirname, './pushkin-react'),
           path.resolve(__dirname, './reducers'),
+          path.resolve(__dirname, './experiments')
+        ],
+        exclude: [
+          new RegExp('jspsych'),
+          new RegExp('jsPsych')
         ],
         loader: `babel-loader?${JSON.stringify(babelConfig)}`,
       },
