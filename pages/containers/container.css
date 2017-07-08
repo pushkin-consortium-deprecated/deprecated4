@@ -1,7 +1,8 @@
 .wrap {
-  min-height: calc(100vh - 300px);
+  min-height: calc(100vh - 280px);
   padding: 0px;
-  margin-top: 50px
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 @media all and (max-width: 768px) {

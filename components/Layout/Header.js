@@ -1,13 +1,3 @@
-/**
- * React Static Boilerplate
- * https://github.com/kriasoft/react-static-boilerplate
- *
- * Copyright © 2015-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import React from 'react';
 import * as b from 'react-bootstrap';
 import s from './Header.css';
@@ -29,10 +19,6 @@ class Header extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateDimensions);
-  }
-
-  getLocation() {
-    return (window.location.pathname.toString()).split('/')[1];
   }
 
   home() {
@@ -71,46 +57,46 @@ class Header extends React.Component {
     } else if (this.state.mobile && !this.home()) {
       return (
         <header className={s.header} id="header" ref={node => (this.root = node)} >
-          <b.Image src={require("../../img/gww_logo.png")} className={s.logo} style={{marginTop: '5px', height: '90px'}}/>
+          <b.Image src={require('../../img/gww_logo.png')} className={s.logo} style={{marginTop: '5px', height: '90px'}}/>
           <div className={s.navWrapper}>
-            <b.Nav bsStyle="pills" activeKey={this.getLocation()}>
+            <b.Nav bsStyle="pills">
               <b.NavDropdown active title="Menu" style={{padding: '3px', marginTop: '2px'}} id="bg-nested-dropdown">
                 <LinkContainer to="/paths">
-                  <b.MenuItem eventKey={'paths'}>
+                  <b.MenuItem>
                     <font className={s.navLinks}>
                         Paths
                     </font>
                   </b.MenuItem>
                 </LinkContainer>
                 <LinkContainer to="/projects">
-                  <b.MenuItem eventKey={'projects'}>
+                  <b.MenuItem>
                     <font className={s.navLinks}>
                         Projects
                     </font>
                   </b.MenuItem>
                 </LinkContainer>
                 <LinkContainer to="/quizzes">
-                  <b.MenuItem eventKey={'quizzes'}>
+                  <b.MenuItem>
                     <font className={s.navLinks}>
                         Quizzes
                     </font>
                   </b.MenuItem>
                 </LinkContainer>
                 <LinkContainer to="/findings">
-                  <b.MenuItem eventKey={'findings'}>
+                  <b.MenuItem>
                     <font className={s.navLinks}>
                         Findings
                     </font>
                   </b.MenuItem>
                 </LinkContainer>
                 <LinkContainer to="/about">
-                  <b.MenuItem eventKey={'about'} href="/about">
+                  <b.MenuItem>
                     <font className={s.navLinks}>
                         About
                     </font>
                   </b.MenuItem>
                 </LinkContainer>
-                <b.MenuItem eventKey={'blog'} href="https://blog.gameswithwords.org/">
+                <b.MenuItem href="https://blog.gameswithwords.org/">
                   <font className={s.navLinks}>
                     Blog
                   </font>
@@ -124,34 +110,34 @@ class Header extends React.Component {
     else {
       return (
         <header className={s.header} ref={node => (this.root = node)}>
-          {this.home() ? <b.Image src={require("../../img/logo_square-min.png")}  responsive /> : <b.Image src={require("../../img/gww_logo.png")} className={s.logo} />}
-          <b.Nav style={{margin: '0px', fontFamily: '\'Ribeye Marrow\', cursive', fontSize: '20px', backgroundColor: '#a9a9a9'}} bsStyle="tabs" justified activeKey={this.getLocation()}>
+          {this.home() ? <b.Image src={require('../../img/logo_square-min.png')}  responsive /> : <b.Image src={require('../../img/gww_logo.png')} className={s.logo} />}
+          <b.Nav style={{margin: '0px', fontFamily: '\'Ribeye Marrow\', cursive', fontSize: '20px', backgroundColor: '#a9a9a9'}} bsStyle="tabs" justified>
               <LinkContainer to="/paths">
-            <b.NavItem eventKey={'paths'}>
+            <b.NavItem>
                 Paths
             </b.NavItem>
               </LinkContainer>
             <LinkContainer to="/projects">
-            <b.NavItem eventKey={'projects'}>
+            <b.NavItem>
               Projects
             </b.NavItem>
             </LinkContainer>
               <LinkContainer to="/quizzes">
-            <b.NavItem eventKey={'quizzes'}>
+            <b.NavItem>
                 Quizzes
             </b.NavItem>
               </LinkContainer>
               <LinkContainer to="/findings">
-            <b.NavItem eventKey={'findings'}>
+            <b.NavItem>
                 Findings
             </b.NavItem>
             </LinkContainer>
             <LinkContainer to="/about">
-              <b.NavItem eventKey={'about'}>
+              <b.NavItem>
                   About
               </b.NavItem>
             </LinkContainer>
-            <b.NavItem eventKey={'blog'} href="https://blog.gameswithwords.org/">
+            <b.NavItem href="https://blog.gameswithwords.org/">
               Blog
             </b.NavItem>
           </b.Nav>

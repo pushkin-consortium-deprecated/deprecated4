@@ -211,10 +211,10 @@ jsPsych.plugins['survey-multi-choice'] = (function() {
 	if (trial.correct[0]!="NA"){
 	    // provide feedback
 	    if (iscorrect){
-		trial_form.innerHTML += '<div>Correct!</div>';		
+		trial_form.innerHTML += '<br /><br /><b>Correct!</b>';		
 	    } else {
-		trial_form.innerHTML += '</br>Incorrect. ';
-		if (trial.force_correct){trial_form.innerHTML += 'Try again.';};
+		trial_form.innerHTML += '<br /><br /><b>Incorrect.</b>';
+		if (trial.force_correct){trial_form.innerHTML += '<b> Try again.</b>';};
 	    };
 	};
 	if (iscorrect || !trial.force_correct || trial.correct[0]=="NA"){
