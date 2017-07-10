@@ -94,7 +94,7 @@ class ListenerQuiz extends React.Component {
             questions: ['Think of the singer(s). I think that the singers...', 'Think of the singer(s). I think that the singers...','Think of the singer(s). I think that the singers...','Think of the singer(s). I think that the singers...','Think of the singer(s). I think that the singers...','Think of the singer(s). I think that the singers...', 'Did you have trouble hearing this song excerpt?'],
             labels: jsPsych.randomization.shuffle([danceScale, storyScale, mournScale, loveScale, healingScale, sootheScale])
         };
-        questions.labels.push(['Yes', 'No']);
+        questions.labels.push(['<p>Yes</p>', '<p>No</p>']);
         arr.push(audio);
         arr.push(questions);
     }
@@ -160,8 +160,8 @@ class ListenerQuiz extends React.Component {
         type: 'survey-multi-choice',
         required: [true],
         questions: ['Think of the singer(s). I think that the singers...'],
-        options: [['Definitely do not use the song to celebrate a birthday', 'Definitely use the song to celebrate a birthday']],
-        correct: ['Definitely use the song to celebrate a birthday'],
+        options: [['<p align="left">Definitely do not use the song to celebrate a birthday</p>', '<p align="left">Definitely use the song to celebrate a birthday</p>']],
+        correct: ['<p align="left">Definitely use the song to celebrate a birthday</p>'],
         force_correct: true
     };
 
@@ -196,19 +196,19 @@ class ListenerQuiz extends React.Component {
       })
       .then( () => {
         timeline.push(explain_requirements);
-        timeline.push(calibration);
-        timeline.push(calibration_audio);
-        timeline.push(headphone_instructions);
+        // timeline.push(calibration);
+        // timeline.push(calibration_audio);
+        // timeline.push(headphone_instructions);
       })
       .then( () => {
-        const headphone_check = this.getHeadphoneCheck();
-        for (let i in headphone_check) {
-            timeline.push(headphone_check[i]);
-        }
+        // const headphone_check = this.getHeadphoneCheck();
+        // for (let i in headphone_check) {
+            // timeline.push(headphone_check[i]);
+        // }
       })
       .then( () => {
-        timeline.push(explain);
-        timeline.push(practice_audio);
+        // timeline.push(explain);
+        // timeline.push(practice_audio);
         timeline.push(practice_question);
         timeline.push(ready);
       })
