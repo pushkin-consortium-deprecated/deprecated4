@@ -16,7 +16,7 @@ import s from './Footer.css';
 class Footer extends React.Component {
   render() {
     return (
-      <footer >
+      <footer id="footer">
         <div className={s.footer}>
           <div className={s.vert}>
             <nobr>

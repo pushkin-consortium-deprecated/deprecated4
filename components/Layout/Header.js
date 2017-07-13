@@ -42,7 +42,7 @@ class Header extends React.Component {
   render() {
     if (this.home()) {
       return (
-        <header>
+        <header id="header">
           <Link to="/paths">
             <div
               className={s.landing}
@@ -109,7 +109,7 @@ class Header extends React.Component {
     }
     else {
       return (
-        <header className={s.header} ref={node => (this.root = node)}>
+        <header className={s.header} id="header" ref={node => (this.root = node)}>
           {this.home() ? <b.Image src={require('../../img/logo_square-min.png')}  responsive /> : <b.Image src={require('../../img/gww_logo.png')} className={s.logo} />}
           <b.Nav style={{margin: '0px', fontFamily: '\'Ribeye Marrow\', cursive', fontSize: '20px', backgroundColor: '#a9a9a9'}} bsStyle="tabs" justified>
               <LinkContainer to="/paths">

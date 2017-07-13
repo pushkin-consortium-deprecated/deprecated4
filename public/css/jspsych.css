@@ -13,6 +13,13 @@
   line-height: 1.6em;
  }
 
+ .p {
+  font-family: 'Open Sans', 'Arial', sans-serif;
+  font-size: 18px;
+  line-height: 1.6em;
+  font-weight: normal;
+ }
+
  .jspsych-display-element {
    display: flex;
    flex-direction: column;

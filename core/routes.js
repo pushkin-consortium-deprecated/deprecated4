@@ -8,7 +8,7 @@ import Paths from '../pages/paths/index';
 import Projects from '../pages/projects/index';
 import Quizzes from '../pages/quizzes/index';
 import Archive from '../pages/archive/index';
-import ListenerQuiz from '../experiments/ListenerQuiz/index';
+import listenerQuiz from '../experiments/listener-quiz/index';
 import Updates from '../pages/updates/index';
 import Container from '../pages/containers/container';
 import ResultsContainer from '../pages/containers/ResultsContainer';
@@ -19,12 +19,12 @@ export const routes = (<Route path="/" component={Container}>
   <Route path="/paths" component={Paths} />
   {/*
   <Route path="/quizzes" component={Quizzes}>
-    <Route path="/quizzes/ListenerQuiz" component={ListenerQuiz} />
+    <Route path="/quizzes/listener-quiz" component={listener-quiz} />
   </Route>
-  This method of nesting routes is good if you want all children of a particular route to still cause the relevant menu bar tab to remain in the active css configuration when you progress to a child. I.e. /quizzes and /quizzes/ListenerQuiz both make the quiz tab in the menu bar display as active. Note how below I'll declare the same routes but not nest them, as I don't want the active class to be inherited.
+  This method of nesting routes is good if you want all children of a particular route to still cause the relevant menu bar tab to remain in the active css configuration when you progress to a child. I.e. /quizzes and /quizzes/listener-quiz both make the quiz tab in the menu bar display as active. Note how below I'll declare the same routes but not nest them, as I don't want the active class to be inherited.
   */}
   <Route path="/quizzes" component={Quizzes} />
-  <Route path="/quizzes/ListenerQuiz" component={ListenerQuiz} />
+  <Route path="/quizzes/listener-quiz" component={listenerQuiz} />
   <Route path="/projects" component={Projects} />
   <Route path="/archive" component={Archive} />
   <Route path="/results" component={ResultsContainer} />

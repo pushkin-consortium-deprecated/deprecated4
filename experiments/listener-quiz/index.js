@@ -7,23 +7,35 @@ require('script-loader!./jspsych-call-function.js');
 require('script-loader!./jspsych-survey-likert.js');
 require('script-loader!./jspsych-survey-multi-choice.js');
 
-import * as f from 'react-foundation';
-import { Row, Col, Image} from 'react-bootstrap';
 import React, { PropTypes } from 'react';
+import ReactResizeDetector from 'react-resize-detector';
 import { Link } from 'react-router';
 import axiosListenerQuiz from './axiosListenerQuiz';
-import s from './ListenerQuiz.css';
+import baseUrl from '../../core/baseUrl';
+import s from './listener-quiz.css';
 
-class ListenerQuiz extends React.Component {
+class listenerQuiz extends React.Component {
 
   constructor(props) {
     super();
     this.state = {loading: true};
     this.hideLoading = this.hideLoading.bind(this);
+    this.onResize = this.onResize.bind(this);
+    window.addEventListener('resize', this.onResize.bind(this));
   }
 
   hideLoading(props) {
     this.setState({loading: false});
+  }
+
+  onResize() {
+    const margin = (document.documentElement.clientHeight - document.getElementById('header').scrollHeight - document.getElementById('footer').scrollHeight - 15 - this.refs.jsPsychTarget.scrollHeight) / 2;
+    if (margin > 0) {
+      this.refs.jsPsychTarget.style.marginTop = `${margin}px`;
+    }
+    else {
+      this.refs.jsPsychTarget.style.marginTop = '0px';
+    }
   }
 
   /* jspsych functions */
@@ -39,7 +51,7 @@ class ListenerQuiz extends React.Component {
           file = stims_shuf[i];
           audio = {
               type: 'single-audio',
-              stimulus: `/quizzes/ListenerQuiz/audio/${file}`,
+              stimulus: `${baseUrl}/quizzes/listener-quiz/audio/${file}`,
               timing_response: 5000,
               response_ends_trial: false,
               prompt: '<p align="left">Please listen to the sequence of tones.</p>'
@@ -47,6 +59,7 @@ class ListenerQuiz extends React.Component {
           questions = {
               type: 'text',
               choices: ['1', '2', '3'],
+              // stimulus: `{file}`,
               text: `
                       <p align="left">
                           Which of the tones was the QUIETEST/SOFTEST? For the first, press <b>1</b>. For the second, press <b>2</b>. For the third, press <b>3</b>.
@@ -84,7 +97,7 @@ class ListenerQuiz extends React.Component {
         file = stims[i];
         audio = {
             type: 'single-audio',
-            stimulus: `/quizzes/ListenerQuiz/audio/${file}`,
+            stimulus: `${baseUrl}/quizzes/listener-quiz/audio/${file}`,
             timing_response: 15000,
             response_ends_trial: false,
             prompt: '<p align="left">Please listen to the song excerpt and answer the questions that will follow when complete.</p>'
@@ -119,7 +132,7 @@ class ListenerQuiz extends React.Component {
 
     const calibration_audio = {
         type: 'single-audio',
-        stimulus: '/quizzes/ListenerQuiz/audio/noise_calib_stim.wav',
+        stimulus: `${baseUrl}/quizzes/listener-quiz/audio/noise_calib_stim.wav`,
         choices: ['c'],
         response_ends_trial: true,
         prompt: '<p align="left">Adjust the volume on your computer until the tone is at a loud but comfortable level. When you are satisfied, press <b>C</b> to continue.</p>'
@@ -150,7 +163,7 @@ class ListenerQuiz extends React.Component {
 
     const practice_audio = {
         type: 'single-audio',
-        stimulus: '/quizzes/ListenerQuiz/audio/NAIV-birthday.mp3',
+        stimulus: `${baseUrl}/quizzes/listener-quiz/audio/NAIV-birthday.mp3`,
         timing_response: 10000,
         response_ends_trial: false,
         prompt: '<p align="left">Please listen to the song excerpt and answer the questions that will follow when complete.</p>'
@@ -160,8 +173,8 @@ class ListenerQuiz extends React.Component {
         type: 'survey-multi-choice',
         required: [true],
         questions: ['Think of the singer(s). I think that the singers...'],
-        options: [['<p align="left">Definitely do not use the song to celebrate a birthday</p>', '<p align="left">Definitely use the song to celebrate a birthday</p>']],
-        correct: ['<p align="left">Definitely use the song to celebrate a birthday</p>'],
+        options: [['<span class="p">Definitely do not use the song to celebrate a birthday</span>', '<span class="p">Definitely use the song to celebrate a birthday</span>']],
+        correct: ['<span class="p">Definitely use the song to celebrate a birthday</span>'],
         force_correct: true
     };
 
@@ -174,7 +187,7 @@ class ListenerQuiz extends React.Component {
         type: 'survey-multi-choice',
         required: [true, true, true, true, true],
         questions: ['What color is the sky? Please answer this incorrectly ON PURPOSE, by choosing RED instead of blue.', 'Did you wear headphones while listening to the sounds in this study?', 'Please tell us about the place where you worked on this study. Please answer honestly.', 'Please tell us about whether you had difficulty loading the sounds. Please answer honestly.', 'How carefully did you complete this survey?'],
-        options: [['Green', 'Red', 'Blue', 'Yellow'],['Yes', 'No'], ['I worked on this study in a very noisy place', 'I worked on this study in a somewhat noisy place', 'I worked on this study in a somewhat quiet place', 'I worked on this study in a very quiet place'],['There were problems loading all of the sounds', 'There were problems loading most of the sounds', 'There were problems loading some of the sounds', 'There were no problems loading any of the sounds'], ['Not carefully at all', 'Slightly carefully', 'Moderately carefully', 'Quite carefully', 'Very carefully']],
+        options: [['<span class="p">Green</span>', '<span class="p">Red</span>', '<span class="p">Blue</span>', '<span class="p">Yellow</span>'],['<span class="p">Yes</span>', '<span class="p">No</span>'], ['<span class="p">I worked on this study in a very noisy place</span>', '<span class="p">I worked on this study in a somewhat noisy place</span>', '<span class="p">I worked on this study in a somewhat quiet place</span>', '<span class="p">I worked on this study in a very quiet place</span>'],['<span class="p">There were problems loading all of the sounds</span>', '<span class="p">There were problems loading most of the sounds</span>', '<span class="p">There were problems loading some of the sounds</span>', '<span class="p">There were no problems loading any of the sounds</span>'], ['<span class="p">Not carefully at all</span>', '<span class="p">Slightly carefully</span>', '<span class="p">Moderately carefully</span>', '<span class="p">Quite carefully</span>', '<span class="p">Very carefully</span>']],
         correct: ['NA', 'NA', 'NA', 'NA', 'NA']
     };
 
@@ -196,19 +209,19 @@ class ListenerQuiz extends React.Component {
       })
       .then( () => {
         timeline.push(explain_requirements);
-        // timeline.push(calibration);
-        // timeline.push(calibration_audio);
-        // timeline.push(headphone_instructions);
+        timeline.push(calibration);
+        timeline.push(calibration_audio);
+        timeline.push(headphone_instructions);
       })
       .then( () => {
-        // const headphone_check = this.getHeadphoneCheck();
-        // for (let i in headphone_check) {
-            // timeline.push(headphone_check[i]);
-        // }
+        const headphone_check = this.getHeadphoneCheck();
+        for (let i in headphone_check) {
+            timeline.push(headphone_check[i]);
+        }
       })
       .then( () => {
-        // timeline.push(explain);
-        // timeline.push(practice_audio);
+        timeline.push(explain);
+        timeline.push(practice_audio);
         timeline.push(practice_question);
         timeline.push(ready);
       })
@@ -224,7 +237,7 @@ class ListenerQuiz extends React.Component {
       })
       .then( () => {
         jsPsych.init({
-            display_element: this.refs.jspsychTarget,
+            display_element: this.refs.jsPsychTarget,
             timeline: timeline,
             on_data_update: function(data) {
 
@@ -296,20 +309,31 @@ class ListenerQuiz extends React.Component {
     const loading = this.state.loading;
     if (!this.props.children) {
       return (
+
         <div>
 
-          <link rel="stylesheet" type="text/css" href="/css/jspsych.css" />
+          <div id="jsPsychContainer">
 
-          <div style={{display: loading ? '' : 'none'}}>
-            <p className={s.loading}><b>Loading...</b></p>
+            <ReactResizeDetector handleWidth handleHeight onResize={this.onResize} />
+
+            <link rel="stylesheet" type="text/css" href={`${baseUrl}/css/jspsych.css`} />
+
+            <div ref="preamble" id="preamble">
+
+              <div style={{display: loading ? '' : 'none'}}>
+                <p className={s.loading}><b>Loading...</b></p>
+              </div>
+
+              <div style={{display: loading ? 'none' : ''}}>
+                <p className={s.title}>The Listener Quiz</p>
+                <hr className={s.divider} />
+              </div>
+
+            </div>
+
+            <div ref="jsPsychTarget" id="jsPsychTarget" />
+
           </div>
-
-          <div style={{display: loading ? 'none' : ''}}>
-            <p className={s.title}>The Listener Quiz</p>
-            <hr style={{maxWidth: '90%', marginLeft: 'auto', marginRight: 'auto', marginTop: '0px', borderTop: '1px solid #000000'}} />
-          </div>
-
-          <div ref="jspsychTarget" />
 
         </div>
       );
@@ -318,5 +342,7 @@ class ListenerQuiz extends React.Component {
   }
 }
 
-export default ListenerQuiz;
+export default listenerQuiz;
 /* eslint-disable max-len */
+
+

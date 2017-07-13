@@ -6,7 +6,7 @@ import s from './styles.css';
 class PathsPage extends React.Component {
 render() {
   return (
-    <div style={{marginTop: '35px'}} className={s.white}>
+    <div className={s.white}>
       <Row className="display">
         <Col sm={12} lg={12} className={s.textCenter}>
           <p className={s.heading}>CHOOSE YOUR PATH.</p>

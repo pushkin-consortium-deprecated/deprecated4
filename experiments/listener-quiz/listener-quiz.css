@@ -7,6 +7,14 @@
 * This source code is licensed under the MIT license found in the
 * LICENSE.txt file in the root directory of this source tree.
 */
+
+.divider {
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0px;
+  border-top: 1px solid #000000;
+}
 .navWrapper {
     text-align: center;
     position: absolute;

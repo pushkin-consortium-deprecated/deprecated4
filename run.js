@@ -19,7 +19,7 @@ const webpack = require('webpack');
 // TODO: Update configuration settings
 const config = {
   title: 'Games With Words',        // Your website title
-  url: 'http://gameswithwords.s3-website-us-east-1.amazonaws.com/',          // Your website URL
+  url: 'http://d7gvdmeqbqrlo.cloudfront.net/',          // Your website URL
   project: 'gameswithwords',      // Firebase project. See README.md -> How to Deploy
   trackingID: 'UA-3271533-1',                 // Google Analytics Site's ID
 };
@@ -54,15 +54,15 @@ tasks.set('html', () => {
 //
 // Generate sitemap.xml
 // -----------------------------------------------------------------------------
-tasks.set('sitemap', () => {
-  const urls = require('./routes.json')
-    .filter(x => !x.path.includes(':'))
-    .map(x => ({ loc: x.path }));
-  const template = fs.readFileSync('./public/sitemap.ejs', 'utf8');
-  const render = ejs.compile(template, { filename: './public/sitemap.ejs' });
-  const output = render({ config, urls });
-  fs.writeFileSync('public/sitemap.xml', output, 'utf8');
-});
+// tasks.set('sitemap', () => {
+//   const urls = require('./routes.json')
+//     .filter(x => !x.path.includes(':'))
+//     .map(x => ({ loc: x.path }));
+//   const template = fs.readFileSync('./public/sitemap.ejs', 'utf8');
+//   const render = ejs.compile(template, { filename: './public/sitemap.ejs' });
+//   const output = render({ config, urls });
+//   fs.writeFileSync('public/sitemap.xml', output, 'utf8');
+// });
 
 //
 // Bundle JavaScript, CSS and image files with Webpack
@@ -89,8 +89,8 @@ tasks.set('build', () => {
   return Promise.resolve()
     .then(() => run('clean'))
     .then(() => run('bundle'))
-    .then(() => run('html'))
-    .then(() => run('sitemap'));
+    .then(() => run('html'));
+    // .then(() => run('sitemap'));
 });
 
 //
