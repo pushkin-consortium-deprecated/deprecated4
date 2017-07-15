@@ -230,7 +230,7 @@ class AboutPage extends React.Component {
                   <b.Modal.Title>Updates</b.Modal.Title>
                 </b.Modal.Header>
                 <b.Modal.Body className={s.blurb}>
-                  <iframe src="http://eepurl.com/cck0nb" frameBorder="0" width="90%" height={this.state.mobile ? '1300px' : '1100px'}/>
+                  <iframe src="https://gameswithwords.us14.list-manage.com/subscribe?u=0e422ef6ec0edf20f671a1eb5&id=96cab4d244" frameBorder="0" width="90%" height={this.state.mobile ? '1300px' : '1100px'}/>
                 </b.Modal.Body>
                 <b.Modal.Footer>
                   <b.Button onTouchTap={() => this.setState({updates: false})}>Close</b.Button>

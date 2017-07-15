@@ -9,7 +9,7 @@ require('script-loader!./jspsych-survey-multi-choice.js');
 
 import React, { PropTypes } from 'react';
 import ReactResizeDetector from 'react-resize-detector';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import axiosListenerQuiz from './axiosListenerQuiz';
 import baseUrl from '../../core/baseUrl';
 import s from './listener-quiz.css';
@@ -22,6 +22,11 @@ class listenerQuiz extends React.Component {
     this.hideLoading = this.hideLoading.bind(this);
     this.onResize = this.onResize.bind(this);
     window.addEventListener('resize', this.onResize.bind(this));
+    // this is an important workaround to clear any generated jspsych stuff that stays in the dom once even if you switch pages (because it's a single page app you're not actually switching pages, and also,  because jspysch generates dom nodes out of the scope of react, there's no automatic garbage collection). if you don't do do the following, there's a chance the experiment could accidentally carry on in the background. 
+    browserHistory.listen( location =>  {
+      jsPsych.endExperiment();
+      window.location.reload();
+    });
   }
 
   hideLoading(props) {
@@ -39,7 +44,6 @@ class listenerQuiz extends React.Component {
   }
 
   /* jspsych functions */
-
   getHeadphoneCheck() {
 
       let arr = [];
