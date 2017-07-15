@@ -45,12 +45,12 @@ class ErrorPage extends React.Component {
 
     return (
       <div>
-        {/* needed for sticky footer */}
         <div>
           <Row>
             <Col xs={12}>
+              {/* this dummy image is important for having an event to bind to that signifies when the dom is totally finished loading and thus you can actually get ths size of various elements. i would set margins entirely with css, but things don't end up firing at the right time, and they use null heights, etc. in this case, i'm using it to center the error message div between the header and footer if there's excess whitespace. */}
+              <Image style={{display: 'none'}} src={require('../../img/favicon.ico')}  onLoad={this.onResize} />
               <div className={s.center} ref="message">
-                <Image style={{display: 'none'}} src={require('../../img/favicon.ico')}  onLoad={this.onResize} />
                 <h1 className={s.code}>{code}</h1>
                 <p className={s.title}>{title}</p>
                 {code === '404' &&

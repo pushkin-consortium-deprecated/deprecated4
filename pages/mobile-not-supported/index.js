@@ -15,26 +15,6 @@ class MobileNotSupported extends React.Component {
     history.goBack();
   };
 
-  constructor(props) {
-    super();
-    this.onResize = this.onResize.bind(this);
-    window.addEventListener('resize', this.onResize.bind(this));
-  }
-
-  onResize() {
-    const margin = (document.documentElement.clientHeight - document.getElementById('header').scrollHeight - document.getElementById('footer').scrollHeight - 15 - this.refs.message.scrollHeight) / 2;
-    if (margin > 0) {
-      this.refs.message.style.marginTop = `${margin}px`;
-    }
-    else {
-      this.refs.message.style.marginTop = '0px';
-    }
-  }
-
-  componentDidMount() {
-    this.onResize = this.onResize.bind(this);
-  }
-
   render() {
 
     return (
@@ -42,8 +22,8 @@ class MobileNotSupported extends React.Component {
         <div>
           <Row>
             <Col xs={12}>
+              <br />
               <div className={s.center} ref="message">
-                <Image style={{display: 'none'}} src={require('../../img/favicon.ico')}  onLoad={this.onResize} />
                 <p className={s.title}>
                   We're sorry, but the page you requested isn't supported on mobile devices yet. We're working hard to update this, so please check back soon!
                 </p>

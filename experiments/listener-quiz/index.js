@@ -318,6 +318,7 @@ class listenerQuiz extends React.Component {
 
           <div id="jsPsychContainer">
 
+            {/* this is important for having an event to bind to that signifies when the dom is totally finished loading and thus you can actually get ths size of various elements. i would set margins entirely with css, but things don't end up firing at the right time, and they use null heights, etc. in this case, i'm using it to center the jsPsych div between the header and footer if there's excess whitespace. */}
             <ReactResizeDetector handleWidth handleHeight onResize={this.onResize} />
 
             <link rel="stylesheet" type="text/css" href={`${baseUrl}/css/jspsych.css`} />
