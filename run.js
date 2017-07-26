@@ -19,7 +19,7 @@ const webpack = require('webpack');
 // TODO: Update configuration settings
 const config = {
   title: 'Games With Words',        // Your website title
-  url: 'http://d7gvdmeqbqrlo.cloudfront.net/',          // Your website URL
+  url: 'https://d7gvdmeqbqrlo.cloudfront.net/',          // Your website URL
   project: 'gameswithwords',      // Firebase project. See README.md -> How to Deploy
   trackingID: 'UA-3271533-1',                 // Google Analytics Site's ID
 };
