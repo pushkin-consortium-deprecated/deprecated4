@@ -14,17 +14,23 @@ import Header from './Header';
 import Footer from './Footer';
 import * as b from 'react-bootstrap';
 import s from './Layout.css';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
 
 class Layout extends React.Component {
-
   render() {
+    if (typeof this.props.isAuthenticated === 'undefined') {
+      return (
+        <div>
+          <Header />
+          {this.props.children}
+          <Footer />
+        </div>
+      );
+    }
     return (
-      <div ref={node => (this.root = node)}>
-        <Header/>
-          <div {...this.props}  /> 
-        <Footer/>
+      <div>
+        <Header isAuthenticated={this.props.isAuthenticated} />
+        {this.props.children}
+        <Footer />
       </div>
     );
   }
