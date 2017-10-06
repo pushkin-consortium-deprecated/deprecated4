@@ -17,6 +17,15 @@ class DashboardProfile extends React.Component {
       }
     };
   }
+  auth0User = () => {
+    const { profile, resetPassword } = this.props;
+    if (profile.sub.includes('google') || profile.sub.includes('facebook')) {
+      return null;
+    }
+    return (
+      <a onClick={() => resetPassword(profile.email)}>Change your password</a>
+    );
+  };
   handleEdit = () => {
     this.setState({ edit: true });
   };
@@ -79,11 +88,7 @@ class DashboardProfile extends React.Component {
             imagePreviewUrl={this.state.user_metadata.imagePreviewUrl}
           />
         )}
-        <div className={s.resetpassword}>
-          <a onClick={() => this.props.resetPassword(this.props.profile.email)}>
-            Change your password
-          </a>
-        </div>
+        <div className={s.resetpassword}>{this.auth0User()}</div>
       </div>
     );
   }
