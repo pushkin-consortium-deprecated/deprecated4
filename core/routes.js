@@ -15,6 +15,7 @@ import Container from '../pages/containers/container';
 import ResultsContainer from '../pages/containers/ResultsContainer';
 import Dashboard from '../pages/dashboard/index';
 import Loading from '../pages/loading/index';
+import Forum from '../pages/forum/index';
 import Auth from './auth';
 //comment line 20 out to hide the dashboard
 const auth = new Auth();
@@ -86,6 +87,7 @@ export const routes = (
         }}
       />
     )}
+    <Route path="/forum" component={Forum} />
     <Route path="/projects" component={Projects} />
     <Route path="/archive" component={Archive} />
     <Route path="/results" component={ResultsContainer} />

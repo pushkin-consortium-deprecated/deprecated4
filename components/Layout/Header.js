@@ -127,6 +127,11 @@ class Header extends React.Component {
                     </b.MenuItem>
                   </LinkContainer>
                 )}
+                <LinkContainer to="/forum">
+                  <b.MenuItem>
+                    <font className={s.navLinks}>Forum</font>
+                  </b.MenuItem>
+                </LinkContainer>
               </b.NavDropdown>
             </b.Nav>
           </div>
@@ -181,6 +186,9 @@ class Header extends React.Component {
                 {this.showDashboardOrLogIn(loggedIn)}
               </LinkContainer>
             )}
+            <LinkContainer to="/forum">
+              <b.NavItem>Forum</b.NavItem>
+            </LinkContainer>
           </b.Nav>
         </header>
       );
