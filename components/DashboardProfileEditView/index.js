@@ -12,16 +12,28 @@ class DashboardProfileEditView extends React.Component {
             <input
               className={s.nickname}
               type="text"
+              defaultValue={this.props.profile.nickname}
               onBlur={e => this.props.handleChangeUserMetaData('nickname', e)}
             />
           </div>
-          <label>Update your profile picture</label>
-          <input
-            style={{ display: 'flex' }}
-            className={s.imageupload}
-            type="file"
-            onChange={e => this.props.handleImageChange(e)}
-          />
+          <div>
+            <label>Set a subscription email</label>
+            <input
+              className={s.nickname}
+              type="text"
+              defaultValue={this.props.profile.userEmail}
+              onBlur={e => this.props.handleChangeUserMetaData('userEmail', e)}
+            />
+          </div>
+          <div>
+            <label>Update your profile picture</label>
+            <input
+              style={{ display: 'flex' }}
+              className={s.imageupload}
+              type="file"
+              onChange={e => this.props.handleImageChange(e)}
+            />
+          </div>
         </form>
         <div style={{ marginTop: 20 }}>
           {this.props.imagePreviewUrl && (
@@ -33,6 +45,7 @@ class DashboardProfileEditView extends React.Component {
           className="btn btn-primary"
           type="submit"
           onClick={e => this.props.handleSubmit(e)}
+          disabled={this.props.disabled}
         >
           Submit
         </Button>
