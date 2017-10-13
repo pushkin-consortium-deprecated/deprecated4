@@ -1,142 +1,107 @@
-import history from './history';
-import auth0 from 'auth0-js';
+import Axios from 'axios';
 import { AUTH_CONFIG } from './auth0-variables';
-import { browserHistory } from 'react-router';
-import local from '../actions/axiosConfigInitial';
 
 export default class Auth {
-  auth0 = new auth0.WebAuth({
-    domain: AUTH_CONFIG.domain,
-    clientID: AUTH_CONFIG.clientId,
-    redirectUri: AUTH_CONFIG.callbackUrl,
-    audience: 'https://gww.auth0.com/api/v2/',
-    responseType: 'token id_token',
-    scope: 'openid email profile'
+  lock = new Auth0Lock(AUTH_CONFIG.clientId, AUTH_CONFIG.domain, {
+    languageDictionary: {
+      title: 'Pushkin'
+    },
+    // allowedConnections: ['facebook', 'Username-Password-Authentication'],
+    // oidcConformant: true,
+    autoclose: true,
+    autoParseHash: true,
+    auth: {
+      autoParseHash: true,
+      // connectionScopes: {
+      //   facebook: ['email']
+      // },
+      // redirectUrl: AUTH_CONFIG.callbackUrl,
+      // redirectUrl: 'http://localhost:8000/loading',
+      redirect: false,
+      // popup: true,
+      // sso: true,
+      responseType: 'token id_token',
+      // audience: AUTH_CONFIG.audience,
+
+      params: {
+        scope: 'openid email' // Learn about scopes: https://auth0.com/docs/scopes
+        // state: 36000
+      }
+    }
   });
-  login = () => {
-    this.auth0.authorize();
-  };
-  handleAuthentication = () => {
+  checkLogin = () => {
     return new Promise((res, rej) => {
-      this.auth0.parseHash((err, authResult) => {
-        if (err) {
-          return rej(err);
-        }
+      return this.lock.on('authenticated', authResult => {
         return res(authResult);
       });
-    })
-      .then(authResult => {
-        if (authResult && authResult.accessToken && authResult.idToken) {
-          console.log(
-            'authResult',
-            authResult,
-            authResult.accessToken,
-            authResult.idToken
-          );
-          this.setSession(authResult);
-          // this.getProfile(authResult.accessToken);
+    });
+  };
+  updateUser = (payload, userId) => {
+    const data = {
+      user_metadata: { ...payload }
+    };
+    return new Promise((res, rej) => {
+      return Axios.patch(`https://gww.auth0.com/api/v2/users/${userId}`, data, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('id_token')
         }
       })
-      .catch(err => {
-        browserHistory.replace('/error');
-        console.log(err);
-        alert(`Error: ${err.error}. Check the console for further details.`);
-      });
+        .then(resp => {
+          return res(resp.data);
+        })
+        .catch(error => {
+          return rej(error);
+        });
+    });
   };
-
-  setSession = authResult => {
-    // Set the time that the access token will expire at
-    let expiresAt = JSON.stringify(
-      authResult.expiresIn * 1000 + new Date().getTime()
-    );
-    localStorage.setItem('access_token', authResult.accessToken);
-    localStorage.setItem('id_token', authResult.idToken);
-    localStorage.setItem('expires_at', expiresAt);
-    // navigate to the home route
-    browserHistory.replace('/dashboard');
-  };
-
-  logout = () => {
-    // Clear access token and ID token from local storage
-    // localStorage.removeItem('access_token');
-    // localStorage.removeItem('id_token');
-    // localStorage.removeItem('expires_at');
-    localStorage.clear();
-    // navigate to the home route
-    browserHistory.replace('/dashboard');
-    // remove profile from component
-    this.profile = null;
-  };
-
   isAuthenticated = () => {
-    // Check whether the current time is past the
-    // access token's expiry time
     let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+    console.log('new Date(', new Date().getTime() < expiresAt);
     return new Date().getTime() < expiresAt;
+  };
+  getUserMetadata = userId => {
+    return new Promise((res, rej) => {
+      return Axios.get(`https://gww.auth0.com/api/v2/users/${userId}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + localStorage.getItem('id_token')
+        }
+      })
+        .then(resp => {
+          return res(resp.data.user_metadata);
+        })
+        .catch(error => {
+          return rej(error);
+        });
+    });
   };
   getAccessToken = () => {
     const accessToken = localStorage.getItem('access_token');
     if (!accessToken) {
-      throw new Error('No access token found');
+      return null;
     }
     return accessToken;
   };
-  getProfile = token => {
-    let accessToken = token || this.getAccessToken();
-    return new Promise((res, rej) => {
-      this.auth0.client.userInfo(accessToken, (err, profile) => {
-        if (profile) {
-          let userInfo;
-          return this.getUserMetadata(profile.sub).then(resp => {
-            userInfo = { ...profile, ...resp };
-            res(userInfo);
-          });
-        }
-        rej(err);
-      });
-    });
-  };
   resetPassword = email => {
-    const payload = {
-      client_id: 'OIzT7gmLYcxbLZWGDz7LAsX6i2iCP2tc',
-      email: email,
-      connection: 'Username-Password-Authentication'
-    };
-    return local
-      .post('https://gww.auth0.com/dbconnections/change_password', payload, {
-        headers: { 'content-type': 'application/json' }
-      })
-      .then(resp => {
-        swal(resp.data, null, 'success');
-      });
-  };
-  getUserMetadata = userId => {
-    return local
-      .get(
-        `https://gww.auth0.com/api/v2/users/${userId}?fields=user_metadata`,
+    return new Promise((res, rej) => {
+      const payload = {
+        client_id: 'OIzT7gmLYcxbLZWGDz7LAsX6i2iCP2tc',
+        email: email,
+        connection: 'Username-Password-Authentication'
+      };
+      return Axios.post(
+        'https://gww.auth0.com/dbconnections/change_password',
+        payload,
         {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + localStorage.getItem('id_token')
-          }
+          headers: { 'content-type': 'application/json' }
         }
       )
-      .then(resp => {
-        // localStorage.setItem('img', resp.data.user_metadata.imagePreviewUrl);
-        // localStorage.setItem('nickname', resp.data.user_metadata.nickname);
-        return resp.data.user_metadata;
-      });
-  };
-  updateUser = (payload, userId) => {
-    console.log('payloadhere', payload);
-    const data = {
-      user_metadata: { ...payload }
-    };
-    return local.patch(`https://gww.auth0.com/api/v2/users/${userId}`, data, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('id_token')
-      }
+        .then(resp => {
+          return res(resp);
+        })
+        .catch(error => {
+          return rej(error);
+        });
     });
   };
 }
