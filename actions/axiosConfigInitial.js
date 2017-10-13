@@ -1,7 +1,10 @@
 import Axios from 'axios';
 
-const axiosInstance = Axios.create({
-  baseURL: process.env.NODE_ENV === "production" ? '/api/whichenglish' : '//localhost/api/whichenglish',
+const axiosListenerQuiz = Axios.create({
+  baseURL:
+    process.env.NODE_ENV === 'production'
+      ? '/api/listener-quiz'
+      : '//localhost/api/listener-quiz'
 });
 
-module.exports = axiosInstance;
+module.exports = axiosListenerQuiz;
