@@ -9,75 +9,88 @@ import { Button } from 'react-bootstrap';
 class DashboardProfile extends React.Component {
   constructor(props) {
     super(props);
+    this.messages = {
+      emailValidation: 'Please enter a valid email address or leave empty',
+      profileSaved: 'Profile saved!',
+      enterNickname: 'Please edit your profile to set a nickname'
+    };
     this.state = {
+      disabled: false,
       edit: false,
-      user_metadata: {
+      profile: {
         imagePreviewUrl: this.props.profile.imagePreviewUrl || '',
-        nickname: this.props.profile.nickname || ''
+        nickname: this.props.profile.nickname || '',
+        userEmail: this.props.profile.userEmail || ''
       }
     };
   }
   auth0User = () => {
-    const { profile, resetPassword } = this.props;
-    if (profile.sub.includes('google') || profile.sub.includes('facebook')) {
+    const { profile, resetPassword, userId, email } = this.props;
+    if (userId.includes('google') || userId.includes('facebook')) {
       return null;
     }
-    return (
-      <a onClick={() => resetPassword(profile.email)}>Change your password</a>
-    );
+    return <a onClick={() => resetPassword(email)}>Change your password</a>;
   };
   handleEdit = () => {
     this.setState({ edit: true });
   };
+  validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
   handleChangeUserMetaData = (field, e) => {
-    let value;
-    if (!e.target.value) {
-      value = this.props.profile.nickname;
-    } else {
-      value = e.target.value;
+    switch (field) {
+      case 'userEmail':
+        if (!this.validateEmail(e.target.value)) {
+          if (e.target.value) {
+            this.setState({ disabled: true });
+            swal(this.messages.emailValidation, null, 'error');
+          }
+        } else {
+          this.setState({ disabled: false });
+        }
+      default:
+        this.setState({
+          profile: {
+            ...this.state.profile,
+            [field]: e.target.value
+          }
+        });
     }
-    this.setState({
-      user_metadata: { ...this.state.user_metadata, [field]: value }
-    });
   };
   _handleSubmit = e => {
     e.preventDefault();
-    this.props.updateUser(this.state.user_metadata, this.props.profile.sub);
-    this.props.updateLocalProfile(
-      this.state.user_metadata.nickname,
-      this.state.user_metadata.imagePreviewUrl
-    );
+    this.props.updateUser(this.state.profile, this.props.userId);
+    this.props.updateLocalProfile(this.state.profile);
     this.setState({ edit: false }, () => {
-      swal('Profile saved!', null, 'success');
+      swal(this.messages.profileSaved, null, 'success');
     });
   };
   _handleImageChange = e => {
     e.preventDefault();
-
     let reader = new FileReader();
     let file = e.target.files[0];
-
     reader.onloadend = () => {
       this.setState({
-        user_metadata: {
-          ...this.state.user_metadata,
+        profile: {
+          ...this.state.profile,
           imagePreviewUrl: reader.result
         }
       });
     };
-
     reader.readAsDataURL(file);
   };
 
   render() {
-    const { profile } = this.props;
+    const { profile } = this.state;
     return (
       <div className={s.profileWrapper}>
         {!this.state.edit && (
           <DashboardProfileView
-            nickname={profile.nickname}
+            nickname={profile.nickname || this.messages.enterNickname}
             image={profile.imagePreviewUrl}
             setEditView={this.handleEdit}
+            userEmail={profile.userEmail}
           />
         )}
         {this.state.edit && (
@@ -85,7 +98,9 @@ class DashboardProfile extends React.Component {
             handleSubmit={this._handleSubmit}
             handleChangeUserMetaData={this.handleChangeUserMetaData}
             handleImageChange={this._handleImageChange}
-            imagePreviewUrl={this.state.user_metadata.imagePreviewUrl}
+            imagePreviewUrl={this.state.profile.imagePreviewUrl}
+            disabled={this.state.disabled}
+            profile={this.state.profile}
           />
         )}
         <div className={s.resetpassword}>{this.auth0User()}</div>

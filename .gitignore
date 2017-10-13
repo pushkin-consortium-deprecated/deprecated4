@@ -6,3 +6,4 @@ gif/
 img/
 experiments/
 pages/
+core/auth0-variables.js

@@ -4,13 +4,18 @@ import {
   SUBMIT_COMMENTS_BEGIN,
   SUBMIT_COMMENTS_SUCCESS,
   USER_ID,
+  LOGIN_SUCCESS,
+  LOGIN_ERROR,
+  LOGOUT_SUCCESS,
+  LOGIN_LOCATION,
+  TEMP_USER_ID
 } from '../actions/userinfo';
 
 // import {
 //   SET_RESULTS
 // } from '../actions/questionque';
 
-export default function userInfo(state = {}, action) {
+export default function userInfo(state = { profile: null }, action) {
   switch (action.type) {
     case SUBMIT_USER_INFO_SUCCESS: {
       return {
@@ -20,26 +25,26 @@ export default function userInfo(state = {}, action) {
         takenBefore: action.data.takenBefore,
         languageDisorder: action.data.languageDisorder,
         education: action.data.education,
-        isFetching: false,
+        isFetching: false
       };
     }
     case SUBMIT_USER_INFO_BEGIN: {
       return {
         ...state,
-        isFetching: true,
+        isFetching: true
       };
     }
     case USER_ID: {
       return {
         ...state,
         id: action.id,
-        isFetching: false,
+        isFetching: false
       };
     }
     case SUBMIT_COMMENTS_BEGIN: {
       return {
         ...state,
-        isFetching: true,
+        isFetching: true
       };
     }
     case SUBMIT_COMMENTS_SUCCESS: {
@@ -47,7 +52,13 @@ export default function userInfo(state = {}, action) {
         ...state,
         isFetching: false,
         nativeLanguages: action.data.nativeLanguages,
-        primaryLanguages: action.data.primaryLanguages,
+        primaryLanguages: action.data.primaryLanguages
+      };
+    }
+    case LOGIN_LOCATION: {
+      return {
+        ...state,
+        loginLocation: action.location
       };
     }
     // case SET_RESULTS: {
@@ -56,6 +67,30 @@ export default function userInfo(state = {}, action) {
     //     results: action.results,
     //   };
     // }
+    case TEMP_USER_ID: {
+      return {
+        ...state,
+        tempUserId: action.id
+      };
+    }
+    case LOGIN_SUCCESS: {
+      return {
+        ...state,
+        profile: action.profile
+      };
+    }
+    case LOGIN_ERROR: {
+      return {
+        ...state,
+        error: action.error
+      };
+    }
+    case LOGOUT_SUCCESS: {
+      return {
+        ...state,
+        profile: null
+      };
+    }
     default:
       return state;
   }
