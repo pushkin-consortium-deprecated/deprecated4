@@ -9,7 +9,9 @@ import Paths from '../pages/paths/index';
 import Projects from '../pages/projects/index';
 import Quizzes from '../pages/quizzes/index';
 import Archive from '../pages/archive/index';
-import listenerQuiz from '../experiments/listener-quiz/index';
+import ListenerQuiz from '../experiments/listener-quiz/index';
+import QuizWrapper from '../experiments/listener-quiz/quizWrapper';
+
 import Updates from '../pages/updates/index';
 import Container from '../pages/containers/container';
 import ResultsContainer from '../pages/containers/ResultsContainer';
@@ -17,8 +19,9 @@ import Dashboard from '../pages/dashboard/index';
 import Loading from '../pages/loading/index';
 import Forum from '../pages/forum/index';
 import Auth from './auth';
-//comment line 20 out to hide the dashboard
+//comment line below out to hide the dashboard
 const auth = new Auth();
+
 const handleAuthentication = (nextState, replace) => {
   if (/access_token|id_token|error/.test(nextState.location.hash)) {
     auth.handleAuthentication();
@@ -65,24 +68,27 @@ export const routes = (
   </Route>
   This method of nesting routes is good if you want all children of a particular route to still cause the relevant menu bar tab to remain in the active css configuration when you progress to a child. I.e. /quizzes and /quizzes/listener-quiz both make the quiz tab in the menu bar display as active. Note how below I'll declare the same routes but not nest them, as I don't want the active class to be inherited.
   */}
-    <Route path="/quizzes" component={Quizzes} />
+    <Route path="/quizzes" component={props => <Quizzes {...props} />} />
     {/* note how we're ensuring that non mobile compatabile quizzes don't open on mobile devices or tablets */}
     <Route
       path="/quizzes/listener-quiz"
-      component={listenerQuiz}
+      component={props => <QuizWrapper {...props} />}
       onEnter={ensureDesktop}
     />
     {typeof auth !== 'undefined' && (
       <Route
         path="/dashboard"
-        component={props => <Dashboard auth={auth} {...props} />}
+        component={props => {
+          return (
+            <Dashboard isAuthenticated={auth.isAuthenticated()} {...props} />
+          );
+        }}
       />
     )}
     {typeof auth !== 'undefined' && (
       <Route
         path="/loading"
         component={props => {
-          handleAuthentication(props);
           return <Loading {...props} />;
         }}
       />

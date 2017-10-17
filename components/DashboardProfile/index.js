@@ -18,13 +18,11 @@ class DashboardProfile extends React.Component {
     };
   }
   auth0User = () => {
-    const { profile, resetPassword } = this.props;
-    if (profile.sub.includes('google') || profile.sub.includes('facebook')) {
+    const { profile, resetPassword, userId, email } = this.props;
+    if (userId.includes('google') || userId.includes('facebook')) {
       return null;
     }
-    return (
-      <a onClick={() => resetPassword(profile.email)}>Change your password</a>
-    );
+    return <a onClick={() => resetPassword(email)}>Change your password</a>;
   };
   handleEdit = () => {
     this.setState({ edit: true });
@@ -42,7 +40,7 @@ class DashboardProfile extends React.Component {
   };
   _handleSubmit = e => {
     e.preventDefault();
-    this.props.updateUser(this.state.user_metadata, this.props.profile.sub);
+    this.props.updateUser(this.state.user_metadata, this.props.userId);
     this.props.updateLocalProfile(
       this.state.user_metadata.nickname,
       this.state.user_metadata.imagePreviewUrl
@@ -75,8 +73,8 @@ class DashboardProfile extends React.Component {
       <div className={s.profileWrapper}>
         {!this.state.edit && (
           <DashboardProfileView
-            nickname={profile.nickname}
-            image={profile.imagePreviewUrl}
+            nickname={profile.nickname || ''}
+            image={profile.imagePreviewUrl || ''}
             setEditView={this.handleEdit}
           />
         )}

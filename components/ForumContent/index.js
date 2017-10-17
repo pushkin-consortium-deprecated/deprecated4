@@ -1,10 +1,18 @@
 import React from 'react';
-// import DashboardNav from '../../components/DashboardNav/index';
-// import DashboardProfile from '../../components/DashboardProfile/index';
 
 class ForumContent extends React.Component {
+  showAllPosts = () => {
+    return this.props.posts.map(post => {
+      return (
+        <div>
+          <h3>{post.post_subject}</h3>
+          <div>{post.post_content}</div>
+        </div>
+      );
+    });
+  };
   render() {
-    return <div>i'm forum content</div>;
+    return <div>{this.showAllPosts()}</div>;
   }
 }
 

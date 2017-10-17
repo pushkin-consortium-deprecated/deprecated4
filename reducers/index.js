@@ -3,27 +3,10 @@ import { combineReducers } from 'redux';
 import { pushkinReducer } from 'pushkin-react';
 import error from './error';
 import userInfo from './userInfo';
-import { reducer as formReducer } from 'redux-form';
+import forum from './forum';
 import nextpage from './nextpage';
-// import { START_PROGRESS } from '../actions/progress';
+import { reducer as formReducer } from 'redux-form';
 
-// const SAVE_ANSWERS = 'SAVE_ANSWERS';
-// function saveAnswers(state = { saveAnswers: false, precent: 0}, action) {
-//   switch (action.type) {
-//     case SAVE_ANSWERS: {
-//       return {
-//         saveAnswers: true,
-//       };
-//     }
-//     case START_PROGRESS: {
-//       return {
-//         precent: action.precent
-//       }
-//     }
-//     default:
-//       return state;
-//   }
-// }
 export const rootReducer = combineReducers({
   pushkin: pushkinReducer,
   error,
@@ -31,4 +14,5 @@ export const rootReducer = combineReducers({
   userInfo,
   routing: routerReducer,
   form: formReducer,
+  forum
 });
