@@ -21,7 +21,6 @@ import { rootReducer } from './reducers/index';
 import thunkMiddleware from 'redux-thunk';
 import { compose, createStore, applyMiddleware } from 'redux';
 
-
 export default function configureStore(initialState) {
   const middleWares = [thunkMiddleware];
   if (process.env.NODE_ENV === 'development') {
@@ -35,9 +34,8 @@ export default function configureStore(initialState) {
   );
   // Hot reload reducers (requires Webpack or Browserify HMR to be enabled)
   if (module.hot) {
-    module.hot.accept(
-      './reducers',
-      () => store.replaceReducer(require('./reducers/index').rootReducer)
+    module.hot.accept('./reducers', () =>
+      store.replaceReducer(require('./reducers/index').rootReducer)
     );
   }
   return store;

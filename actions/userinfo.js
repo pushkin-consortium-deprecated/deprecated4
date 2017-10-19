@@ -56,20 +56,7 @@ export function checkLogin(location) {
   return (dispatch, getState) => {
     return auth
       .checkLogin()
-      .then(authResult => {
-        let expiration;
-        if (authResult.expiresIn) {
-          expiration = authResult.expiresIn;
-        } else {
-          expiration = 24 * 60 * 60 * 1000;
-        }
-        let expiresAt = JSON.stringify(expiration + new Date().getTime());
-        localStorage.setItem('access_token', authResult.accessToken);
-        localStorage.setItem('id_token', authResult.idToken); // static method
-        localStorage.setItem('expires_at', expiresAt);
-        return authResult;
-      })
-      .then(authResult => {
+      .then(() => {
         return dispatch(getUserInfo());
       })
       .catch(error => {

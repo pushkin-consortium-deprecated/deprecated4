@@ -17,10 +17,11 @@ import s from './Layout.css';
 
 class Layout extends React.Component {
   render() {
-    if (typeof this.props.isAuthenticated === 'undefined') {
+    const { auth, showForum } = this.props;
+    if (auth) {
       return (
         <div>
-          <Header />
+          <Header auth={auth} showForum={showForum} />
           {this.props.children}
           <Footer />
         </div>
@@ -28,7 +29,7 @@ class Layout extends React.Component {
     }
     return (
       <div>
-        <Header isAuthenticated={this.props.isAuthenticated} />
+        <Header showForum={showForum} />
         {this.props.children}
         <Footer />
       </div>
