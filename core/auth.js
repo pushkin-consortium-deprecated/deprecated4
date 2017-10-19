@@ -34,6 +34,16 @@ export default class Auth {
       return this.lock.on('authenticated', authResult => {
         return res(authResult);
       });
+    }).then(authResult => {
+      let expiration;
+      const oneDay = 1000 * 60 * 60 * 24;
+      authResult.expiresIn
+        ? (expiration = authResult.expiresIn * 100)
+        : (expiration = oneDay);
+      let expiresAt = JSON.stringify(expiration + new Date().getTime());
+      localStorage.setItem('access_token', authResult.accessToken);
+      localStorage.setItem('id_token', authResult.idToken); // static method
+      localStorage.setItem('expires_at', expiresAt);
     });
   };
   updateUser = (payload, userId) => {
@@ -56,7 +66,6 @@ export default class Auth {
   };
   isAuthenticated = () => {
     let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    console.log('new Date(', new Date().getTime() < expiresAt);
     return new Date().getTime() < expiresAt;
   };
   getUserMetadata = userId => {

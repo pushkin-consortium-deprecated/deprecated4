@@ -51,9 +51,10 @@ class Header extends React.Component {
   }
 
   render() {
+    const { auth, showForum } = this.props;
     let loggedIn;
-    if (typeof this.props.isAuthenticated !== 'undefined') {
-      loggedIn = this.props.isAuthenticated();
+    if (auth) {
+      loggedIn = auth.isAuthenticated();
     }
     if (this.home()) {
       return (
@@ -94,31 +95,31 @@ class Header extends React.Component {
               >
                 <LinkContainer to="/paths">
                   <b.MenuItem>
-                    <font className={s.navLinks}>Paths</font>
+                    <span className={s.navLinks}>Paths</span>
                   </b.MenuItem>
                 </LinkContainer>
                 <LinkContainer to="/projects">
                   <b.MenuItem>
-                    <font className={s.navLinks}>Projects</font>
+                    <span className={s.navLinks}>Projects</span>
                   </b.MenuItem>
                 </LinkContainer>
                 <LinkContainer to="/quizzes">
                   <b.MenuItem>
-                    <font className={s.navLinks}>Quizzes</font>
+                    <span className={s.navLinks}>Quizzes</span>
                   </b.MenuItem>
                 </LinkContainer>
                 <LinkContainer to="/findings">
                   <b.MenuItem>
-                    <font className={s.navLinks}>Findings</font>
+                    <span className={s.navLinks}>Findings</span>
                   </b.MenuItem>
                 </LinkContainer>
                 <LinkContainer to="/about">
                   <b.MenuItem>
-                    <font className={s.navLinks}>About</font>
+                    <span className={s.navLinks}>About</span>
                   </b.MenuItem>
                 </LinkContainer>
                 <b.MenuItem href="https://blog.gameswithwords.org/">
-                  <font className={s.navLinks}>Blog</font>
+                  <span className={s.navLinks}>Blog</span>
                 </b.MenuItem>
                 {typeof loggedIn !== 'undefined' && (
                   <LinkContainer to="/dashboard">
@@ -127,11 +128,13 @@ class Header extends React.Component {
                     </b.MenuItem>
                   </LinkContainer>
                 )}
-                <LinkContainer to="/forum">
-                  <b.MenuItem>
-                    <font className={s.navLinks}>Forum</font>
-                  </b.MenuItem>
-                </LinkContainer>
+                {showForum && (
+                  <LinkContainer to="/forum">
+                    <b.MenuItem>
+                      <span className={s.navLinks}>Forum</span>
+                    </b.MenuItem>
+                  </LinkContainer>
+                )}
               </b.NavDropdown>
             </b.Nav>
           </div>
@@ -186,9 +189,11 @@ class Header extends React.Component {
                 {this.showDashboardOrLogIn(loggedIn)}
               </LinkContainer>
             )}
-            <LinkContainer to="/forum">
-              <b.NavItem>Forum</b.NavItem>
-            </LinkContainer>
+            {showForum && (
+              <LinkContainer to="/forum">
+                <b.NavItem>Forum</b.NavItem>
+              </LinkContainer>
+            )}
           </b.Nav>
         </header>
       );

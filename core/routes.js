@@ -19,8 +19,7 @@ import Dashboard from '../pages/dashboard/index';
 import Loading from '../pages/loading/index';
 import Forum from '../pages/forum/index';
 import Auth from './auth';
-//comment line below out to hide the dashboard
-const auth = new Auth();
+import { CONFIG } from '../config';
 
 function isMobile() {
   let check = false;
@@ -46,14 +45,15 @@ function ensureDesktop(nextState, replace) {
   }
 }
 function authSwitcher() {
-  let authOn;
-  typeof auth !== 'undefined' ? (authOn = auth) : (authOn = null);
-  return authOn;
+  const auth = new Auth();
+  return CONFIG.auth ? auth : null;
 }
 export const routes = (
   <Route
     path="/"
-    component={props => <Container auth={authSwitcher()} {...props} />}
+    component={props => (
+      <Container auth={authSwitcher()} showForum={CONFIG.forum} {...props} />
+    )}
   >
     <IndexRoute component={HomePage} />
     <Route path="/paths" component={Paths} />
@@ -67,28 +67,11 @@ export const routes = (
     {/* note how we're ensuring that non mobile compatabile quizzes don't open on mobile devices or tablets */}
     <Route
       path="/quizzes/listener-quiz"
-      component={props => <QuizWrapper {...props} />}
+      component={QuizWrapper}
       onEnter={ensureDesktop}
     />
-    {typeof auth !== 'undefined' && (
-      <Route
-        path="/dashboard"
-        component={props => {
-          return (
-            <Dashboard isAuthenticated={auth.isAuthenticated()} {...props} />
-          );
-        }}
-      />
-    )}
-    {typeof auth !== 'undefined' && (
-      <Route
-        path="/loading"
-        component={props => {
-          return <Loading {...props} />;
-        }}
-      />
-    )}
-    <Route path="/forum" component={Forum} />
+    {CONFIG.auth && <Route path="/dashboard" component={Dashboard} />}
+    {CONFIG.forum && <Route path="/forum" component={Forum} />}
     <Route path="/projects" component={Projects} />
     <Route path="/archive" component={Archive} />
     <Route path="/results" component={ResultsContainer} />
