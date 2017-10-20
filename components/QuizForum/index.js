@@ -9,20 +9,20 @@ class QuizForum extends React.Component {
     this.props.checkLogin();
     this.state = { isModalOpen: false, post: {} };
   }
-  openModal() {
+  openModal = () => {
     this.setState({ isModalOpen: true });
-  }
+  };
 
-  closeModal() {
+  closeModal = () => {
     this.setState({ isModalOpen: false });
-  }
+  };
   handlePostChange = (e, field) => {
     e.preventDefault();
     e.stopPropagation();
     this.setState({ ...this.state, post: { [field]: e.target.value } });
   };
-  handleOnSubmit = () => {
-    console.log('submit');
+  handleOnSubmit = (data, cb) => {
+    this.props.makeForumPost(data, cb);
   };
   showLogInLink = () => {
     const { user, currentQuestion, isAuthenticated } = this.props;
@@ -45,14 +45,16 @@ class QuizForum extends React.Component {
         {currentQuestion.prompt && (
           <button onClick={() => this.openModal()}>Open modal</button>
         )}
-        <Modal
-          isOpen={this.state.isModalOpen}
-          onClose={() => this.closeModal()}
-        >
+        <Modal isOpen={this.state.isModalOpen}>
           <div style={{ margin: 10 }}>
-            <SimpleForm data={currentQuestion} />
+            <SimpleForm
+              data={currentQuestion}
+              formData={this.props.formData}
+              user={this.props.user}
+              handleSubmit={this.handleOnSubmit}
+              close={this.closeModal}
+            />
           </div>
-          <button onClick={this.closeModal}>Close</button>
         </Modal>
       </div>
     );
