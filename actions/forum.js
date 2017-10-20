@@ -34,15 +34,23 @@ export function fetchAllPosts() {
       });
   };
 }
-export function makePost(payload) {
+export function makePost(payload, cb) {
   return dispatch => {
     local
-      .post('/api/createPost', payload)
+      .post('/createForumPost', payload)
       .then(res => {
         return dispatch(createPost(res));
       })
-      .catch(error => {
-        return dispatch(error(error));
+      .then(() => {
+        swal({
+          title: 'Post created',
+          type: 'success',
+          text: 'You could track your post on the dashboard',
+          onClose: cb()
+        });
+      })
+      .catch(err => {
+        return dispatch(error(err));
       });
   };
 }
