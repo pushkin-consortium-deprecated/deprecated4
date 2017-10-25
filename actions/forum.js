@@ -37,7 +37,11 @@ export function fetchAllPosts() {
 export function makePost(payload, cb) {
   return dispatch => {
     local
-      .post('/createForumPost', payload)
+      .post('/createForumPost', payload, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('id_token')
+        }
+      })
       .then(res => {
         return dispatch(createPost(res));
       })
