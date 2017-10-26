@@ -18,6 +18,7 @@ import ResultsContainer from '../pages/containers/ResultsContainer';
 import Dashboard from '../pages/dashboard/index';
 import Loading from '../pages/loading/index';
 import Forum from '../pages/forum/index';
+import ForumQuestion from '../pages/forum/forumQuestion';
 import Auth from './auth';
 import { CONFIG } from '../config';
 
@@ -63,7 +64,7 @@ export const routes = (
   </Route>
   This method of nesting routes is good if you want all children of a particular route to still cause the relevant menu bar tab to remain in the active css configuration when you progress to a child. I.e. /quizzes and /quizzes/listener-quiz both make the quiz tab in the menu bar display as active. Note how below I'll declare the same routes but not nest them, as I don't want the active class to be inherited.
   */}
-    <Route path="/quizzes" component={props => <Quizzes {...props} />} />
+    <Route path="/quizzes" component={Quizzes} />
     {/* note how we're ensuring that non mobile compatabile quizzes don't open on mobile devices or tablets */}
     <Route
       path="/quizzes/listener-quiz"
@@ -71,7 +72,11 @@ export const routes = (
       onEnter={ensureDesktop}
     />
     {CONFIG.auth && <Route path="/dashboard" component={Dashboard} />}
-    {CONFIG.forum && <Route path="/forum" component={Forum} />}
+    {CONFIG.forum && (
+      <Route path="/forum" component={Forum}>
+        <Route path=":id" component={ForumQuestion} />
+      </Route>
+    )}
     <Route path="/projects" component={Projects} />
     <Route path="/archive" component={Archive} />
     <Route path="/results" component={ResultsContainer} />

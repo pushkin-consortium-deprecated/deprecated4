@@ -1,4 +1,9 @@
-import { CREATE_POST, FETCH_ALL_POSTS, FETCHING } from '../actions/forum';
+import {
+  CREATE_POST,
+  FETCH_ALL_POSTS,
+  FETCH_ONE_POST,
+  FETCHING
+} from '../actions/forum';
 
 export default function forum(state = {}, action) {
   switch (action.type) {
@@ -13,6 +18,12 @@ export default function forum(state = {}, action) {
         ...state,
         fetching: false,
         allPosts: action.data
+      };
+    }
+    case FETCH_ONE_POST: {
+      return {
+        ...state,
+        post: action.post
       };
     }
     case FETCHING: {
