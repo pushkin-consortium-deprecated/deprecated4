@@ -22,6 +22,7 @@ class QuizForum extends React.Component {
     this.setState({ ...this.state, post: { [field]: e.target.value } });
   };
   handleOnSubmit = (data, cb) => {
+    data.created_at = new Date();
     this.props.makeForumPost(data, cb);
   };
   showLogInLink = () => {

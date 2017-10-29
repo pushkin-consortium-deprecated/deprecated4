@@ -102,6 +102,13 @@ export function sendTempId(id) {
 export function getUserInfo() {
   let accessToken = auth.getAccessToken();
   return (dispatch, getState) => {
+    if (!accessToken) {
+      return dispatch(
+        loginSuccess({
+          anonymous: true
+        })
+      );
+    }
     return new Promise((res, rej) => {
       auth.lock.getUserInfo(accessToken, (error, profile) => {
         if (error) {

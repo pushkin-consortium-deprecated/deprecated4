@@ -61,12 +61,6 @@ export default function userInfo(state = { profile: null }, action) {
         loginLocation: action.location
       };
     }
-    // case SET_RESULTS: {
-    //   return {
-    //     ...state,
-    //     results: action.results,
-    //   };
-    // }
     case TEMP_USER_ID: {
       return {
         ...state,
