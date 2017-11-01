@@ -42,29 +42,73 @@ export function fetchAllPosts() {
   };
 }
 export function getOnePost(id) {
+  fetchAllPostsBegin();
   return new Promise((resolve, reject) => {
     return local
       .get(`/forumPosts/${id}`)
       .then(res => {
         return res.data;
       })
-      .then(post => {
+      .then(data => {
         return local
-          .get(`/getAuth0User/${post.auth0_id}`, {
-            params: {
-              auth0_id: post.auth0_id
-            }
-          })
+          .get(`/getAuth0User/${data.post.auth0_id}`)
           .then(user => {
-            resolve({
-              ...post,
+            return {
+              ...data,
               ...user.data
+            };
+          })
+          .then(data => {
+            return Promise.all(
+              data.comments.map(comment => {
+                return local
+                  .get(`/getAuth0User/${comment.auth0_id}`)
+                  .then(user => {
+                    return {
+                      ...comment,
+                      ...user.data
+                    };
+                  });
+              })
+            ).then(comments => {
+              resolve({
+                ...data,
+                comments
+              });
             });
           });
       });
   }).catch(err => {
     throw err;
   });
+}
+export function makeComment(payload, cb) {
+  return (dispatch, getState) => {
+    local
+      .post('/forumComments', payload, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('id_token')
+        }
+      })
+      .then(resp => {
+        return local.get(`/getAuth0User/${resp.data.auth0_id}`).then(user => {
+          cb({
+            ...resp.data,
+            ...user.data
+          });
+        });
+      })
+      .then(res => {
+        swal({
+          title: 'Comment posted',
+          type: 'success',
+          text: 'You could track this post on the dashboard'
+        });
+      })
+      .catch(err => {
+        return dispatch(error(err));
+      });
+  };
 }
 export function makePost(payload, cb) {
   return dispatch => {

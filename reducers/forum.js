@@ -23,6 +23,7 @@ export default function forum(state = {}, action) {
     case FETCH_ONE_POST: {
       return {
         ...state,
+        fetching: false,
         post: action.post
       };
     }

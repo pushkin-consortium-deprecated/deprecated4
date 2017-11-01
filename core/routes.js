@@ -16,9 +16,8 @@ import Updates from '../pages/updates/index';
 import Container from '../pages/containers/container';
 import ResultsContainer from '../pages/containers/ResultsContainer';
 import Dashboard from '../pages/dashboard/index';
-import Loading from '../pages/loading/index';
 import Forum from '../pages/forum/index';
-import ForumQuestion from '../pages/forum/forumQuestion';
+import ForumQuestion from '../components/ForumPostContent/index';
 import Auth from './auth';
 import { CONFIG } from '../config';
 
