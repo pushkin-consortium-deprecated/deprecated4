@@ -32,7 +32,7 @@ export function fetchAllPosts() {
   fetchAllPostsBegin();
   return dispatch => {
     local
-      .get('/getAllForumPost')
+      .get('/forumPosts')
       .then(res => {
         return dispatch(sendAllPosts(res.data));
       })
@@ -51,7 +51,7 @@ export function getOnePost(id) {
       })
       .then(data => {
         return local
-          .get(`/getAuth0User/${data.post.auth0_id}`)
+          .get(`/getAuth0User/${data.auth0_id}`)
           .then(user => {
             return {
               ...data,
@@ -59,23 +59,27 @@ export function getOnePost(id) {
             };
           })
           .then(data => {
-            return Promise.all(
-              data.comments.map(comment => {
-                return local
-                  .get(`/getAuth0User/${comment.auth0_id}`)
-                  .then(user => {
-                    return {
-                      ...comment,
-                      ...user.data
-                    };
-                  });
-              })
-            ).then(comments => {
-              resolve({
-                ...data,
-                comments
+            if (data.forumComments.length) {
+              return Promise.all(
+                data.forumComments.map(comment => {
+                  return local
+                    .get(`/getAuth0User/${comment.auth0_id}`)
+                    .then(user => {
+                      return {
+                        ...comment,
+                        ...user.data
+                      };
+                    });
+                })
+              ).then(comments => {
+                resolve({
+                  ...data,
+                  forumComments: comments
+                });
               });
-            });
+            } else {
+              resolve(data);
+            }
           });
       });
   }).catch(err => {

@@ -26,7 +26,7 @@ class ForumQuestion extends React.Component {
     this.setState({
       data: {
         ...this.state.data,
-        comments: [...this.state.data.comments, comment]
+        forumComments: [...this.state.data.forumComments, comment]
       }
     });
   };
@@ -41,8 +41,10 @@ class ForumQuestion extends React.Component {
         {this.state.data && (
           <div>
             <ForumPostQuestion
-              data={this.state.data.post}
+              subject={this.state.data.post_subject}
+              content={this.state.data.post_content}
               poster={this.state.data.nickname}
+              created_at={this.state.data.created_at}
             />
             <svg height="2" width="100%">
               <line
@@ -51,7 +53,7 @@ class ForumQuestion extends React.Component {
                 style={{ stroke: '#cfd8dc', strokeWidth: 2 }}
               />
             </svg>
-            <ForumPostComments comments={this.state.data.comments} />
+            <ForumPostComments comments={this.state.data.forumComments} />
             {isAuthenticated() && (
               <PostReplyForm
                 handleSubmit={this.createComment}
