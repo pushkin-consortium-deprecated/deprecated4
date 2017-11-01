@@ -1,6 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import s from './styles.css';
+import { Button } from 'react-bootstrap';
 
 const PostReplyForm = props => {
   const {
@@ -38,7 +39,9 @@ const PostReplyForm = props => {
         </div>
       </div>
       <div>
-        <button type="submit">Submit</button>
+        <Button className="btn btn-success" type="submit">
+          Submit
+        </Button>
       </div>
     </form>
   );
