@@ -1,8 +1,8 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
-import Modal from './model';
+import Modal from '../PopupModal/model';
 import { Field, reduxForm } from 'redux-form';
-import SimpleForm from './form';
+import SimpleForm from '../PostForm/form';
 class QuizForum extends React.Component {
   constructor(props) {
     super(props);
