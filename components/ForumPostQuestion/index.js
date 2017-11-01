@@ -4,11 +4,11 @@ import moment from 'moment';
 
 class ForumPostQuestion extends React.Component {
   render() {
-    const { data, poster } = this.props;
+    const { subject, poster, content, created_at } = this.props;
     return (
       <div>
         <div>
-          <a className={s['question-title']}>{data.post_subject}</a>
+          <a className={s['question-title']}>{subject}</a>
         </div>
         <svg height="2" width="100%">
           <line
@@ -18,11 +18,11 @@ class ForumPostQuestion extends React.Component {
           />
         </svg>
         <div>
-          <p>{data.post_content}</p>
+          <p>{content}</p>
         </div>
         <div>
           <div>posted by: {poster}</div>
-          <div>created on: {moment(data.created_at).format('MM/DD/YYYY')}</div>
+          <div>created on: {moment(created_at).format('MM/DD/YYYY')}</div>
         </div>
       </div>
     );
