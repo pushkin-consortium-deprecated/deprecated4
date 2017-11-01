@@ -2,6 +2,7 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 import Modal from '../PopupModal/model';
 import { Field, reduxForm } from 'redux-form';
+import { Button } from 'react-bootstrap';
 import SimpleForm from '../PostForm/form';
 class QuizForum extends React.Component {
   constructor(props) {
@@ -22,13 +23,12 @@ class QuizForum extends React.Component {
     this.setState({ ...this.state, post: { [field]: e.target.value } });
   };
   handleOnSubmit = (data, cb) => {
-    data.created_at = new Date();
     this.props.makeForumPost(data, cb);
   };
   showLogInLink = () => {
-    const { user, currentQuestion, isAuthenticated } = this.props;
+    const { user, currentQuestion, isAuthenticated, fromForum } = this.props;
     if (!isAuthenticated()) {
-      if (currentQuestion.stimulus) {
+      if (fromForum) {
         return (
           <h4 style={{ textAlign: 'center' }}>
             Please{' '}
@@ -39,21 +39,50 @@ class QuizForum extends React.Component {
           </h4>
         );
       }
-      return null;
+      if (currentQuestion) {
+        if (currentQuestion.stimulis) {
+          return (
+            <h4 style={{ textAlign: 'center' }}>
+              Please{' '}
+              <a style={{ cursor: 'pointer' }} onClick={this.props.login}>
+                Log In{' '}
+              </a>
+              to ask a question on the forum.
+            </h4>
+          );
+        }
+      }
     }
     return (
       <div>
-        {currentQuestion.prompt && (
-          <button onClick={() => this.openModal()}>Open modal</button>
-        )}
+        {!currentQuestion &&
+          fromForum && (
+            <Button
+              className="btn btn-primary"
+              onClick={() => this.openModal()}
+            >
+              Post a new question
+            </Button>
+          )}
+        {currentQuestion &&
+          currentQuestion.prompt && (
+            <Button
+              className="btn btn-primary"
+              onClick={() => this.openModal()}
+            >
+              Ask a question
+            </Button>
+          )}
         <Modal isOpen={this.state.isModalOpen}>
           <div style={{ margin: 10 }}>
             <SimpleForm
               data={currentQuestion}
               formData={this.props.formData}
-              user={this.props.user}
+              user={user}
               handleSubmit={this.handleOnSubmit}
               close={this.closeModal}
+              fromForum={fromForum}
+              handleLocalPostChange={this.props.handleLocalPostChange}
             />
           </div>
         </Modal>
@@ -61,7 +90,6 @@ class QuizForum extends React.Component {
     );
   };
   render() {
-    const { currentQuestion, user } = this.props;
     return <div>{this.showLogInLink()}</div>;
   }
 }

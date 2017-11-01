@@ -59,8 +59,8 @@ export function checkLogin(location) {
       .then(() => {
         return dispatch(getUserInfo());
       })
-      .catch(error => {
-        return dispatch(error(error));
+      .catch(err => {
+        return dispatch(error(err));
       });
   };
 }

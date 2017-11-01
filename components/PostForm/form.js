@@ -3,7 +3,15 @@ import { Field, reduxForm } from 'redux-form';
 import { Button } from 'react-bootstrap';
 import s from './styles.css';
 const SimpleForm = props => {
-  const { handleSubmit, user, close, data, formData, fromForum } = props;
+  const {
+    handleSubmit,
+    user,
+    close,
+    data,
+    formData,
+    fromForum,
+    handleLocalPostChange
+  } = props;
   return (
     <form
       onSubmit={e => {
@@ -15,7 +23,12 @@ const SimpleForm = props => {
             post_content: formData.simple.values.post_content,
             created_at: new Date()
           },
-          close
+          () => {
+            close();
+            if (fromForum) {
+              handleLocalPostChange();
+            }
+          }
         );
       }}
       className={s['post-form']}
