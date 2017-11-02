@@ -45,6 +45,7 @@ class ForumQuestion extends React.Component {
               content={this.state.data.post_content}
               poster={this.state.data.nickname}
               created_at={this.state.data.created_at}
+              quiz={this.state.data.quiz}
             />
             <svg height="2" width="100%">
               <line

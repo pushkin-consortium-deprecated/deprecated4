@@ -83,6 +83,7 @@ class QuizForum extends React.Component {
               close={this.closeModal}
               fromForum={fromForum}
               handleLocalPostChange={this.props.handleLocalPostChange}
+              quiz={this.props.quiz}
             />
           </div>
         </Modal>

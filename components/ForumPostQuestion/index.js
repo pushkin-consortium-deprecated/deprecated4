@@ -4,11 +4,19 @@ import moment from 'moment';
 
 class ForumPostQuestion extends React.Component {
   render() {
-    const { subject, poster, content, created_at } = this.props;
+    const { quiz, subject, poster, content, created_at } = this.props;
     return (
       <div>
-        <div>
-          <a className={s['question-title']}>{subject}</a>
+        <div className={s['question-container']}>
+          {quiz && <div className={s['quiz-tag']}>{quiz}</div>}
+          {!quiz && (
+            <div className={s['quiz-tag']} style={{ background: 'tomato' }}>
+              general
+            </div>
+          )}
+          <div>
+            <a className={s['question-title']}>{subject}</a>
+          </div>
         </div>
         <svg height="2" width="100%">
           <line
@@ -20,8 +28,8 @@ class ForumPostQuestion extends React.Component {
         <div>
           <p>{content}</p>
         </div>
-        <div>
-          <div>posted by: {poster}</div>
+        <div className={s['question-details']}>
+          <div>posted by: {poster || 'Anonymous'}</div>
           <div>created on: {moment(created_at).format('MM/DD/YYYY')}</div>
         </div>
       </div>

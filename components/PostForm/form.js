@@ -10,7 +10,8 @@ const SimpleForm = props => {
     data,
     formData,
     fromForum,
-    handleLocalPostChange
+    handleLocalPostChange,
+    quiz
   } = props;
   return (
     <form
@@ -21,7 +22,9 @@ const SimpleForm = props => {
             auth0_id: user.auth0_id,
             post_subject: formData.simple.values.post_subject,
             post_content: formData.simple.values.post_content,
-            created_at: new Date()
+            created_at: new Date(),
+            stim: data || null,
+            quiz: quiz || null
           },
           () => {
             close();
@@ -35,7 +38,9 @@ const SimpleForm = props => {
     >
       {!fromForum && (
         <div>
-          <label>Post a question about Q{data.trial_index}</label>
+          <label>
+            Post a question about {quiz} Q{data.trial_index}
+          </label>
         </div>
       )}
       <div>
