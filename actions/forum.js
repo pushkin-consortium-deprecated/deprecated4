@@ -41,6 +41,18 @@ export function fetchAllPosts() {
       });
   };
 }
+export function getUserPostIds(auth0Id) {
+  return new Promise((resolve, reject) => {
+    return local
+      .get(`/userForumPosts/${auth0Id}`)
+      .then(res => {
+        resolve(res.data);
+      })
+      .catch(err => {
+        throw err;
+      });
+  });
+}
 export function getOnePost(id) {
   fetchAllPostsBegin();
   return new Promise((resolve, reject) => {
