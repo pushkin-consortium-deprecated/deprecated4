@@ -29,17 +29,16 @@ function fetchAllPostsBegin() {
   };
 }
 export function fetchAllPosts() {
-  fetchAllPostsBegin();
-  return dispatch => {
-    local
+  return new Promise((resolve, reject) => {
+    return local
       .get('/forumPosts')
       .then(res => {
-        return dispatch(sendAllPosts(res.data));
+        resolve(res.data);
       })
       .catch(err => {
-        return dispatch(error(err));
+        throw err;
       });
-  };
+  });
 }
 export function getUserPostIds(auth0Id) {
   return new Promise((resolve, reject) => {

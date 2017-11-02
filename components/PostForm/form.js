@@ -1,8 +1,17 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { Button } from 'react-bootstrap';
 import s from './styles.css';
 const SimpleForm = props => {
-  const { handleSubmit, user, close, data, formData } = props;
+  const {
+    handleSubmit,
+    user,
+    close,
+    data,
+    formData,
+    fromForum,
+    handleLocalPostChange
+  } = props;
   return (
     <form
       onSubmit={e => {
@@ -11,16 +20,24 @@ const SimpleForm = props => {
           {
             auth0_id: user.auth0_id,
             post_subject: formData.simple.values.post_subject,
-            post_content: formData.simple.values.post_content
+            post_content: formData.simple.values.post_content,
+            created_at: new Date()
           },
-          close
+          () => {
+            close();
+            if (fromForum) {
+              handleLocalPostChange();
+            }
+          }
         );
       }}
       className={s['post-form']}
     >
-      <div>
-        <label>Post a question about Q{data.trial_index}</label>
-      </div>
+      {!fromForum && (
+        <div>
+          <label>Post a question about Q{data.trial_index}</label>
+        </div>
+      )}
       <div>
         <label>Subject</label>
         <div>
@@ -38,8 +55,13 @@ const SimpleForm = props => {
           <Field name="post_content" component="textarea" />
         </div>
       </div>
-      <div>
-        <button type="submit">Submit</button>
+      <div className={s['button-container']}>
+        <Button className="btn btn-success" type="submit">
+          Submit
+        </Button>
+        <Button className="btn btn-danger" onClick={close}>
+          Close
+        </Button>
       </div>
     </form>
   );
