@@ -6,13 +6,15 @@ import { getUserInfo, isAuthenticated } from '../../actions/userinfo';
 import PostReplyForm from '../ForumPostReply';
 import ForumPostQuestion from '../ForumPostQuestion';
 import ForumPostComments from '../ForumPostComments';
+import StaticQuestionContainer from '../StaticQuestionContainer';
+
 import Loading from '../Loading';
 import s from './styles.css';
 
 class ForumQuestion extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { data: null };
+    this.state = { data: null, openQuestion: false };
   }
   componentWillMount() {
     this.props.dispatch(getUserInfo());
@@ -33,19 +35,27 @@ class ForumQuestion extends React.Component {
   createComment = (data, cb) => {
     this.props.dispatch(makeComment(data, cb));
   };
+  openQuestion = () => {
+    this.setState({ openQuestion: true });
+  };
+  closeQuestion = () => {
+    this.setState({ openQuestion: false });
+  };
   render() {
     const { userInfo, formData, comment } = this.props;
     return (
-      <div>
+      <div style={{ display: 'flex' }}>
         {!this.state.data && <Loading />}
         {this.state.data && (
-          <div>
+          <div style={{ width: '50%' }}>
             <ForumPostQuestion
               subject={this.state.data.post_subject}
               content={this.state.data.post_content}
+              quizQuestion={this.state.data.stim}
               poster={this.state.data.nickname}
               created_at={this.state.data.created_at}
               quiz={this.state.data.quiz}
+              openQuestion={this.openQuestion}
             />
             <svg height="2" width="100%">
               <line
@@ -64,6 +74,14 @@ class ForumQuestion extends React.Component {
                 handleLocalComment={this.handleLocalComment}
               />
             )}
+          </div>
+        )}
+        {this.state.openQuestion && (
+          <div style={{ width: '50%' }}>
+            <StaticQuestionContainer
+              closeQuestion={this.closeQuestion}
+              question={this.state.data.stim}
+            />
           </div>
         )}
       </div>

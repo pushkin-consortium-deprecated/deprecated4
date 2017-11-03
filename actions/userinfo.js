@@ -2,6 +2,7 @@ import Axios from 'axios';
 import local from './axiosConfigInitial';
 import { browserHistory } from 'react-router';
 import { error } from './error';
+import { sendTempResponse, sendTempStimulusResponse } from './tempResponse';
 import Auth from '../core/auth';
 export const SUBMIT_USER_INFO_BEGIN = 'SUBMIT_USER_INFO_BEGIN';
 export const SUBMIT_USER_INFO_SUCCESS = 'SUBMIT_USER_INFO_SUCCESS';
@@ -140,12 +141,50 @@ export function getUserInfo() {
         return local
           .post('/createUser', { auth0_id: profile.user_id, user_id: tempId })
           .then(res => {
-            return dispatch(
+            //comment get this back to the way it was
+            dispatch(
               loginSuccess({
                 ...profile,
                 ...res.data
               })
             );
+            return {
+              ...profile,
+              ...res.data
+            };
+          })
+          .then(data => {
+            const tempUser = localStorage.getItem('tempUser');
+            const tempResponses = getState().tempResponses.tempResponse;
+            const tempStimulusResponse = getState().tempStimulusResponse;
+            if (tempUser) {
+              if (tempResponses) {
+                tempResponses.map(response => {
+                  response.user_id = data.id;
+                  return local.post('/response', response).then(res => {
+                    res.json(data);
+                  });
+                });
+              }
+              if (tempStimulusResponse) {
+                tempStimulusResponse.map(response => {
+                  response.user_id = data.id;
+                  return local.post('/stimulusResponse', response).then(res => {
+                    res.json(data);
+                  });
+                });
+              }
+            }
+            return tempUser;
+          })
+          .then(tempUser => {
+            if (tempUser) {
+              return local.post('/deleteUser', { id: tempUser }).then(data => {
+                dispatch(sendTempResponse([]));
+                dispatch(sendTempStimulusResponse([]));
+                localStorage.removeItem('tempUser');
+              });
+            }
           });
       })
       .catch(error => {

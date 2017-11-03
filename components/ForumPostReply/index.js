@@ -2,6 +2,7 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import s from './styles.css';
 import { Button } from 'react-bootstrap';
+import NativeListener from 'react-native-listener';
 
 const PostReplyForm = props => {
   const {
@@ -13,6 +14,12 @@ const PostReplyForm = props => {
     reset,
     handleLocalComment
   } = props;
+  const handleButtonClick = event => {
+    if (Number(event.key) < 10) {
+      event.stopPropagation();
+    }
+  };
+  console.log('slkjdfls', props);
   return (
     <form
       onSubmit={e => {
@@ -31,11 +38,13 @@ const PostReplyForm = props => {
     >
       <div>
         <div>
-          <Field
-            className={s['reply-textarea']}
-            name="post_reply"
-            component="textarea"
-          />
+          <NativeListener onKeyDown={handleButtonClick}>
+            <Field
+              className={s['reply-textarea']}
+              name="post_reply"
+              component="textarea"
+            />
+          </NativeListener>
         </div>
       </div>
       <div>

@@ -2,6 +2,8 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Button } from 'react-bootstrap';
 import s from './styles.css';
+import NativeListener from 'react-native-listener';
+
 const SimpleForm = props => {
   const {
     handleSubmit,
@@ -13,6 +15,11 @@ const SimpleForm = props => {
     handleLocalPostChange,
     quiz
   } = props;
+  const handleButtonClick = event => {
+    if (Number(event.key) < 10) {
+      event.stopPropagation();
+    }
+  };
   return (
     <form
       onSubmit={e => {
@@ -39,25 +46,29 @@ const SimpleForm = props => {
       {!fromForum && (
         <div>
           <label>
-            Post a question about {quiz} Q{data.trial_index}
+            Post a question about {quiz} Q{data.question.trial_index}
           </label>
         </div>
       )}
       <div>
         <label>Subject</label>
         <div>
-          <Field
-            name="post_subject"
-            component="input"
-            type="text"
-            placeholder="enter a subject"
-          />
+          <NativeListener onKeyDown={handleButtonClick}>
+            <Field
+              name="post_subject"
+              component="input"
+              type="text"
+              placeholder="enter a subject"
+            />
+          </NativeListener>
         </div>
       </div>
       <div>
         <label>Content</label>
         <div>
-          <Field name="post_content" component="textarea" />
+          <NativeListener onKeyDown={handleButtonClick}>
+            <Field name="post_content" component="textarea" />
+          </NativeListener>
         </div>
       </div>
       <div className={s['button-container']}>

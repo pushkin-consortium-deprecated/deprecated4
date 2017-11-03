@@ -1,16 +1,20 @@
 import React from 'react';
 import moment from 'moment';
+import s from './styles.css';
+
 class ForumPostComments extends React.Component {
   showComments(comments) {
     return comments.map((comment, index) => {
       return (
         <div>
-          <div>{comment.responses}</div>
-          <div>Answer from {comment.nickname}</div>
-          <div>
-            Answered on{' '}
-            {comment.created_at &&
-              moment(comment.created_at).format('MM/DD/YYYY')}
+          <div className={s['post-comment']}>{comment.responses}</div>
+          <div className={s['comment-details']}>
+            <div>Answer from {comment.nickname}</div>
+            <div>
+              Answered on{' '}
+              {comment.created_at &&
+                moment(comment.created_at).format('MM/DD/YYYY')}
+            </div>
           </div>
           <svg height="2" width="100%">
             <line
@@ -25,7 +29,7 @@ class ForumPostComments extends React.Component {
   }
   render() {
     const { comments } = this.props;
-    return <div style={{ width: '80%' }}>{this.showComments(comments)}</div>;
+    return <div>{this.showComments(comments)}</div>;
   }
 }
 
