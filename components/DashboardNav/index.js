@@ -11,14 +11,12 @@ class DashboardNav extends Component {
           <i className="fa fa-user" aria-hidden="true" />
           Profile
         </div>
-        <div onClick={() => setSection('subscriptions')}>
-          <i className="fa fa-pencil" aria-hidden="true" />
-          Subscriptions
-        </div>
-        <div onClick={() => setSection('forum')}>
-          <i className="fa fa-bookmark" aria-hidden="true" />
-          Forum
-        </div>
+        {this.props.config.forum && (
+          <div onClick={() => setSection('forum')}>
+            <i className="fa fa-bookmark" aria-hidden="true" />
+            Forum
+          </div>
+        )}
         <div onClick={this.props.logOut} className={s.logout}>
           <i className="fa fa-sign-out" aria-hidden="true" />
           Log Out

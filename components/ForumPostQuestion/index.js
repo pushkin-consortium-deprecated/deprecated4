@@ -18,13 +18,6 @@ class ForumPostQuestion extends React.Component {
             <a className={s['question-title']}>{subject}</a>
           </div>
         </div>
-        <svg height="2" width="100%">
-          <line
-            x1="100%"
-            x2="0%"
-            style={{ stroke: '#cfd8dc', strokeWidth: 2 }}
-          />
-        </svg>
         <div>
           <p>{content}</p>
         </div>

@@ -4,6 +4,7 @@ import Modal from '../PopupModal/model';
 import { Field, reduxForm } from 'redux-form';
 import { Button } from 'react-bootstrap';
 import SimpleForm from '../PostForm/form';
+import s from './styles.css';
 class QuizForum extends React.Component {
   constructor(props) {
     super(props);
@@ -13,14 +14,8 @@ class QuizForum extends React.Component {
   openModal = () => {
     this.setState({ isModalOpen: true });
   };
-
   closeModal = () => {
     this.setState({ isModalOpen: false });
-  };
-  handlePostChange = (e, field) => {
-    e.preventDefault();
-    e.stopPropagation();
-    this.setState({ ...this.state, post: { [field]: e.target.value } });
   };
   handleOnSubmit = (data, cb) => {
     this.props.makeForumPost(data, cb);
@@ -38,9 +33,8 @@ class QuizForum extends React.Component {
             to ask a question on the forum.
           </h4>
         );
-      }
-      if (currentQuestion) {
-        if (currentQuestion.stimulis) {
+      } else {
+        if (currentQuestion.stimulus) {
           return (
             <h4 style={{ textAlign: 'center' }}>
               Please{' '}
@@ -91,7 +85,13 @@ class QuizForum extends React.Component {
     );
   };
   render() {
-    return <div>{this.showLogInLink()}</div>;
+    return (
+      <div
+        className={this.props.fromForum ? s['post-button'] : 'styles_blurb_3jf'}
+      >
+        {this.showLogInLink()}
+      </div>
+    );
   }
 }
 export default QuizForum;
