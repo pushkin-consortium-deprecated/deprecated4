@@ -10,8 +10,7 @@ import Projects from '../pages/projects/index';
 import Quizzes from '../pages/quizzes/index';
 import Archive from '../pages/archive/index';
 import ListenerQuiz from '../experiments/listener-quiz/index';
-import QuizWrapper from '../experiments/listener-quiz/quizWrapper';
-
+import QuizWrapper from '../components/QuizWrapper/index';
 import Updates from '../pages/updates/index';
 import Container from '../pages/containers/container';
 import ResultsContainer from '../pages/containers/ResultsContainer';
@@ -67,10 +66,15 @@ export const routes = (
     {/* note how we're ensuring that non mobile compatabile quizzes don't open on mobile devices or tablets */}
     <Route
       path="/quizzes/listener-quiz"
-      component={QuizWrapper}
+      component={props => <QuizWrapper config={CONFIG} {...props} />}
       onEnter={ensureDesktop}
     />
-    {CONFIG.auth && <Route path="/dashboard" component={Dashboard} />}
+    {CONFIG.auth && (
+      <Route
+        path="/dashboard"
+        component={props => <Dashboard config={CONFIG} {...props} />}
+      />
+    )}
     {CONFIG.forum && (
       <Route path="/forum" component={Forum}>
         <Route path=":id" component={ForumQuestion} />

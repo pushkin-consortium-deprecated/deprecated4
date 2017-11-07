@@ -4,6 +4,7 @@ import { pushkinReducer } from 'pushkin-react';
 import error from './error';
 import userInfo from './userInfo';
 import forum from './forum';
+import tempResponses from './tempResponse';
 import nextpage from './nextpage';
 import { reducer as formReducer } from 'redux-form';
 
@@ -14,5 +15,6 @@ export const rootReducer = combineReducers({
   userInfo,
   routing: routerReducer,
   form: formReducer,
+  tempResponses,
   forum
 });
